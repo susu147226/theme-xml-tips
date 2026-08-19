@@ -47,15 +47,8 @@ jobs:
           python build_vsix.py
 
       - name: Build installer exe
-        shell: bash
-        run: |
-          CSC="/c/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe"
-          "$CSC" //nologo //target:exe //platform:anycpu \
-            //r:System.IO.Compression.dll //r:System.IO.Compression.FileSystem.dll \
-            //out:"dist\\ThemeXmlTips-Setup-${VER}.exe" \
-            //resource:"dist\\theme-xml-tips-${VER}.vsix,ThemeXmlTips.vsix" \
-            //resource:"dist\\adapters-${VER}.zip,ThemeXmlTips.adapters" \
-            installer/Installer.cs
+        shell: cmd
+        run: "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe" /nologo /target:exe /platform:anycpu /r:System.IO.Compression.dll /r:System.IO.Compression.FileSystem.dll /out:"dist\ThemeXmlTips-Setup-%VER%.exe" /resource:"dist\theme-xml-tips-%VER%.vsix,ThemeXmlTips.vsix" /resource:"dist\adapters-%VER%.zip,ThemeXmlTips.adapters" installer\Installer.cs
 
       - name: Build source zip
         shell: bash
