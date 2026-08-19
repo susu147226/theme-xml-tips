@@ -27,7 +27,67 @@
       "\t$0",
       "</Widget>"
     ],
-    "description": "主题引擎 - 百变卡片骨架（规范 2.3）"
+    "description": "主题引擎 - 百变卡片骨架"
+  },
+  "Widget 卡片模板 1x2（w2_h1）": {
+    "prefix": "w2_h1",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Widget screenWidth=\"1372\" screenHeight=\"530\" frameRate=\"60\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\" />",
+      "$0",
+      "</Widget>"
+    ],
+    "description": "百变卡片模板：1x2 卡片（预置 w/h/click/pai 变量）"
+  },
+  "Widget 卡片模板 2x2（w2_h2）": {
+    "prefix": "w2_h2",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Widget screenWidth=\"1384\" screenHeight=\"1384\" frameRate=\"60\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\" />",
+      "$0",
+      "</Widget>"
+    ],
+    "description": "百变卡片模板：2x2 卡片（预置 w/h/click/pai 变量）"
+  },
+  "Widget 卡片模板 2x4（w4_h2）": {
+    "prefix": "w4_h2",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Widget screenWidth=\"1372\" screenHeight=\"640\" frameRate=\"60\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\" />",
+      "$0",
+      "</Widget>"
+    ],
+    "description": "百变卡片模板：2x4 卡片（预置 w/h/click/pai 变量）"
+  },
+  "Widget 卡片模板 4x4（w4_h4）": {
+    "prefix": "w4_h4",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Widget screenWidth=\"1384\" screenHeight=\"1440\" frameRate=\"60\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\" />",
+      "$0",
+      "</Widget>"
+    ],
+    "description": "百变卡片模板：4x4 卡片（预置 w/h/click/pai 变量）"
   },
   "常用写法 01 · Var 自定义变量": {
     "prefix": "var",

@@ -1,0 +1,14 @@
+<snippet>
+    <content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Widget screenWidth="1372" screenHeight="530" frameRate="60">
+    <Var name="w" expression="#screen_width" persist="true" const="true" />
+    <Var name="h" expression="#screen_height" persist="true" const="true" />
+
+    <Var name="click" expression="le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)" />
+    <Var name="pai" expression="3.1415926535898" persist="true" const="true" />
+$0
+</Widget>]]></content>
+    <tabTrigger>w2_h1</tabTrigger>
+    <scope>text.xml</scope>
+    <description>百变卡片模板：1x2 卡片（预置 w/h/click/pai 变量）</description>
+</snippet>

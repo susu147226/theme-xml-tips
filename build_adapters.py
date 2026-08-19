@@ -13,7 +13,7 @@ Outputs (under dist):
 """
 import json, os, re, zipfile, html
 
-VER = "1.2.0"
+VER = "1.3.0"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
 SRC = os.path.join(ROOT, "snippets", "theme-snippets.json")

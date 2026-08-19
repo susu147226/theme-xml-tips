@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.0 (2026-08-19)
+
+- 新增 4 个百变卡片模板代码片段：`w2_h1`（1x2）、`w2_h2`（2x2）、`w4_h2`（2x4）、`w4_h4`（4x4），预置 w/h/click/pai 变量
+- VS Code / WebStorm / HBuilderX / Sublime Text 四端代码片段保持同源一致（均由 snippets/theme-snippets.json 生成）
+
 ## 1.2.0 (2026-08-19)
 
 - 插件作者更新为：云舒眠眠
