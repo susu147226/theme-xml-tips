@@ -1,5 +1,4 @@
-// HarmonyOS Theme XML Tips — 主题引擎 XML 代码提示
-// 数据来源：《HarmonyOS NEXT主题引擎规范及指导 v2.3》
+// Theme XML Tips — 主题引擎 XML 代码提示（作者：云舒眠眠）
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');

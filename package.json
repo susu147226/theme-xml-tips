@@ -1,9 +1,12 @@
 {
   "name": "theme-xml-tips",
-  "displayName": "HarmonyOS Theme XML Tips",
-  "description": "HarmonyOS NEXT 主题引擎 XML 代码提示：覆盖《HarmonyOS NEXT主题引擎规范及指导 v2.3》全部 127 个标签、属性、枚举值与全局变量，支持标签/属性补全、枚举值提示、#/@ 变量补全与悬停文档。",
-  "version": "1.1.0",
+  "displayName": "Theme XML Tips",
+  "description": "主题引擎 XML 代码提示：标签/属性/枚举/变量补全、悬停文档与代码片段。适配 VS Code / WebStorm / HBuilderX / Sublime Text。作者：云舒眠眠。",
+  "version": "1.2.0",
   "publisher": "susu147226",
+  "author": {
+    "name": "云舒眠眠"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.60.0"

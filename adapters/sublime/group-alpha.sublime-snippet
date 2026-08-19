@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[<Group alpha="${1:255}" x="${2:0}" y="${3:0}" visibility="${4:1}">
+	$0
+</Group>]]></content>
+    <tabTrigger>group-alpha</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：带透明度控制的视图组（规范 3.17）</description>
+</snippet>

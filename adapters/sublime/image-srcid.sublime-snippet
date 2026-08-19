@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Image src="${1:image.png}" srcid="${2:#var}" visibility="${3:1}" />]]></content>
+    <tabTrigger>image-srcid</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：图片序列后缀，按变量显示不同图片（规范 3.3 srcid）</description>
+</snippet>

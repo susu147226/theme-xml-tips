@@ -1,0 +1,10 @@
+<snippet>
+    <content><![CDATA[<Button x="${1:0}" y="${2:0}" w="${3:100}" h="${4:100}">
+	<Trigger action="${5|down,up,long,click,double,resume,pause|}">
+		$0
+	</Trigger>
+</Button>]]></content>
+    <tabTrigger>button-trigger</tabTrigger>
+    <scope>text.xml</scope>
+    <description>按钮 + 触发器（规范 3.18）</description>
+</snippet>

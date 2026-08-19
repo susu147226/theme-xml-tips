@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Image src="${1:image.png}" w="${2:}" h="${3:}" pivotX="${4:}" pivotY="${5:}" angle="${6:0}" />]]></content>
+    <tabTrigger>image-rotate</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：绕指定点旋转的图片（通用属性 pivotX/pivotY/rotation）</description>
+</snippet>

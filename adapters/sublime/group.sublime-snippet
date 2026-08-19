@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[<Group x="${1:0}" y="${2:0}" visibility="${3:1}">
+	$0
+</Group>]]></content>
+    <tabTrigger>group</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：视图组（规范 3.17）</description>
+</snippet>

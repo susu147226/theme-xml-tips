@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Widget screenWidth="${1:1384}" screenHeight="${2:1384}" frameRate="${3:60}">
+	$0
+</Widget>]]></content>
+    <tabTrigger>widget-card</tabTrigger>
+    <scope>text.xml</scope>
+    <description>主题引擎 - 百变卡片骨架（规范 2.3）</description>
+</snippet>

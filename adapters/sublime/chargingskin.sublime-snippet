@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<ChargingSkin screenWidth="${1:1080}">
+	$0
+</ChargingSkin>]]></content>
+    <tabTrigger>chargingskin</tabTrigger>
+    <scope>text.xml</scope>
+    <description>主题引擎 - 充电动效换肤骨架（规范 2.4）</description>
+</snippet>

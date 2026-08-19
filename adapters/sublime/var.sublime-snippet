@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Var name="${1:name}" expression="${2:expression}" persist="${3:true}" const="${4:true}" />]]></content>
+    <tabTrigger>var</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：自定义变量（规范 3.19）</description>
+</snippet>

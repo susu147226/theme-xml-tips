@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<ImageSeries src="${1:date.png}" space="${2:5}" mapList="${3:00,11,22,33,44,55,66,77,88,99}" />]]></content>
+    <tabTrigger>imageseries</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：按字符顺序拼接图片（规范 3.10）</description>
+</snippet>

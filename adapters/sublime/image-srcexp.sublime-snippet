@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Image srcExp="${1:expression}" visibility="${2:1}" />]]></content>
+    <tabTrigger>image-srcexp</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：字符串表达式指定图片源（规范 3.3 srcExp / 3.45 多语言）</description>
+</snippet>

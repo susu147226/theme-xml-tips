@@ -29,7 +29,6 @@
     ],
     "description": "主题引擎 - 百变卡片骨架（规范 2.3）"
   },
-
   "常用写法 01 · Var 自定义变量": {
     "prefix": "var",
     "body": "<Var name=\"${1:name}\" expression=\"${2:expression}\" persist=\"${3:true}\" const=\"${4:true}\" />",
@@ -138,9 +137,12 @@
     ],
     "description": "常用写法：触发器组 + 触发器"
   },
-
   "完整锁屏模板（unlock/xml/theme）": {
-    "prefix": ["unlock", "xml", "theme"],
+    "prefix": [
+      "unlock",
+      "xml",
+      "theme"
+    ],
     "body": [
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
       "<Lockscreen version=\"1\" frameRate=\"60\" vibrate=\"false\" screenWidth=\"1080\" displayDeskTop=\"true\">",
@@ -264,9 +266,11 @@
     ],
     "description": "完整锁屏模板：滑动方向判断 + 开屏动画 + 解锁命令（唤醒词 unlock / xml / theme）"
   },
-
   "CommonWallpaper 桌面模板（wallpaper/wall）": {
-    "prefix": ["wallpaper", "wall"],
+    "prefix": [
+      "wallpaper",
+      "wall"
+    ],
     "body": [
       "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
       "<CommonWallpaper version=\"1\" frameRate=\"30\" screenWidth=\"1080\">",
@@ -280,7 +284,6 @@
     ],
     "description": "CommonWallpaper 桌面模板：常用变量预置（唤醒词 wallpaper / wall）"
   },
-
   "Wallpaper NEXT 桌面模板（next）": {
     "prefix": "next",
     "body": [
@@ -296,7 +299,6 @@
     ],
     "description": "Wallpaper 桌面模板：常用变量预置（唤醒词 next）"
   },
-
   "Button + Trigger 按钮触发": {
     "prefix": "button-trigger",
     "body": [

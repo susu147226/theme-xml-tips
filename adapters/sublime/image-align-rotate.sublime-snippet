@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Image src="${1:image.png}" w="${2:}" h="${3:}" align="${4|left,center,right|}" alignV="${5|top,center,bottom|}" pivotX="${6:}" pivotY="${7:}" angle="${8:0}" />]]></content>
+    <tabTrigger>image-align-rotate</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：对齐 + 旋转的图片（通用属性）</description>
+</snippet>

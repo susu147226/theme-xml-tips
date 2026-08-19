@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<ImageNumber name="${1:number}" src="${2:num.png}" number="${3:0}" visibility="${4:1}" />]]></content>
+    <tabTrigger>imagenumber</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：数字图片（规范 3.9，文档中写作 &lt;Image数值&gt;）</description>
+</snippet>

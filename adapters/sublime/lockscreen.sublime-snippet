@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Lockscreen frameRate="${1:60}" screenWidth="${2:1080}">
+	$0
+</Lockscreen>]]></content>
+    <tabTrigger>lockscreen</tabTrigger>
+    <scope>text.xml</scope>
+    <description>主题引擎 - 锁屏 manifest 骨架（规范 2.1）</description>
+</snippet>

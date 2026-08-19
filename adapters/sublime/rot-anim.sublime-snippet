@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[<RotationAnimation>
+	<Rotation angle="${1:0}" time="${2:0}" />
+	<Rotation angle="${3:360}" time="${4:3000}" />
+</RotationAnimation>]]></content>
+    <tabTrigger>rot-anim</tabTrigger>
+    <scope>text.xml</scope>
+    <description>旋转动画（规范 4.3）</description>
+</snippet>

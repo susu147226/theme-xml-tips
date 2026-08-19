@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Video name="${1:video}" defaultBitmap="${2:default.png}" src="${3:video.mp4}" x="${4:0}" y="${5:0}" w="${6:#w}" h="${7:#h}" scaleType="${8|fill,center_crop,hold_center_crop|}" play="${9:false}" looping="${10:false}" visibility="${11:1}" />]]></content>
+    <tabTrigger>video-view</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：视频视图完整写法（规范 3.5）</description>
+</snippet>

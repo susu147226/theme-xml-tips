@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<IntentCommand action="${1:android.intent.action.MAIN}" package="${2:package}" class="${3:activity}" />]]></content>
+    <tabTrigger>intent</tabTrigger>
+    <scope>text.xml</scope>
+    <description>意图命令（规范 3.28）</description>
+</snippet>

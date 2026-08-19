@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<ExternCommand command="unlock" condition="#${1:click}" />]]></content>
+    <tabTrigger>extern-unlock</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：解锁命令（规范 3.31 + 5.5 延时解锁）</description>
+</snippet>

@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[<Image src="${1:image.png}" >
+	<Mask src="${2:mask.png}" align="${3|left,center,right|}" hybridMode="${4:}"/>
+</Image>]]></content>
+    <tabTrigger>image-mask</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：图片混合遮罩（规范 3.12/3.13）</description>
+</snippet>

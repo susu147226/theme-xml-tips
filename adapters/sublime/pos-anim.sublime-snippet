@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[<PositionAnimation>
+	<Position x="${1:0}" y="${2:0}" time="${3:0}" />
+	<Position x="${4:0}" y="${5:0}" time="${6:1000}" />
+</PositionAnimation>]]></content>
+    <tabTrigger>pos-anim</tabTrigger>
+    <scope>text.xml</scope>
+    <description>位移动画（规范 4.2）</description>
+</snippet>

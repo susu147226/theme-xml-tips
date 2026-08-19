@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[<Text x="${1:0}" y="${2:0}" size="${3:40}" color="${4:#FFFFFFFF}" text="${5:text}" />]]></content>
+    <tabTrigger>text-view</tabTrigger>
+    <scope>text.xml</scope>
+    <description>文本视图（规范 3.2）</description>
+</snippet>

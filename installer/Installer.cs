@@ -1,97 +1,153 @@
-// ThemeXmlTips Setup — HarmonyOS Theme XML Tips VS Code 扩展安装程序
-// 内嵌 VSIX，自动定位 VS Code 并执行 code --install-extension
+// ThemeXmlTips Setup — 主题引擎 XML 代码提示多编辑器安装程序
+// 作者：云舒眠眠
+// VS Code: 原生扩展（内嵌 VSIX，自动执行 code --install-extension）
+// WebStorm / HBuilderX / Sublime Text: 释放官方代码片段适配包
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 
 internal static class Installer
 {
-    private const string VsixName = "theme-xml-tips-1.1.0.vsix";
-    private const string ResourceName = "ThemeXmlTips.vsix";
+    private const string Version = "1.2.0";
+    private const string VsixName = "theme-xml-tips-1.2.0.vsix";
+    private const string VsixResource = "ThemeXmlTips.vsix";
+    private const string AdaptersResource = "ThemeXmlTips.adapters";
 
     private static int Main(string[] args)
     {
         bool quiet = args.Length > 0 && (args[0] == "/S" || args[0] == "/s" || args[0] == "-q");
         Console.WriteLine("=======================================================");
-        Console.WriteLine(" HarmonyOS Theme XML Tips - VS Code Extension Setup");
-        Console.WriteLine(" Version 1.1.0");
+        Console.WriteLine(" Theme XML Tips - Multi-Editor Setup  v" + Version);
+        Console.WriteLine(" Author: YunShuMianMian");
+        Console.WriteLine(" Supported: VS Code / WebStorm / HBuilderX / Sublime");
         Console.WriteLine("=======================================================");
         Console.WriteLine();
 
-        // 1. 释放内嵌 VSIX
+        // ---------- 1. VS Code 原生扩展 ----------
         string tempDir = Path.Combine(Path.GetTempPath(), "ThemeXmlTipsSetup");
         Directory.CreateDirectory(tempDir);
         string vsixPath = Path.Combine(tempDir, VsixName);
-        try
+        if (!ExtractResource(VsixResource, vsixPath))
         {
-            using (Stream res = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceName))
-            {
-                if (res == null)
-                {
-                    Console.WriteLine("[错误] 安装包资源缺失，请重新下载安装程序。");
-                    return Pause(quiet, 1);
-                }
-                using (FileStream fs = File.Create(vsixPath))
-                {
-                    res.CopyTo(fs);
-                }
-            }
-            Console.WriteLine("[1/3] 已释放扩展包: " + vsixPath);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("[错误] 释放安装文件失败: " + ex.Message);
+            Console.WriteLine("[错误] 安装包资源缺失，请重新下载安装程序。");
             return Pause(quiet, 1);
         }
 
-        // 2. 定位 VS Code 命令行
         string code = FindCode();
         if (code == null)
         {
-            Console.WriteLine("[2/3] 未找到 VS Code 命令行工具 (code)。");
-            Console.WriteLine("      请先安装 Visual Studio Code，或手动安装扩展:");
-            Console.WriteLine("      VS Code -> 扩展 -> ... -> Install from VSIX -> 选择:");
-            Console.WriteLine("      " + vsixPath);
-            return Pause(quiet, 2);
+            Console.WriteLine("[VS Code] 未找到 code 命令，请安装 VS Code 后手动安装:");
+            Console.WriteLine("          扩展面板 -> ... -> Install from VSIX ->");
+            Console.WriteLine("          " + vsixPath);
         }
-        Console.WriteLine("[2/3] 找到 VS Code: " + code);
+        else
+        {
+            Console.WriteLine("[VS Code] 找到: " + code);
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = code;
+                psi.Arguments = "--install-extension \"" + vsixPath + "\" --force";
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
+                psi.CreateNoWindow = true;
+                Process p = Process.Start(psi);
+                string stdout = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+                Console.WriteLine(stdout.Trim());
+                Console.WriteLine(p.ExitCode == 0
+                    ? "[VS Code] 扩展安装完成，重启 VS Code 后生效。"
+                    : "[VS Code] 安装返回码 " + p.ExitCode + "，可手动 Install from VSIX。");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[VS Code] 调用失败: " + ex.Message);
+                Console.WriteLine("          可手动执行: code --install-extension \"" + vsixPath + "\"");
+            }
+        }
+        Console.WriteLine();
 
-        // 3. 执行安装
+        // ---------- 2. 释放其他编辑器适配包 ----------
+        string exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string adaptersZip = Path.Combine(tempDir, "adapters.zip");
+        string adaptersDir = Path.Combine(exeDir, "ThemeXmlTips-Adapters");
+        if (ExtractResource(AdaptersResource, adaptersZip))
+        {
+            try
+            {
+                if (Directory.Exists(adaptersDir)) Directory.Delete(adaptersDir, true);
+                ZipFile.ExtractToDirectory(adaptersZip, adaptersDir);
+                Console.WriteLine("[适配包] 已释放到: " + adaptersDir);
+                Console.WriteLine("  - webstorm\\   WebStorm Live Templates");
+                Console.WriteLine("  - hbuilderx\\  HBuilderX 自定义代码块");
+                Console.WriteLine("  - sublime\\    Sublime Text 代码片段");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[适配包] 释放失败: " + ex.Message);
+            }
+        }
+
+        // ---------- 3. Sublime Text 自动安装（检测到配置目录时） ----------
+        string sublimeUser = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "Sublime Text", "Packages", "User");
+        string sublimeSrc = Path.Combine(adaptersDir, "sublime");
+        if (Directory.Exists(sublimeUser) && Directory.Exists(sublimeSrc))
+        {
+            try
+            {
+                string dest = Path.Combine(sublimeUser, "ThemeXmlTips");
+                Directory.CreateDirectory(dest);
+                int n = 0;
+                foreach (string f in Directory.GetFiles(sublimeSrc, "*.sublime-snippet"))
+                {
+                    File.Copy(f, Path.Combine(dest, Path.GetFileName(f)), true);
+                    n++;
+                }
+                Console.WriteLine("[Sublime] 已自动安装 " + n + " 个代码片段到 " + dest);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Sublime] 自动安装失败: " + ex.Message + "，可参考 sublime\\README.txt 手动复制。");
+            }
+        }
+        Console.WriteLine();
+
+        // ---------- 4. 导入指引 ----------
+        Console.WriteLine("[WebStorm]  File -> Manage IDE Settings -> Import Settings...");
+        Console.WriteLine("            选择 ThemeXmlTips-WebStorm-" + Version + ".zip (Release 附件)，");
+        Console.WriteLine("            或 adapters 目录中的 webstorm\\ThemeXmlTips.xml。");
+        Console.WriteLine("[HBuilderX] 工具 -> 自定义代码块 -> xml.json，");
+        Console.WriteLine("            合并 hbuilderx\\xml.json 的内容后保存。");
+        Console.WriteLine();
+        Console.WriteLine("安装完成。");
+        return Pause(quiet, 0);
+    }
+
+    private static bool ExtractResource(string resource, string target)
+    {
         try
         {
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = code;
-            psi.Arguments = "--install-extension \"" + vsixPath + "\" --force";
-            psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;
-            psi.RedirectStandardError = true;
-            psi.CreateNoWindow = true;
-            Process p = Process.Start(psi);
-            string stdout = p.StandardOutput.ReadToEnd();
-            string stderr = p.StandardError.ReadToEnd();
-            p.WaitForExit();
-            Console.WriteLine(stdout);
-            if (!string.IsNullOrWhiteSpace(stderr)) Console.WriteLine(stderr);
-            if (p.ExitCode == 0)
+            using (Stream res = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
             {
-                Console.WriteLine("[3/3] 安装完成! 请重启 VS Code，打开主题工程的 manifest.xml 即可使用代码提示。");
-                return Pause(quiet, 0);
+                if (res == null) return false;
+                using (FileStream fs = File.Create(target)) res.CopyTo(fs);
             }
-            Console.WriteLine("[错误] VS Code 返回错误码: " + p.ExitCode);
-            return Pause(quiet, 3);
+            return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[错误] 调用 VS Code 失败: " + ex.Message);
-            Console.WriteLine("      可手动执行: code --install-extension \"" + vsixPath + "\"");
-            return Pause(quiet, 3);
+            Console.WriteLine("[错误] 释放资源失败: " + ex.Message);
+            return false;
         }
     }
 
     private static string FindCode()
     {
-        // PATH 中查找
         string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
         foreach (string dir in pathEnv.Split(';'))
         {
@@ -106,7 +162,6 @@ internal static class Installer
                 catch { }
             }
         }
-        // 常见安装路径
         string local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string prog = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         string prog86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);

@@ -1,6 +1,8 @@
-# HarmonyOS Theme XML Tips
+# Theme XML Tips
 
-适用于 VS Code 的 **HarmonyOS NEXT 主题引擎 XML 代码提示插件**。数据来源于《HarmonyOS NEXT主题引擎规范及指导 v2.3》，覆盖文档内全部 **129 个标签**、标签属性、枚举取值与 **134 个全局变量**。
+主题引擎 XML 代码提示插件，适配 **VS Code**（原生扩展）、**WebStorm**、**HBuilderX**、**Sublime Text**。
+
+作者：云舒眠眠
 
 ## 功能
 
@@ -8,25 +10,49 @@
 - **属性补全**：在标签内按空格，提示该标签的全部属性，标注类型与「必填/选填」，自动补 `=""`
 - **枚举值提示**：为 `align`、`scaleType`、`category`、`action`（Trigger）等属性提供候选值；布尔属性提示 `true`/`false`
 - **变量补全**：在属性值中输入 `#`（数值）或 `@`（字符串），提示引擎全局变量（时间、电量、天气、运动健康、场景感知等 134 个）
-- **悬停文档**：悬停在标签、属性、变量上显示规范中的中文说明与章节号
+- **悬停文档**：悬停在标签、属性、变量上显示中文说明与章节号
 - **代码片段**：18 个常用标签写法 + 完整锁屏模板（`unlock`/`xml`/`theme`）+ 桌面模板（`wallpaper`/`wall`/`next`）等
 
 ## 安装
 
-### 方式一：安装程序（Windows）
+### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.1.0.exe`，双击运行即可自动完成 VS Code 扩展安装（安装程序会自动定位 VS Code 并执行 `code --install-extension`）。
+下载 Release 中的 `ThemeXmlTips-Setup-1.2.0.exe` 双击运行：
 
-### 方式二：VSIX 手动安装
+- 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
+- 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
+- 检测到 Sublime Text 时自动把代码片段装入 `Packages\User\ThemeXmlTips\`
 
-1. 下载 Release 中的 `theme-xml-tips-1.1.0.vsix`
+### 方式二：各编辑器手动安装
+
+**VS Code（原生适配）**
+
+1. 下载 Release 中的 `theme-xml-tips-1.2.0.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.1.0.vsix
+code --install-extension theme-xml-tips-1.2.0.vsix
 ```
+
+**WebStorm（Live Templates）**
+
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.2.0.zip`
+2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
+3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
+
+**HBuilderX（自定义代码块）**
+
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.2.0.zip` 并解压
+2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
+3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
+
+**Sublime Text（Snippets）**
+
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.2.0.zip` 并解压
+2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
+3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 
 ## 常用标签写法速查
 
@@ -116,10 +142,6 @@ code --install-extension theme-xml-tips-1.1.0.vsix
 | 高级动效 | MeshImage-Translation、MeshImage-SinMotion、ParticleView、DropPhysicalView、CollisionWorld、StereoView、MultiLayer、Scene3D |
 
 以及 Trigger、Position、Rotation、Alpha、Size、Source、AniFrame、Item、ItemGroup、Velocity、AngleVelocity、Angle、weight、PathData、Range、StartPoint、EndPoint、VariableBinders、CollBody、Texture2D、Camera3D、SceneModel3D、Layer、StereoGroup 等全部子元素标签。
-
-## 数据说明
-
-`data/tags.json` 由解析规范文档自动生成，包含每个标签的功能描述、规范章节号、属性（类型/必填/说明）、子元素关系，以及全局变量表。
 
 ## License
 

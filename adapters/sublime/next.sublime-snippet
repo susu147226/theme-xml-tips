@@ -1,0 +1,14 @@
+<snippet>
+    <content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Wallpaper version="1" frameRate="30" screenWidth="1080">
+    <Var name="w" expression="#screen_width" persist="true" const="true" />
+    <Var name="h" expression="#screen_height" persist="true" const="true" />
+    <Var name="pai" expression="3.1415926535898" persist="true" const="true"/>
+    <Var name="h2" expression="#h/2-1320" persist="true" const="true"/>
+    <Var name="click" expression="le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)" />
+$0
+</Wallpaper>]]></content>
+    <tabTrigger>next</tabTrigger>
+    <scope>text.xml</scope>
+    <description>Wallpaper 桌面模板：常用变量预置（唤醒词 next）</description>
+</snippet>

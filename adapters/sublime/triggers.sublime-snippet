@@ -1,0 +1,10 @@
+<snippet>
+    <content><![CDATA[<Triggers>
+	<Trigger action="${1|down,up,long,click,double,resume,pause|}">
+		$0
+	</Trigger>
+</Triggers>]]></content>
+    <tabTrigger>triggers</tabTrigger>
+    <scope>text.xml</scope>
+    <description>常用写法：触发器组 + 触发器</description>
+</snippet>
