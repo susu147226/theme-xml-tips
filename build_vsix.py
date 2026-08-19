@@ -5,12 +5,12 @@ import os, zipfile
 ROOT = r"C:\Users\Administrator\Desktop\dsh workspace\theme-xml-tips"
 DIST = os.path.join(ROOT, "dist")
 os.makedirs(DIST, exist_ok=True)
-VSIX = os.path.join(DIST, "theme-xml-tips-1.0.0.vsix")
+VSIX = os.path.join(DIST, "theme-xml-tips-1.1.0.vsix")
 
 MANIFEST = '''<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Language="en-US" Id="theme-xml-tips" Version="1.0.0" Publisher="susu147226" />
+    <Identity Language="en-US" Id="theme-xml-tips" Version="1.1.0" Publisher="susu147226" />
     <DisplayName>HarmonyOS Theme XML Tips</DisplayName>
     <Description xml:space="preserve">HarmonyOS NEXT 主题引擎 XML 代码提示：标签/属性/枚举/变量补全与悬停文档（基于规范 v2.3）。</Description>
     <Tags>harmonyos,theme,xml,lockscreen</Tags>

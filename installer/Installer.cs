@@ -7,7 +7,7 @@ using System.Reflection;
 
 internal static class Installer
 {
-    private const string VsixName = "theme-xml-tips-1.0.0.vsix";
+    private const string VsixName = "theme-xml-tips-1.1.0.vsix";
     private const string ResourceName = "ThemeXmlTips.vsix";
 
     private static int Main(string[] args)
@@ -15,7 +15,7 @@ internal static class Installer
         bool quiet = args.Length > 0 && (args[0] == "/S" || args[0] == "/s" || args[0] == "-q");
         Console.WriteLine("=======================================================");
         Console.WriteLine(" HarmonyOS Theme XML Tips - VS Code Extension Setup");
-        Console.WriteLine(" Version 1.0.0");
+        Console.WriteLine(" Version 1.1.0");
         Console.WriteLine("=======================================================");
         Console.WriteLine();
 

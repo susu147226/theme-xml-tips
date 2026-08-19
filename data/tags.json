@@ -372,14 +372,19 @@
    "description": "变量动画关键帧元素（VariableAnimation 子元素），属性 value/time。",
    "attributes": {
     "value": {
-     "type": "",
-     "required": "",
-     "description": ""
+     "type": "数值",
+     "required": "必填",
+     "description": "该帧的变量值，支持表达式。"
     },
     "time": {
-     "type": "",
-     "required": "",
-     "description": ""
+     "type": "数值",
+     "required": "必填",
+     "description": "该帧的时间点，单位ms。"
+    },
+    "varSpeedFlag": {
+     "type": "字符串",
+     "required": "选填",
+     "description": "变速函数标志，取值见 3.46 变速函数（如 QuartFun_Out 等）。"
     }
    },
    "children": []
@@ -2995,6 +3000,11 @@
      "required": "选填",
      "description": "是否支持虚拟屏幕，true/false，默认false，若为true支持虚拟屏幕则src参数必须为虚拟屏幕的名称。"
     },
+    "isFullScreenNode": {
+     "type": "字符串",
+     "required": "选填",
+     "description": "是否作为全屏节点，true/false。"
+    },
     "screenWidth": {
      "type": "数值",
      "required": "选填",
@@ -3029,6 +3039,35 @@
     "SizeAnimation",
     "SourcesAnimation"
    ]
+  },
+  {
+   "name": "ImageNumber",
+   "title": "视图：数字图片",
+   "section": "3.9",
+   "description": "数字图片视图，对输入的数值或数值表达式进行解析，并按数字顺序拼接字符图片显示（如 src=\"num.png\" 时使用 num_0.png~num_9.png）。规范 3.9 节中写作 <Image数值>，ImageNumber 为常用标签写法；较长数值建议改用 ImageSeries。",
+   "attributes": {
+    "name": {
+     "type": "字符串",
+     "required": "选填",
+     "description": "元素变量名，可通过 @name / #name 引用。"
+    },
+    "src": {
+     "type": "字符串",
+     "required": "必填",
+     "description": "字符图片源的文件名前缀，需准备 前缀_0~前缀_9 共10张图片。"
+    },
+    "number": {
+     "type": "数值",
+     "required": "必填",
+     "description": "要显示的数值或数值表达式，取值需为有效数值且位数小于8位，支持表达式。"
+    },
+    "visibility": {
+     "type": "数值",
+     "required": "选填",
+     "description": "元素可见性，<=0 不可见、>0 可见，支持表达式。"
+    }
+   },
+   "children": []
   },
   {
    "name": "ImageSeries",
@@ -3143,7 +3182,7 @@
    "name": "Image数值",
    "title": "视图：数字图片",
    "section": "3.9",
-   "description": "数字图片能够对输入的数值或者数值表达式进行解析，并按照表达式中数字顺序拼接字符图片。例如,src=\"数值.png\" 则会使用 数值_0.png，数值_1.png 等字符图片来显示数字（即映射\"_\"字符后的数字字符）。串联图片<imageseries>已包含了数字图片的功能，在使用Image数值的时候较长的数值会导致不精确的问题，建议使用串联图片ImageSeries。</imageseries>",
+   "description": "数字图片能够对输入的数值或者数值表达式进行解析，并按照表达式中数字顺序拼接字符图片。例如,src=\"数值.png\" 则会使用 数值_0.png，数值_1.png 等字符图片来显示数字（即映射\"_\"字符后的数字字符）。串联图片<imageseries>已包含了数字图片的功能，在使用Image数值的时候较长的数值会导致不精确的问题，建议使用串联图片ImageSeries。</imageseries>（常用标签写法为 <ImageNumber name=\"\" src=\"\" number=\"\" />）",
    "attributes": {
     "src": {
      "type": "string",
@@ -3806,6 +3845,11 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "displayDeskTop": {
+     "type": "字符串",
+     "required": "选填",
+     "description": "displayDesktop 的另一种大小写写法，是否同时应用到桌面。"
     }
    },
    "children": [
@@ -6923,6 +6967,27 @@
    "children": []
   },
   {
+   "name": "SupportPictorialButton",
+   "title": "控件：乐划锁屏按钮（OPPO）",
+   "section": "",
+   "description": "OPPO 乐划锁屏入口按钮，仅 OPPO 平台有效，其他平台需注释掉该段。内部通过 Triggers/Trigger + IntentCommand 调起乐划（Pictorial）Activity。",
+   "attributes": {
+    "w": {
+     "type": "数值",
+     "required": "选填",
+     "description": "按钮宽度，支持表达式。"
+    },
+    "h": {
+     "type": "数值",
+     "required": "选填",
+     "description": "按钮高度，支持表达式。"
+    }
+   },
+   "children": [
+    "Triggers"
+   ]
+  },
+  {
    "name": "SwingCommand",
    "title": "命令：手势识别",
    "section": "3.38",
@@ -8369,6 +8434,11 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "src": {
+     "type": "字符串",
+     "required": "选填",
+     "description": "壁纸图片路径（OPPO 平台示例中 <Wallpaper src=\"wallpaper.jpg\"/> 的写法）。"
     }
    },
    "children": []

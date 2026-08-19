@@ -13,9 +13,9 @@ AUTH="Authorization: Bearer $TOKEN"
 BODY=$(python - <<'EOF'
 import json
 print(json.dumps({
-  "tag_name": "v1.0.0",
-  "name": "HarmonyOS Theme XML Tips v1.0.0",
-  "body": "HarmonyOS NEXT 主题引擎 XML 代码提示插件（VS Code）。数据来源于《HarmonyOS NEXT主题引擎规范及指导 v2.3》，覆盖全部 127 个标签、属性、枚举值与 134 个全局变量。\n\n**Assets**\n\n- `ThemeXmlTips-Setup-1.0.0.exe` — Windows 安装程序，双击自动安装扩展到 VS Code\n- `theme-xml-tips-1.0.0.vsix` — VS Code 扩展包，可通过 Install from VSIX 手动安装\n- `theme-xml-tips-1.0.0-source.zip` — 完整源码包"
+  "tag_name": "v1.1.0",
+  "name": "HarmonyOS Theme XML Tips v1.1.0",
+  "body": "HarmonyOS NEXT 主题引擎 XML 代码提示插件（VS Code）。数据来源于《HarmonyOS NEXT主题引擎规范及指导 v2.3》。\n\n**v1.1.0 更新**\n\n- 新增 18 个常用标签写法代码片段（Var / Command / VariableCommand / ExternCommand / Video / Image 各形态 / ImageNumber / Group / ImageSeries / Image+Mask / Triggers）\n- 新增完整锁屏模板片段，唤醒词 `unlock` / `xml` / `theme`\n- 新增 CommonWallpaper 桌面模板片段，唤醒词 `wallpaper` / `wall`\n- 新增 Wallpaper 桌面模板片段，唤醒词 `next`\n- 标签库新增 ImageNumber、SupportPictorialButton，补充 isFullScreenNode、varSpeedFlag、condition 等属性\n\n**Assets**\n\n- `ThemeXmlTips-Setup-1.1.0.exe` — Windows 安装程序，双击自动安装扩展到 VS Code\n- `theme-xml-tips-1.1.0.vsix` — VS Code 扩展包，可通过 Install from VSIX 手动安装\n- `theme-xml-tips-1.1.0-source.zip` — 完整源码包"
 }))
 EOF
 )
@@ -35,6 +35,6 @@ upload() {
   echo "$name -> HTTP $code"
 }
 
-upload "dist/ThemeXmlTips-Setup-1.0.0.exe" "ThemeXmlTips-Setup-1.0.0.exe" "application/octet-stream"
-upload "dist/theme-xml-tips-1.0.0.vsix" "theme-xml-tips-1.0.0.vsix" "application/octet-stream"
-upload "dist/theme-xml-tips-1.0.0-source.zip" "theme-xml-tips-1.0.0-source.zip" "application/zip"
+upload "dist/ThemeXmlTips-Setup-1.1.0.exe" "ThemeXmlTips-Setup-1.1.0.exe" "application/octet-stream"
+upload "dist/theme-xml-tips-1.1.0.vsix" "theme-xml-tips-1.1.0.vsix" "application/octet-stream"
+upload "dist/theme-xml-tips-1.1.0-source.zip" "theme-xml-tips-1.1.0-source.zip" "application/zip"

@@ -9,15 +9,15 @@
     ],
     "description": "HarmonyOS 主题引擎 - 锁屏 manifest 骨架（规范 2.1）"
   },
-  "Wallpaper 桌面骨架": {
-    "prefix": "wallpaper",
+  "ChargingSkin 充电动效骨架": {
+    "prefix": "chargingskin",
     "body": [
       "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
-      "<Wallpaper screenWidth=\"${1:1080}\">",
+      "<ChargingSkin screenWidth=\"${1:1080}\">",
       "\t$0",
-      "</Wallpaper>"
+      "</ChargingSkin>"
     ],
-    "description": "HarmonyOS 主题引擎 - 动态桌面骨架（规范 2.2）"
+    "description": "HarmonyOS 主题引擎 - 充电动效换肤骨架（规范 2.4）"
   },
   "Widget 百变卡片骨架": {
     "prefix": "widget-card",
@@ -29,16 +29,274 @@
     ],
     "description": "HarmonyOS 主题引擎 - 百变卡片骨架（规范 2.3）"
   },
-  "ChargingSkin 充电动效骨架": {
-    "prefix": "chargingskin",
+
+  "常用写法 01 · Var 自定义变量": {
+    "prefix": "var",
+    "body": "<Var name=\"${1:name}\" expression=\"${2:expression}\" persist=\"${3:true}\" const=\"${4:true}\" />",
+    "description": "常用写法：自定义变量（规范 3.19）"
+  },
+  "常用写法 02 · Command 基础命令": {
+    "prefix": "command",
+    "body": "<Command target=\"${1:name.property}\" value=\"${2:value}\"/>",
+    "description": "常用写法：基础命令（规范 3.25）"
+  },
+  "常用写法 03 · VariableCommand 变量命令": {
+    "prefix": "var-command",
+    "body": "<VariableCommand name=\"${1:name}\" expression=\"${2:expression}\" condition=\"${3:1}\" />",
+    "description": "常用写法：变量命令（规范 3.30）"
+  },
+  "常用写法 04 · ExternCommand 解锁命令": {
+    "prefix": "extern-unlock",
+    "body": "<ExternCommand command=\"unlock\" condition=\"#${1:click}\" />",
+    "description": "常用写法：解锁命令（规范 3.31 + 5.5 延时解锁）"
+  },
+  "常用写法 05 · Video 视频视图": {
+    "prefix": "video-view",
+    "body": "<Video name=\"${1:video}\" defaultBitmap=\"${2:default.png}\" src=\"${3:video.mp4}\" x=\"${4:0}\" y=\"${5:0}\" w=\"${6:#w}\" h=\"${7:#h}\" scaleType=\"${8|fill,center_crop,hold_center_crop|}\" play=\"${9:false}\" looping=\"${10:false}\" visibility=\"${11:1}\" />",
+    "description": "常用写法：视频视图完整写法（规范 3.5）"
+  },
+  "常用写法 06 · Image 图片（缩放/全屏/可见性）": {
+    "prefix": "image-view",
+    "body": "<Image src=\"${1:image.png}\" x=\"${2:0}\" y=\"${3:0}\" w=\"${4:}\" h=\"${5:}\" scaleType=\"${6|fill,center_crop,hold_center_crop|}\" isFullScreenNode=\"${7:false}\" visibility=\"${8:1}\" />",
+    "description": "常用写法：图片视图（规范 3.3）"
+  },
+  "常用写法 07 · Image 序列图（srcid）": {
+    "prefix": "image-srcid",
+    "body": "<Image src=\"${1:image.png}\" srcid=\"${2:#var}\" visibility=\"${3:1}\" />",
+    "description": "常用写法：图片序列后缀，按变量显示不同图片（规范 3.3 srcid）"
+  },
+  "常用写法 08 · Image 图片源表达式（srcExp）": {
+    "prefix": "image-srcexp",
+    "body": "<Image srcExp=\"${1:expression}\" visibility=\"${2:1}\" />",
+    "description": "常用写法：字符串表达式指定图片源（规范 3.3 srcExp / 3.45 多语言）"
+  },
+  "常用写法 09 · Image 旋转（pivot+angle）": {
+    "prefix": "image-rotate",
+    "body": "<Image src=\"${1:image.png}\" w=\"${2:}\" h=\"${3:}\" pivotX=\"${4:}\" pivotY=\"${5:}\" angle=\"${6:0}\" />",
+    "description": "常用写法：绕指定点旋转的图片（通用属性 pivotX/pivotY/rotation）"
+  },
+  "常用写法 10 · Image 对齐+旋转": {
+    "prefix": "image-align-rotate",
+    "body": "<Image src=\"${1:image.png}\" w=\"${2:}\" h=\"${3:}\" align=\"${4|left,center,right|}\" alignV=\"${5|top,center,bottom|}\" pivotX=\"${6:}\" pivotY=\"${7:}\" angle=\"${8:0}\" />",
+    "description": "常用写法：对齐 + 旋转的图片（通用属性）"
+  },
+  "常用写法 11 · Image 3D旋转": {
+    "prefix": "image-3d",
+    "body": "<Image src=\"${1:image.png}\" w=\"${2:}\" h=\"${3:}\" rotationX=\"${4:0}\" rotationY=\"${5:0}\" rotation=\"${6:0}\" />",
+    "description": "常用写法：X/Y/Z 三轴旋转的图片（通用属性 rotationX/rotationY/rotation）"
+  },
+  "常用写法 12 · Image 对齐+3D旋转": {
+    "prefix": "image-align-3d",
+    "body": "<Image src=\"${1:image.png}\" w=\"${2:}\" h=\"${3:}\" align=\"${4|left,center,right|}\" alignV=\"${5|top,center,bottom|}\" rotationX=\"${6:0}\" rotationY=\"${7:0}\" rotation=\"${8:0}\" />",
+    "description": "常用写法：对齐 + 三轴旋转的图片（通用属性）"
+  },
+  "常用写法 13 · ImageNumber 数字图片": {
+    "prefix": "imagenumber",
+    "body": "<ImageNumber name=\"${1:number}\" src=\"${2:num.png}\" number=\"${3:0}\" visibility=\"${4:1}\" />",
+    "description": "常用写法：数字图片（规范 3.9，文档中写作 <Image数值>）"
+  },
+  "常用写法 14 · Group 组（透明度）": {
+    "prefix": "group-alpha",
+    "body": [
+      "<Group alpha=\"${1:255}\" x=\"${2:0}\" y=\"${3:0}\" visibility=\"${4:1}\">",
+      "\t$0",
+      "</Group>"
+    ],
+    "description": "常用写法：带透明度控制的视图组（规范 3.17）"
+  },
+  "常用写法 15 · Group 组": {
+    "prefix": "group",
+    "body": [
+      "<Group x=\"${1:0}\" y=\"${2:0}\" visibility=\"${3:1}\">",
+      "\t$0",
+      "</Group>"
+    ],
+    "description": "常用写法：视图组（规范 3.17）"
+  },
+  "常用写法 16 · ImageSeries 串联图片": {
+    "prefix": "imageseries",
+    "body": "<ImageSeries src=\"${1:date.png}\" space=\"${2:5}\" mapList=\"${3:00,11,22,33,44,55,66,77,88,99}\" />",
+    "description": "常用写法：按字符顺序拼接图片（规范 3.10）"
+  },
+  "常用写法 17 · Image + Mask 遮罩": {
+    "prefix": "image-mask",
+    "body": [
+      "<Image src=\"${1:image.png}\" >",
+      "\t<Mask src=\"${2:mask.png}\" align=\"${3|left,center,right|}\" hybridMode=\"${4:}\"/>",
+      "</Image>"
+    ],
+    "description": "常用写法：图片混合遮罩（规范 3.12/3.13）"
+  },
+  "常用写法 18 · Triggers 触发器组": {
+    "prefix": "triggers",
+    "body": [
+      "<Triggers>",
+      "\t<Trigger action=\"${1|down,up,long,click,double,resume,pause|}\">",
+      "\t\t$0",
+      "\t</Trigger>",
+      "</Triggers>"
+    ],
+    "description": "常用写法：触发器组 + 触发器"
+  },
+
+  "完整锁屏模板（unlock/xml/theme）": {
+    "prefix": ["unlock", "xml", "theme"],
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<Lockscreen version=\"1\" frameRate=\"60\" vibrate=\"false\" screenWidth=\"1080\" displayDeskTop=\"true\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\" />",
+      "",
+      "    <!-- 居中裁剪 -->",
+      "    <Var name=\"cen_h\" expression=\"#h/2-1320\" />",
+      "    <!-- 底部裁剪 -->",
+      "    <Var name=\"bot_h\" expression=\"#h-2640\" />",
+      "",
+      "    <!-- 位移量：swipeDY 向上为正，swipeDX 向右为正 -->",
+      "    <Var name=\"swipeDX\" expression=\"#touch_x-#touch_begin_x\" />",
+      "    <Var name=\"swipeDY\" expression=\"#touch_begin_y-#touch_y\" />",
+      "",
+      "    <!-- 上滑：纵向位移>200，且大于横向偏移的绝对值 -->",
+      "    <Var name=\"upSlide\" expression=\"gt(#swipeDY,200)*gt(#swipeDY,abs(#swipeDX))\" />",
+      "    <!-- 下滑 -->",
+      "    <Var name=\"downSlide\" expression=\"lt(#swipeDY,-200)*lt(#swipeDY,-1*abs(#swipeDX))\" />",
+      "    <!-- 左滑 -->",
+      "    <Var name=\"leftSlide\" expression=\"lt(#swipeDX,-200)*lt(#swipeDX,-1*abs(#swipeDY))\" />",
+      "    <!-- 右滑 -->",
+      "    <Var name=\"rightSlide\" expression=\"gt(#swipeDX,200)*gt(#swipeDX,abs(#swipeDY))\" />",
+      "",
+      "    <Var expression=\"1\" name=\"notification\" />",
+      "",
+      "    <!-- OPPO乐滑 【其他平台需注释掉本段】 -->",
+      "    <SupportPictorialButton w=\"1080\" h=\"#screen_height\">",
+      "        <Triggers>",
+      "            <Trigger action=\"up\">",
+      "                <IntentCommand action=\"com.heytap.pictorial.action.START_PICTURE_MODE\" category=\"android.intent.category.DEFAULT\" package=\"com.heytap.pictorial\" class=\"com.heytap.pictorial.ui.slide.PictorialSlideActivity\" condition=\"gt(#touch_begin_x-#touch_x,250)\" />",
+      "            </Trigger>",
+      "        </Triggers>",
+      "    </SupportPictorialButton>",
+      "",
+      "    <!-- 线性变换动画 -->",
+      "    <Var name=\"loop\">",
+      "        <VariableAnimation>",
+      "            <AniFrame value=\"5000\" time=\"0\" />",
+      "            <AniFrame value=\"9999999\" time=\"9999999\" />",
+      "        </VariableAnimation>",
+      "    </Var>",
+      "",
+      "    <!-- 开屏动画 -->",
+      "    <Var name=\"kpdt\">",
+      "        <VariableAnimation>",
+      "            <AniFrame value=\"1\" time=\"0\" varSpeedFlag=\"QuartFun_Out\" />",
+      "            <AniFrame value=\"0\" time=\"1200\" />",
+      "            <AniFrame value=\"0\" time=\"99999999\" />",
+      "        </VariableAnimation>",
+      "    </Var>",
+      "",
+      "    <!-- 开屏透明度动画 -->",
+      "    <Var name=\"kpal\">",
+      "        <VariableAnimation>",
+      "            <AniFrame value=\"0\" time=\"0\" />",
+      "            <AniFrame value=\"255\" time=\"1200\" />",
+      "            <AniFrame value=\"255\" time=\"99999999\" />",
+      "        </VariableAnimation>",
+      "    </Var>",
+      "",
+      "    <!-- 开屏命令 -->",
+      "    <ExternalCommands>",
+      "        <Trigger action=\"resume\">",
+      "            <Command target=\"loop.animation\" value=\"stop\"/>",
+      "            <Command target=\"loop.animation\" value=\"play\"/>",
+      "",
+      "            <Command target=\"kpdt.animation\" value=\"stop\"/>",
+      "            <Command target=\"kpdt.animation\" value=\"play\"/>",
+      "            <Command target=\"kpal.animation\" value=\"stop\"/>",
+      "            <Command target=\"kpal.animation\" value=\"play\"/>",
+      "",
+      "            <VariableCommand name=\"xq1\" expression=\"#day_of_week-1\" />",
+      "            <VariableCommand name=\"xq\" expression=\"#day_of_week\" />",
+      "            <VariableCommand name=\"rq\" expression=\"#date\" />",
+      "            <VariableCommand name=\"yue\" expression=\"#month\" />",
+      "            <VariableCommand name=\"nian\" expression=\"#year\" />",
+      "",
+      "",
+      "        </Trigger>",
+      "        <Trigger action=\"pause\">",
+      "",
+      "        </Trigger>",
+      "",
+      "    </ExternalCommands>",
+      "",
+      "",
+      "    <!-- 全局btn -->",
+      "    <Button w=\"#w\" h=\"#h\">",
+      "        <Triggers>",
+      "            <Trigger action=\"down\">",
+      "                <VariableCommand name=\"slider_flag\" expression=\"0\" />",
+      "                <!-- <VariableCommand name=\"move_xq_start2\" expression=\"1\" /> -->",
+      "            </Trigger>",
+      "            <Trigger action=\"up\">",
+      "                <VariableCommand name=\"time_cdjm\" expression=\"#loop\" condition=\"#cdjm\" />",
+      "                <!-- 解锁 -->",
+      "                <ExternCommand command=\"unlock\" condition=\"#upSlide\" />",
+      "",
+      "",
+      "                <!-- 切换版式 -->",
+      "",
+      "",
+      "                <VariableCommand name=\"slider_flag\" expression=\"ifelse(#touch_x-#touch_begin_x-150,1,#touch_begin_x-#touch_x-200,2,0)\" />",
+      "            </Trigger>",
+      "        </Triggers>",
+      "    </Button>",
+      "",
+      "    <!-- 视图层 -->",
+      "    <!-- OPPO 【其他平台需注释掉本行】 -->",
+      "    <Wallpaper src=\"wallpaper.jpg\" />",
+      "    <!-- 华为 -->",
+      "    <Image scaleType=\"center_crop\" isBackground=\"true\" src=\"bj.png\" />",
+      "",
+      "    <Image src=\"top.png\" />",
+      "$0",
+      "</Lockscreen>"
+    ],
+    "description": "完整锁屏模板：滑动方向判断 + 开屏动画 + 解锁命令（唤醒词 unlock / xml / theme）"
+  },
+
+  "CommonWallpaper 桌面模板（wallpaper/wall）": {
+    "prefix": ["wallpaper", "wall"],
     "body": [
       "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
-      "<ChargingSkin screenWidth=\"${1:1080}\">",
-      "\t$0",
-      "</ChargingSkin>"
+      "<CommonWallpaper version=\"1\" frameRate=\"30\" screenWidth=\"1080\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\"/>",
+      "    <Var name=\"h2\" expression=\"#h/2-1320\" persist=\"true\" const=\"true\"/>",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "$0",
+      "</CommonWallpaper>"
     ],
-    "description": "HarmonyOS 主题引擎 - 充电动效换肤骨架（规范 2.4）"
+    "description": "CommonWallpaper 桌面模板：常用变量预置（唤醒词 wallpaper / wall）"
   },
+
+  "Wallpaper NEXT 桌面模板（next）": {
+    "prefix": "next",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Wallpaper version=\"1\" frameRate=\"30\" screenWidth=\"1080\">",
+      "    <Var name=\"w\" expression=\"#screen_width\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"h\" expression=\"#screen_height\" persist=\"true\" const=\"true\" />",
+      "    <Var name=\"pai\" expression=\"3.1415926535898\" persist=\"true\" const=\"true\"/>",
+      "    <Var name=\"h2\" expression=\"#h/2-1320\" persist=\"true\" const=\"true\"/>",
+      "    <Var name=\"click\" expression=\"le(abs(#touch_x-#touch_begin_x),50)*le(abs(#touch_y-#touch_begin_y),50)\" />",
+      "$0",
+      "</Wallpaper>"
+    ],
+    "description": "Wallpaper 桌面模板：常用变量预置（唤醒词 next）"
+  },
+
   "Button + Trigger 按钮触发": {
     "prefix": "button-trigger",
     "body": [
@@ -50,20 +308,10 @@
     ],
     "description": "按钮 + 触发器（规范 3.18）"
   },
-  "Var 自定义变量": {
-    "prefix": "var",
-    "body": "<Var name=\"${1:name}\" expression=\"${2:0}\"${3: type=\"number\"} />",
-    "description": "自定义变量（规范 3.19）"
-  },
   "Text 文本视图": {
     "prefix": "text-view",
     "body": "<Text x=\"${1:0}\" y=\"${2:0}\" size=\"${3:40}\" color=\"${4:#FFFFFFFF}\" text=\"${5:text}\" />",
     "description": "文本视图（规范 3.2）"
-  },
-  "Image 图片视图": {
-    "prefix": "image-view",
-    "body": "<Image x=\"${1:0}\" y=\"${2:0}\" src=\"${3:image.png}\" />",
-    "description": "图片视图（规范 3.3）"
   },
   "PositionAnimation 位移动画": {
     "prefix": "pos-anim",
@@ -89,10 +337,5 @@
     "prefix": "intent",
     "body": "<IntentCommand action=\"${1:android.intent.action.MAIN}\" package=\"${2:package}\" class=\"${3:activity}\" />",
     "description": "意图命令（规范 3.28）"
-  },
-  "VariableCommand 变量命令": {
-    "prefix": "var-command",
-    "body": "<VariableCommand name=\"${1:name}\" expression=\"${2:expression}\" />",
-    "description": "变量命令（规范 3.30）"
   }
 }
