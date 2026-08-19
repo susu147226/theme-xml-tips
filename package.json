@@ -1,0 +1,50 @@
+{
+  "name": "theme-xml-tips",
+  "displayName": "HarmonyOS Theme XML Tips",
+  "description": "HarmonyOS NEXT 主题引擎 XML 代码提示：覆盖《HarmonyOS NEXT主题引擎规范及指导 v2.3》全部 127 个标签、属性、枚举值与全局变量，支持标签/属性补全、枚举值提示、#/@ 变量补全与悬停文档。",
+  "version": "1.0.0",
+  "publisher": "susu147226",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "harmonyos",
+    "theme",
+    "xml",
+    "lockscreen",
+    "主题引擎",
+    "鸿蒙"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:xml"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "xml",
+        "path": "./snippets/theme-snippets.json"
+      }
+    ],
+    "configuration": {
+      "title": "HarmonyOS Theme XML Tips",
+      "properties": {
+        "themeXmlTips.enableVariableCompletion": {
+          "type": "boolean",
+          "default": true,
+          "description": "在属性值中输入 # 或 @ 时提示主题引擎全局变量"
+        }
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/susu147226/theme-xml-tips.git"
+  }
+}

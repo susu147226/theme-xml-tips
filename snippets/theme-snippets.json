@@ -1,0 +1,98 @@
+{
+  "Lockscreen 锁屏骨架": {
+    "prefix": "lockscreen",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Lockscreen frameRate=\"${1:60}\" screenWidth=\"${2:1080}\">",
+      "\t$0",
+      "</Lockscreen>"
+    ],
+    "description": "HarmonyOS 主题引擎 - 锁屏 manifest 骨架（规范 2.1）"
+  },
+  "Wallpaper 桌面骨架": {
+    "prefix": "wallpaper",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Wallpaper screenWidth=\"${1:1080}\">",
+      "\t$0",
+      "</Wallpaper>"
+    ],
+    "description": "HarmonyOS 主题引擎 - 动态桌面骨架（规范 2.2）"
+  },
+  "Widget 百变卡片骨架": {
+    "prefix": "widget-card",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<Widget screenWidth=\"${1:1384}\" screenHeight=\"${2:1384}\" frameRate=\"${3:60}\">",
+      "\t$0",
+      "</Widget>"
+    ],
+    "description": "HarmonyOS 主题引擎 - 百变卡片骨架（规范 2.3）"
+  },
+  "ChargingSkin 充电动效骨架": {
+    "prefix": "chargingskin",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+      "<ChargingSkin screenWidth=\"${1:1080}\">",
+      "\t$0",
+      "</ChargingSkin>"
+    ],
+    "description": "HarmonyOS 主题引擎 - 充电动效换肤骨架（规范 2.4）"
+  },
+  "Button + Trigger 按钮触发": {
+    "prefix": "button-trigger",
+    "body": [
+      "<Button x=\"${1:0}\" y=\"${2:0}\" w=\"${3:100}\" h=\"${4:100}\">",
+      "\t<Trigger action=\"${5|down,up,long,click,double,resume,pause|}\">",
+      "\t\t$0",
+      "\t</Trigger>",
+      "</Button>"
+    ],
+    "description": "按钮 + 触发器（规范 3.18）"
+  },
+  "Var 自定义变量": {
+    "prefix": "var",
+    "body": "<Var name=\"${1:name}\" expression=\"${2:0}\"${3: type=\"number\"} />",
+    "description": "自定义变量（规范 3.19）"
+  },
+  "Text 文本视图": {
+    "prefix": "text-view",
+    "body": "<Text x=\"${1:0}\" y=\"${2:0}\" size=\"${3:40}\" color=\"${4:#FFFFFFFF}\" text=\"${5:text}\" />",
+    "description": "文本视图（规范 3.2）"
+  },
+  "Image 图片视图": {
+    "prefix": "image-view",
+    "body": "<Image x=\"${1:0}\" y=\"${2:0}\" src=\"${3:image.png}\" />",
+    "description": "图片视图（规范 3.3）"
+  },
+  "PositionAnimation 位移动画": {
+    "prefix": "pos-anim",
+    "body": [
+      "<PositionAnimation>",
+      "\t<Position x=\"${1:0}\" y=\"${2:0}\" time=\"${3:0}\" />",
+      "\t<Position x=\"${4:0}\" y=\"${5:0}\" time=\"${6:1000}\" />",
+      "</PositionAnimation>"
+    ],
+    "description": "位移动画（规范 4.2）"
+  },
+  "RotationAnimation 旋转动画": {
+    "prefix": "rot-anim",
+    "body": [
+      "<RotationAnimation>",
+      "\t<Rotation angle=\"${1:0}\" time=\"${2:0}\" />",
+      "\t<Rotation angle=\"${3:360}\" time=\"${4:3000}\" />",
+      "</RotationAnimation>"
+    ],
+    "description": "旋转动画（规范 4.3）"
+  },
+  "IntentCommand 意图命令": {
+    "prefix": "intent",
+    "body": "<IntentCommand action=\"${1:android.intent.action.MAIN}\" package=\"${2:package}\" class=\"${3:activity}\" />",
+    "description": "意图命令（规范 3.28）"
+  },
+  "VariableCommand 变量命令": {
+    "prefix": "var-command",
+    "body": "<VariableCommand name=\"${1:name}\" expression=\"${2:expression}\" />",
+    "description": "变量命令（规范 3.30）"
+  }
+}
