@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Build theme-xml-tips VSIX manually (vsix = zip with vsixmanifest)."""
-import os, zipfile
+"""Build theme-xml-tips VSIX manually (vsix = zip with vsixmanifest).
+Version is read from package.json."""
+import os, zipfile, json
 
-ROOT = r"C:\Users\Administrator\Desktop\dsh workspace\theme-xml-tips"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+VER = json.load(open(os.path.join(ROOT, "package.json"), encoding="utf-8"))["version"]
 DIST = os.path.join(ROOT, "dist")
 os.makedirs(DIST, exist_ok=True)
-VSIX = os.path.join(DIST, "theme-xml-tips-1.3.0.vsix")
+VSIX = os.path.join(DIST, "theme-xml-tips-%s.vsix" % VER)
 
 MANIFEST = '''<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Language="en-US" Id="theme-xml-tips" Version="1.3.0" Publisher="susu147226" />
+    <Identity Language="en-US" Id="theme-xml-tips" Version="__VER__" Publisher="susu147226" />
     <DisplayName>Theme XML Tips</DisplayName>
     <Description xml:space="preserve">主题引擎 XML 代码提示：标签/属性/枚举/变量补全与悬停文档。作者：云舒眠眠。</Description>
     <Tags>harmonyos,theme,xml,lockscreen</Tags>
@@ -32,7 +34,7 @@ MANIFEST = '''<?xml version="1.0" encoding="utf-8"?>
     <Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
   </Assets>
 </PackageManifest>
-'''
+'''.replace("__VER__", VER)
 
 CONTENT_TYPES = '''<?xml version="1.0" encoding="utf-8"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">

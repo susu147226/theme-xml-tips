@@ -1,0 +1,90 @@
+name: Build & Release
+
+# 触发方式：
+# 1. 推送 main 且改动了 snippets/ 或 package.json —— 使用 package.json 中的版本号自动打包发版
+# 2. 手动 Actions -> Build & Release -> Run workflow，可填 version（会先同步版本号再发版）
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号 x.y.z（留空则使用 package.json 中的版本）'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - 'snippets/**'
+      - 'package.json'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Determine and set version
+        shell: bash
+        run: |
+          INPUT_VER="${{ github.event.inputs.version }}"
+          if [ -n "$INPUT_VER" ]; then
+            python tools/set_version.py "$INPUT_VER"
+          fi
+          VER=$(python -c "import json;print(json.load(open('package.json',encoding='utf-8'))['version'])")
+          echo "VER=$VER" >> "$GITHUB_ENV"
+          echo "version: $VER"
+
+      - name: Build adapters and VSIX
+        shell: bash
+        run: |
+          python build_adapters.py
+          python build_vsix.py
+
+      - name: Build installer exe
+        shell: bash
+        run: |
+          CSC="/c/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe"
+          "$CSC" //nologo //target:exe //platform:anycpu \
+            //r:System.IO.Compression.dll //r:System.IO.Compression.FileSystem.dll \
+            //out:"dist\\ThemeXmlTips-Setup-${VER}.exe" \
+            //resource:"dist\\theme-xml-tips-${VER}.vsix,ThemeXmlTips.vsix" \
+            //resource:"dist\\adapters-${VER}.zip,ThemeXmlTips.adapters" \
+            installer/Installer.cs
+
+      - name: Build source zip
+        shell: bash
+        run: python tools/build_source_zip.py
+
+      - name: Commit version bump (manual dispatch only)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.version != ''
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: bump version to ${VER} [skip ci]"
+          git push
+
+      - name: Create tag and release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git tag "v${VER}" 2>/dev/null || true
+          git push origin "v${VER}" || true
+          gh release create "v${VER}" \
+            --title "Theme XML Tips v${VER}" \
+            --generate-notes \
+            "dist/ThemeXmlTips-Setup-${VER}.exe" \
+            "dist/theme-xml-tips-${VER}.vsix" \
+            "dist/ThemeXmlTips-WebStorm-${VER}.zip" \
+            "dist/ThemeXmlTips-HBuilderX-${VER}.zip" \
+            "dist/ThemeXmlTips-Sublime-Text-${VER}.zip" \
+            "dist/theme-xml-tips-${VER}-source.zip"

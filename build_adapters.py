@@ -13,8 +13,8 @@ Outputs (under dist):
 """
 import json, os, re, zipfile, html
 
-VER = "1.3.0"
 ROOT = os.path.dirname(os.path.abspath(__file__))
+VER = json.load(open(os.path.join(ROOT, "package.json"), encoding="utf-8"))["version"]
 DIST = os.path.join(ROOT, "dist")
 SRC = os.path.join(ROOT, "snippets", "theme-snippets.json")
 os.makedirs(DIST, exist_ok=True)

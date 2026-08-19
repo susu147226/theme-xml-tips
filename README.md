@@ -147,6 +147,23 @@ code --install-extension theme-xml-tips-1.3.0.vsix
 
 以及 Trigger、Position、Rotation、Alpha、Size、Source、AniFrame、Item、ItemGroup、Velocity、AngleVelocity、Angle、weight、PathData、Range、StartPoint、EndPoint、VariableBinders、CollBody、Texture2D、Camera3D、SceneModel3D、Layer、StereoGroup 等全部子元素标签。
 
+## 发版与二次开发
+
+新增/修改代码片段只需编辑 `snippets/theme-snippets.json`（`prefix` 支持字符串或数组，`body` 支持 `${1:默认值}`、`${1|选项1,选项2|}`、`$0` 占位符），VS Code / WebStorm / HBuilderX / Sublime Text 四端适配包由它自动生成，永远保持一致。
+
+**本地一键发版**（同步版本号 → 四端打包 → git 提交/打 tag/推送 → 创建 Release 并上传产物）：
+
+```bash
+python release.py 1.3.1 -m "新增 xx 代码片段"
+```
+
+其他模式：`--no-git` 只打包；`--no-release` 打包+推送但不创建 Release。
+
+**GitHub Actions 自动发版**（`.github/workflows/release.yml`）：
+
+- 推送 main 且改动了 `snippets/**` 或 `package.json`（版本号已先改好）→ 自动构建并发版
+- 或在 Actions 页面手动运行 `Build & Release`，填写版本号即可（会自动同步版本号并提交）
+
 ## License
 
 MIT
