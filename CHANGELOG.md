@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.5.0 (2026-08-20)
+
+- 新增平台识别：根据 XML 文件路径向上遍历父文件夹自动判断平台（鸿蒙/华为/荣耀/OPPO/vivo/小米），短拉丁关键词按词边界匹配避免误判（如 admin 不命中小米）
+- 新增快捷跳转提示：内置 659 条各平台快捷跳转（IntentCommand），识别到平台时只提示该平台条目；每个跳转提供「单独跳转」与「跳转 + ExternCommand 解锁」两条提示；未识别平台时列出全部并标注平台名
+- 新增 tools/build_shortcuts.py：从快捷跳转文档幂等生成 data/shortcuts.json，四平台差异化链接按平台后缀自动拆分
+- 新增 tools/test_platform.js：平台识别离线测试（20 个用例）
+
 ## 1.4.0 (2026-08-20)
 
 - 新增属性参数提示：枚举值扩充（varSpeedFlag 30 种变速函数、MediaCommand.command 9 种媒体命令、IntentCommand.action、VideoCommand.play 等），支持「标签.属性」级别的专属取值

@@ -50,6 +50,8 @@ FILES = [
     "package.json", "extension.js", "README.md", "CHANGELOG.md",
     "data/tags.json", "snippets/theme-snippets.json",
 ]
+if os.path.exists(os.path.join(ROOT, "data", "shortcuts.json")):
+    FILES.append("data/shortcuts.json")
 
 with zipfile.ZipFile(VSIX, "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("extension.vsixmanifest", MANIFEST)

@@ -11,6 +11,8 @@ let tagMap = new Map();
 let varMap = new Map();
 /** @type {Map<string, any>} */
 let funcMap = new Map();
+/** @type {Object<string, Array<{name: string, xml: string}>>} 各平台快捷跳转 */
+let SHORTCUTS = {};
 
 function loadData(context) {
     const file = path.join(context.extensionPath, 'data', 'tags.json');
@@ -18,6 +20,60 @@ function loadData(context) {
     tagMap = new Map(DATA.tags.map(t => [t.name, t]));
     varMap = new Map(DATA.variables.map(v => [v.name, v]));
     funcMap = new Map((DATA.functions || []).map(f => [f.name, f]));
+    try {
+        const sf = path.join(context.extensionPath, 'data', 'shortcuts.json');
+        if (fs.existsSync(sf)) SHORTCUTS = JSON.parse(fs.readFileSync(sf, 'utf8'));
+    } catch (e) { SHORTCUTS = {}; }
+}
+
+/**
+ * 平台识别规则（按优先级依次判定，命中即返回）。
+ * 匹配方式：中文词直接子串匹配；纯拉丁词长度 <= 3（mi / hw / pad / next 除外按词边界）
+ * 为避免 "admin" 命中 "mi"、"show" 命中 "hw" 这类误判，短拉丁词统一按词边界匹配。
+ * oppo 额外规则：任一级父文件夹名恰好为 advance。
+ */
+const PLATFORM_RULES = [
+    { key: 'harmonyos', label: '鸿蒙', kw: ['鸿蒙', 'next', 'harmonyos next', 'harmonyos', '鸿蒙purax', 'purax', '鸿蒙折叠', 'pad', '鸿蒙pad', 'purax max', '鸿蒙purax max'] },
+    { key: 'huawei', label: '华为', kw: ['华为', '4.0', 'huawei', 'hw'] },
+    { key: 'honor', label: '荣耀', kw: ['荣耀', 'honor'] },
+    { key: 'oppo', label: 'OPPO', kw: ['oppo'], exact: ['advance'] },
+    { key: 'vivo', label: 'vivo', kw: ['vivo'] },
+    { key: 'xiaomi', label: '小米', kw: ['mi', '小米', 'xiaomi'] },
+];
+
+/** 单个文件夹名是否命中关键词 */
+function folderMatches(folder, kw) {
+    const name = folder.toLowerCase();
+    const k = kw.toLowerCase();
+    if (/^[\x00-\x7f]+$/.test(k)) {
+        if (k.length <= 3) {
+            // 短拉丁词按词边界匹配（以非字母数字为界）
+            const re = new RegExp('(^|[^a-z0-9])' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z0-9]|$)');
+            return re.test(name);
+        }
+        return name.includes(k);
+    }
+    return name.includes(k);   // 中文关键词子串匹配
+}
+
+/** 根据 XML 文件路径向上遍历父文件夹，判断所属平台；无法判断返回 null */
+function detectPlatform(document) {
+    const fsPath = document.uri && document.uri.fsPath;
+    if (!fsPath || fsPath.startsWith('untitled')) return null;
+    const folders = [];
+    let dir = path.dirname(fsPath);
+    const rootDir = path.parse(dir).root;
+    while (dir && dir !== rootDir) {
+        folders.push(path.basename(dir));
+        dir = path.dirname(dir);
+    }
+    for (const rule of PLATFORM_RULES) {
+        for (const folder of folders) {
+            if ((rule.exact || []).some(e => folder.toLowerCase() === e)) return rule.key;
+            if (rule.kw.some(k => folderMatches(folder, k))) return rule.key;
+        }
+    }
+    return null;
 }
 
 /** 判断 position 前文本的上下文：'tag' 标签名 | 'attr' 属性名 | 'value' 属性值 | 'text' 其他 */
@@ -121,6 +177,46 @@ function attrValues(tagName, attrName) {
     return null;
 }
 
+/** 生成当前平台（或全部平台）的快捷跳转补全项 */
+function shortcutCompletions(document) {
+    const platform = detectPlatform(document);
+    const groups = [];
+    if (platform && SHORTCUTS[platform]) {
+        groups.push({ key: platform, label: null, list: SHORTCUTS[platform] });
+    } else if (!platform) {
+        // 无法判断平台时列出全部，详情中标注平台名
+        for (const rule of PLATFORM_RULES) {
+            if (SHORTCUTS[rule.key] && SHORTCUTS[rule.key].length) {
+                groups.push({ key: rule.key, label: rule.label, list: SHORTCUTS[rule.key] });
+            }
+        }
+    }
+    const items = [];
+    for (const g of groups) {
+        for (const s of g.list) {
+            const base = '快捷跳转·' + s.name + (g.label ? '（' + g.label + '）' : '');
+            // 1) 单独的快捷跳转
+            const it1 = new vscode.CompletionItem(base, vscode.CompletionItemKind.Snippet);
+            it1.detail = '快捷跳转';
+            it1.documentation = new vscode.MarkdownString('```xml\n' + s.xml + '\n```');
+            it1.insertText = new vscode.SnippetString(s.xml.replace(/\$/g, '\\$'));
+            it1.filterText = s.name + ' ' + s.xml;
+            it1.sortText = '4' + s.name;
+            items.push(it1);
+            // 2) 快捷跳转 + 解锁
+            const withUnlock = s.xml + '\n<ExternCommand command="unlock" condition="#click" />';
+            const it2 = new vscode.CompletionItem(base + '+解锁', vscode.CompletionItemKind.Snippet);
+            it2.detail = '快捷跳转 + ExternCommand 解锁';
+            it2.documentation = new vscode.MarkdownString('```xml\n' + withUnlock + '\n```');
+            it2.insertText = new vscode.SnippetString(withUnlock.replace(/\$/g, '\\$'));
+            it2.filterText = s.name + ' unlock ' + s.xml;
+            it2.sortText = '4' + s.name + '~';
+            items.push(it2);
+        }
+    }
+    return items;
+}
+
 function provideCompletions(document, position) {
     const ctx = getContext(document, position);
     const items = [];
@@ -137,6 +233,8 @@ function provideCompletions(document, position) {
             it.sortText = (childSet && childSet.has(t.name) ? '0' : (DATA.rootTags.includes(t.name) ? '1' : '2')) + t.name;
             items.push(it);
         }
+        // 快捷跳转提示（单独跳转 / 跳转+解锁 各一条）
+        items.push(...shortcutCompletions(document));
         return items;
     }
 
@@ -275,4 +373,4 @@ function activate(context) {
 
 function deactivate() {}
 
-module.exports = { activate, deactivate };
+module.exports = { activate, deactivate, _test: { detectPlatform, folderMatches } };

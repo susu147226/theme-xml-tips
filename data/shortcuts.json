@@ -1,0 +1,2650 @@
+{
+  "huawei": [
+    {
+      "name": "主题",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.android.thememanager\" class=\"com.huawei.android.thememanager.HwThemeManagerActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拨号",
+      "xml": "<IntentCommand action=\"android.intent.action.DIAL\" condition=\"#click\" />"
+    },
+    {
+      "name": "联系人",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.contacts\" class=\"com.android.contacts.activities.PeopleActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "相机",
+      "xml": "<IntentCommand action=\"android.media.action.STILL_IMAGE_CAMERA\" category=\"android.intent.category.DEFAULT\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.mms\" class=\"com.android.mms.ui.ConversationList\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信编辑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.mms\" class=\"com.android.mms.ui.ComposeMessageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "备忘录",
+      "xml": "<IntentCommand  action=\"android.intent.action.MAIN\" package=\"com.example.android.notepad\" class=\"com.example.android.notepad.NotePadActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "指南针",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.compass\" class=\"com.huawei.compass.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "设置",
+      "xml": "<IntentCommand  action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.android.settings.HWSettings\" condition=\"#click\" />"
+    },
+    {
+      "name": "日历",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.calendar\" class=\"com.android.calendar.AllInOneActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "文件管理",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.hidisk\" class=\"com.huawei.hidisk.filemanager.FileManager\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.filemanager\" class=\"com.huawei.hidisk.filemanager.FileManager\" condition=\"#click\"/>"
+    },
+    {
+      "name": "图库",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.gallery3d\" class=\"com.huawei.gallery.app.GalleryMain\" condition=\"#click\" />"
+    },
+    {
+      "name": "计算器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.calculator2\" class=\"com.android.calculator2.Calculator\" condition=\"#click\" />"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.android.totemweather\" class=\"com.huawei.android.totemweather.WeatherHome\" condition=\"#click\" />"
+    },
+    {
+      "name": "时钟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.deskclock\" class=\"com.android.deskclock.AlarmsMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "电子邮件",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.email\" class=\"com.android.email.activity.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "收音机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.android.FMRadio\" class=\"com.huawei.android.FMRadio.FMRadioMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "录音机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.soundrecorder\" class=\"com.android.soundrecorder.SoundRecorder\" condition=\"#click\" />"
+    },
+    {
+      "name": "华为音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.mediacenter\" class=\"com.android.mediacenter.PageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "应用市场",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.appmarket\" class=\"com.huawei.appmarket.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.browser\" class=\"com.huawei.browser.Main2\" condition=\"#click\" />"
+    },
+    {
+      "name": "运动健康",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.health\" class=\"com.huawei.health.MainActivity\"  condition=\"#click\" />"
+    },
+    {
+      "name": "视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.himovie\" class=\"com.huawei.himovie.ui.login.SplashScreenActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.wallet\" class=\"com.huawei.wallet.view.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "华为支付 扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.wallet\" class=\"com.huawei.wallet.ui.qrcode.OpenQrcodeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "华为支付 付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.wallet\" class=\"com.huawei.wallet.nfc.bankcard.paymentcode.ui.PaymentCodeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "华为支付 收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.wallet\" class=\"com.huawei.nfc.carrera.ui.bindcard.InputCardNumActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "华为支付 乘车码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.wallet\" class=\"com.huawei.nfc.carrera.ui.bus.opencard.BindBusCardSwitchActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "手机管家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.huawei.systemmanager\" class=\"com.huawei.systemmanager.mainscreen.MainScreenActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mobileqq\" class=\"com.tencent.mobileqq.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.ugc.aweme\" class=\"com.ss.android.ugc.aweme.splash.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.ui.LauncherUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.scanner.ui.BaseScanUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.collect.ui.CollectMainUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.AlipayLogin\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.scan.as.main.MainCaptureActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.FastStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.payee.ui.PayeeQRActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.android.phone.wallet.aptrip.ui.ApTripActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝卡包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.alipassapp.alkb.kb.ALPMainPage63\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sina.weibo\" class=\"com.sina.weibo.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "菜鸟驿站-app",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.cainiao.wireless\" class=\"com.cainiao.wireless.homepage.view.activity.WelcomeActivity\"  />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.qiyi.video\" class=\"com.qiyi.video.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqlive\" class=\"com.tencent.qqlive.ona.activity.SplashHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "剪映",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.lemon.lv\" class=\"com.vega.main.MainActivity\" />"
+    },
+    {
+      "name": "QQ邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.androidqqmail\" class=\"com.tencent.qqmail.launcher.desktop.LauncherActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youku.phone\" class=\"com.youku.phone.ActivityWelcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.smile.gifmaker\" class=\"com.yxcorp.gifshow.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.alibaba.android.rimet\" class=\"com.alibaba.android.rimet.biz.LaunchHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度",
+      "xml": "*****<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.MainActivity\" />"
+    },
+    {
+      "name": "百度网盘",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.netdisk\" class=\"com.baidu.netdisk.ui.DefaultMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.NewMapActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.WelcomeScreen.Alias0\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.MapsActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.map\" class=\"com.tencent.map.WelcomeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "铁路12306",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.MobileTicket\" class=\"com.MobileTicket.ui.activity.WelcomeGuideActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sdu.didi.psnger\" class=\"com.didi.sdk.app.launch.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "哈啰出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingyao.easybike\" class=\"com.hellobike.atlas.business.portal.PortalActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.MainFrameActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.meituan.android.pt.homepage.activity.MainActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.sankuai.meituan.MPMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity\"  condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.waimai.business.page.homepage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"me.ele\" class=\"me.ele.Launcher\" condition=\"#click\"/>"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.mt.mtxx.mtxx\" class=\"com.mt.mtxx.mtxx.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.taobao\" class=\"com.taobao.tao.welcome.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "咸鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.kuwo.player\" class=\"cn.kuwo.player.activities.EntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cmccwm.mobilemusic\" class=\"cmccwm.mobilemusic.ui.base.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqmusic\" class=\"com.tencent.qqmusic.activity.AppStarterActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.MediaActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "网易云",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.LoadingActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.IconChangeDefaultAlias\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"tv.danmaku.bili\" class=\"tv.danmaku.bili.MainActivityV2\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎牙",
+      "xml": "<IntentCommand condition=\"#click\"  action=\"android.intent.action.MAIN\" package=\"com.duowan.kiwi\" class=\"com.duowan.kiwi.homepage.Homepage\" />"
+    },
+    {
+      "name": "西瓜视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.video\" class=\"com.ss.android.article.video.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xunmeng.pinduoduo\" class=\"com.xunmeng.pinduoduo.ui.activity.MainFrameActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "唯品会",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.achievo.vipshop\" class=\"com.achievo.vipshop.activity.LodingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天猫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tmall.wireless\" class=\"com.tmall.wireless.maintab.module.TMMainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.shizhuang.duapp\" class=\"com.shizhuang.duapp.modules.home.ui.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.sgame\" class=\"com.tencent.tmgp.sgame.SGameActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "英雄联盟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.lolm\" class=\"com.tencent.lolm.lgame\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "和平精英",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.pubgmhd\" class=\"com.epicgames.ue4.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "全民K歌",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.karaoke\" class=\"com.tencent.karaoke.module.splash.ui.SplashBaseActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.hellolua.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ飞车",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.speedmobile\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "穿越火线",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.cf\" class=\"com.tencent.tmgp.cf.AFMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "原神",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.Yuanshen\" class=\"com.miHoYo.GetMobileInfo.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "金铲铲之战",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.jkchess\" class=\"com.tencent.gcloud.msdk.core.policy.ZGamePolicyActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎扑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hupu.games\" class=\"com.hupu.games.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.zhihu.android\" class=\"com.zhihu.android.app.ui.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "搜狗输入法",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sohu.inputmethod.sogou\" class=\"com.sohu.inputmethod.sogou.SogouIMELauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "soul",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.soulapp.android\" class=\"cn.soulapp.android.component.startup.main.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "58同城",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.wuba\" class=\"com.wuba.home.activity.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "大众点评",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dianping.v1\" class=\"com.dianping.v1.NovaMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "最右",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"cn.xiaochuankeji.tieba\" class=\"cn.xiaochuankeji.tieba.ui.base.SplashActivity\"/>"
+    },
+    {
+      "name": "陌陌",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.immomo.momo\" class=\"com.immomo.momo.android.activity.WelcomeActivity\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.gotokeep.keep\" class=\"com.gotokeep.keep.splash.SplashActivity\" />"
+    },
+    {
+      "name": "皮皮虾",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.sup.android.superb\" class=\"com.sup.android.base.MainActivity\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.news\" class=\"com.ss.android.article.news.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xingin.xhs\" class=\"com.xingin.xhs.index.v2.IndexActivityV2\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mtt\" class=\"com.tencent.mtt.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "WPS",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.wps.moffice_eng\" class=\"cn.wps.moffice.documentmanager.PreStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.douban.frodo\" class=\"com.douban.frodo.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "轻颜相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.gorgeous.lite\" class=\"com.light.beauty.mainpage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "快看漫画",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kuaikan.comic\" class=\"com.kuaikan.main.LaunchActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "作业帮",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.homework\" class=\"com.baidu.homework.activity.index.IndexActivity\" />"
+    },
+    {
+      "name": "番茄小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dragon.read\" class=\"com.dragon.read.pages.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "七猫小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kmxs.reader\" class=\"com.km.app.home.view.LoadingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信读书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.weread.LauncherActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易有道词典",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youdao.dict\" class=\"com.youdao.dict.activity.DictSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "企业微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.wework.launch.LaunchSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "探探",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.p1.mobile.putong\" class=\"com.p1.mobile.putong.ui.splash.SplashProxyAct\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"ctrip.android.view\" class=\"ctrip.business.splash.CtripSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "崩坏三",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.bh3.nearme.gamecenter\" class=\"com.miHoYo.overridenativeactivity.OverrideNativeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hunantv.imgo.activity\" class=\"com.hunantv.imgo.activity.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "夸克",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.quark.browser\" class=\"com.ucpro.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "喜马拉雅",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.ximalaya.ting.android\" class=\"com.ximalaya.ting.android.host.activity.MainActivity\"/>"
+    },
+    {
+      "name": "桃源深处有人家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.fiftyone.yc\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "元梦之星",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.letsgo\" class=\"com.epicgames.ue4.GameActivityExt\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东金融",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.mainbox.main.MainActivity\"  />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.zhyy.login.ui.LoginActivity\"/>"
+    },
+    {
+      "name": "同程旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.tongcheng.android\" class=\"com.tongcheng.android.LoadingActivity\"/>"
+    },
+    {
+      "name": "去哪儿旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.Qunar\" class=\"com.mqunar.splash.SplashActivity\" />"
+    },
+    {
+      "name": "蛋仔派对-huawei",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.party.huawei\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" />"
+    }
+  ],
+  "honor": [
+    {
+      "name": "主题",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.android.thememanager\" class=\"com.hihonor.android.thememanager.PageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拨号",
+      "xml": "<IntentCommand action=\"android.intent.action.DIAL\" condition=\"#click\" />"
+    },
+    {
+      "name": "相机",
+      "xml": "<IntentCommand action=\"android.media.action.STILL_IMAGE_CAMERA\" category=\"android.intent.category.DEFAULT\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信编辑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.mms\" class=\"com.android.mms.ui.ComposeMessageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.mms\" class=\"com.android.mms.ui.ConversationList\" condition=\"#click\" />"
+    },
+    {
+      "name": "时钟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.deskclock\" class=\"com.android.deskclock.AlarmsMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "相册",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.photos\" class=\"com.hihonor.gallery.app.GalleryMain\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.android.totemweather\" class=\"com.hihonor.android.totemweather.WeatherHome\" condition=\"#click\"/>"
+    },
+    {
+      "name": "通讯录",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.hihonor.contacts\" class=\"com.android.contacts.activities.PeopleActivity\" />"
+    },
+    {
+      "name": "日历",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.calendar\" class=\"com.android.calendar.AllInOneActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "运动健康",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.health\" class=\"com.hihonor.health.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "备忘录/便签",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.notepad\" class=\"com.hihonor.notes.NotePadActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "设置",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.android.settings.HWSettings\" condition=\"#click\"/>"
+    },
+    {
+      "name": "视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.youku.video\" class=\"com.youku.v2.HomePageEntry\" condition=\"#click\"/>"
+    },
+    {
+      "name": "浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.baidu.browser\" class=\"com.baidu.searchbox.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "计算器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.calculator\" class=\"com.hihonor.calculator.Calculator\" condition=\"#click\"/>"
+    },
+    {
+      "name": "应用商店",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.appmarket\" class=\"com.hihonor.appmarket.module.splash.Splash\" condition=\"#click\"/>"
+    },
+    {
+      "name": "邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.email\" class=\"com.android.email.activity.Welcome\" condition=\"#click\"/>"
+    },
+    {
+      "name": "录音机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.soundrecorder\" class=\"com.android.soundrecorder.RecordListActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "文件管理",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.filemanager\" class=\"com.hihonor.honorcloud.filemanager.FileManager\" condition=\"#click\"/>"
+    },
+    {
+      "name": "手机管家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.systemmanager\" class=\"com.hihonor.devicemanager.mainscreen.MainScreenActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.devicemanager\" class=\"com.hihonor.devicemanager.mainscreen.MainScreenActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hihonor.wallet\" class=\"com.hihonor.wallet.WalletSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mobileqq\" class=\"com.tencent.mobileqq.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.ugc.aweme\" class=\"com.ss.android.ugc.aweme.splash.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.ui.LauncherUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.scanner.ui.BaseScanUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.collect.ui.CollectMainUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.AlipayLogin\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.scan.as.main.MainCaptureActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.FastStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.payee.ui.PayeeQRActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.android.phone.wallet.aptrip.ui.ApTripActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝卡包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.alipassapp.alkb.kb.ALPMainPage63\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sina.weibo\" class=\"com.sina.weibo.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "菜鸟驿站-app",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.cainiao.wireless\" class=\"com.cainiao.wireless.homepage.view.activity.WelcomeActivity\"  />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.qiyi.video\" class=\"com.qiyi.video.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqlive\" class=\"com.tencent.qqlive.ona.activity.SplashHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "剪映",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.lemon.lv\" class=\"com.vega.main.MainActivity\" />"
+    },
+    {
+      "name": "QQ邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.androidqqmail\" class=\"com.tencent.qqmail.launcher.desktop.LauncherActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youku.phone\" class=\"com.youku.phone.ActivityWelcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.smile.gifmaker\" class=\"com.yxcorp.gifshow.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.alibaba.android.rimet\" class=\"com.alibaba.android.rimet.biz.LaunchHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度",
+      "xml": "*****<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.MainActivity\" />"
+    },
+    {
+      "name": "百度网盘",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.netdisk\" class=\"com.baidu.netdisk.ui.DefaultMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.NewMapActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.WelcomeScreen.Alias0\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.MapsActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.map\" class=\"com.tencent.map.WelcomeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "铁路12306",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.MobileTicket\" class=\"com.MobileTicket.ui.activity.WelcomeGuideActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sdu.didi.psnger\" class=\"com.didi.sdk.app.launch.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "哈啰出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingyao.easybike\" class=\"com.hellobike.atlas.business.portal.PortalActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.MainFrameActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.meituan.android.pt.homepage.activity.MainActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.sankuai.meituan.MPMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity\"  condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.waimai.business.page.homepage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"me.ele\" class=\"me.ele.Launcher\" condition=\"#click\"/>"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.mt.mtxx.mtxx\" class=\"com.mt.mtxx.mtxx.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.taobao\" class=\"com.taobao.tao.welcome.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "咸鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.kuwo.player\" class=\"cn.kuwo.player.activities.EntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cmccwm.mobilemusic\" class=\"cmccwm.mobilemusic.ui.base.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqmusic\" class=\"com.tencent.qqmusic.activity.AppStarterActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.MediaActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "网易云",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.LoadingActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.IconChangeDefaultAlias\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"tv.danmaku.bili\" class=\"tv.danmaku.bili.MainActivityV2\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎牙",
+      "xml": "<IntentCommand condition=\"#click\"  action=\"android.intent.action.MAIN\" package=\"com.duowan.kiwi\" class=\"com.duowan.kiwi.homepage.Homepage\" />"
+    },
+    {
+      "name": "西瓜视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.video\" class=\"com.ss.android.article.video.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xunmeng.pinduoduo\" class=\"com.xunmeng.pinduoduo.ui.activity.MainFrameActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "唯品会",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.achievo.vipshop\" class=\"com.achievo.vipshop.activity.LodingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天猫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tmall.wireless\" class=\"com.tmall.wireless.maintab.module.TMMainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.shizhuang.duapp\" class=\"com.shizhuang.duapp.modules.home.ui.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.sgame\" class=\"com.tencent.tmgp.sgame.SGameActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "英雄联盟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.lolm\" class=\"com.tencent.lolm.lgame\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "和平精英",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.pubgmhd\" class=\"com.epicgames.ue4.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "全民K歌",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.karaoke\" class=\"com.tencent.karaoke.module.splash.ui.SplashBaseActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.hellolua.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ飞车",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.speedmobile\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "穿越火线",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.cf\" class=\"com.tencent.tmgp.cf.AFMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "原神",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.Yuanshen\" class=\"com.miHoYo.GetMobileInfo.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "金铲铲之战",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.jkchess\" class=\"com.tencent.gcloud.msdk.core.policy.ZGamePolicyActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎扑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hupu.games\" class=\"com.hupu.games.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.zhihu.android\" class=\"com.zhihu.android.app.ui.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "搜狗输入法",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sohu.inputmethod.sogou\" class=\"com.sohu.inputmethod.sogou.SogouIMELauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "soul",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.soulapp.android\" class=\"cn.soulapp.android.component.startup.main.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "58同城",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.wuba\" class=\"com.wuba.home.activity.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "大众点评",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dianping.v1\" class=\"com.dianping.v1.NovaMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "最右",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"cn.xiaochuankeji.tieba\" class=\"cn.xiaochuankeji.tieba.ui.base.SplashActivity\"/>"
+    },
+    {
+      "name": "陌陌",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.immomo.momo\" class=\"com.immomo.momo.android.activity.WelcomeActivity\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.gotokeep.keep\" class=\"com.gotokeep.keep.splash.SplashActivity\" />"
+    },
+    {
+      "name": "皮皮虾",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.sup.android.superb\" class=\"com.sup.android.base.MainActivity\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.news\" class=\"com.ss.android.article.news.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xingin.xhs\" class=\"com.xingin.xhs.index.v2.IndexActivityV2\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mtt\" class=\"com.tencent.mtt.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "WPS",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.wps.moffice_eng\" class=\"cn.wps.moffice.documentmanager.PreStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.douban.frodo\" class=\"com.douban.frodo.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "轻颜相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.gorgeous.lite\" class=\"com.light.beauty.mainpage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "快看漫画",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kuaikan.comic\" class=\"com.kuaikan.main.LaunchActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "作业帮",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.homework\" class=\"com.baidu.homework.activity.index.IndexActivity\" />"
+    },
+    {
+      "name": "番茄小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dragon.read\" class=\"com.dragon.read.pages.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "七猫小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kmxs.reader\" class=\"com.km.app.home.view.LoadingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信读书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.weread.LauncherActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易有道词典",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youdao.dict\" class=\"com.youdao.dict.activity.DictSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "企业微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.wework.launch.LaunchSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "探探",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.p1.mobile.putong\" class=\"com.p1.mobile.putong.ui.splash.SplashProxyAct\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"ctrip.android.view\" class=\"ctrip.business.splash.CtripSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "崩坏三",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.bh3.nearme.gamecenter\" class=\"com.miHoYo.overridenativeactivity.OverrideNativeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hunantv.imgo.activity\" class=\"com.hunantv.imgo.activity.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "夸克",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.quark.browser\" class=\"com.ucpro.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "喜马拉雅",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.ximalaya.ting.android\" class=\"com.ximalaya.ting.android.host.activity.MainActivity\"/>"
+    },
+    {
+      "name": "桃源深处有人家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.fiftyone.yc\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "元梦之星",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.letsgo\" class=\"com.epicgames.ue4.GameActivityExt\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东金融",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.mainbox.main.MainActivity\"  />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.zhyy.login.ui.LoginActivity\"/>"
+    },
+    {
+      "name": "同程旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.tongcheng.android\" class=\"com.tongcheng.android.LoadingActivity\"/>"
+    },
+    {
+      "name": "去哪儿旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.Qunar\" class=\"com.mqunar.splash.SplashActivity\" />"
+    },
+    {
+      "name": "蛋仔派对-hnt",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.party.honor\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" />"
+    }
+  ],
+  "oppo": [
+    {
+      "name": "主题：汉仪和Aa按照需求前缀选择。",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.nearme.themespace\" class=\"com.nearme.themespace.activities.ThemeActivity\"/>\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.nearme.themestore\" class=\"com.nearme.themespace.activities.ThemeActivity\"/>"
+    },
+    {
+      "name": "汉仪链接",
+      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D37999085\"/>"
+    },
+    {
+      "name": "Aa链接",
+      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D71723910\"/>"
+    },
+    {
+      "name": "萌叔",
+      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D422842040\"/>"
+    },
+    {
+      "name": "花兮",
+      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D602500800\" condition=\"#click\"/>"
+    },
+    {
+      "name": "字遇系",
+      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D459202668\" condition=\"#click\"/>"
+    },
+    {
+      "name": "嗨字",
+      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D406769206\" condition=\"#click\"/>"
+    },
+    {
+      "name": "喵喵拯救世界链接",
+      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D861692866\"/>"
+    },
+    {
+      "name": "拨号",
+      "xml": "<IntentCommand action=\"android.intent.action.DIAL\" condition=\"#click\" />"
+    },
+    {
+      "name": "音量跳转",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.android.settings.Settings$SoundSettingsActivity\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.oplus.settings.feature.panel.VolumePanelActivity\" />"
+    },
+    {
+      "name": "短信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" category=\"android.intent.category.DEFAULT\" package=\"com.android.mms\" class=\"com.android.mms.ui.ConversationList\" condition=\"#click\" />"
+    },
+    {
+      "name": "时钟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.alarmclock\" class=\"com.coloros.alarmclock.AlarmClock\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.alarmclock\" class=\"com.coloros.alarmclock.AlarmClock\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.alarmclock\" class=\"com.oplus.alarmclock.AlarmClock\" condition=\"#click\" />"
+    },
+    {
+      "name": "相册",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.gallery3d\" class=\"com.oppo.gallery3d.app.Gallery\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.gallery3d\" class=\"com.oppo.gallery3d.app.Gallery\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.gallery3d\" class=\"com.coloros.gallery3d.app.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oplus.camera\" class=\"com.oplus.camera.Camera\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.camera\" class=\"com.oppo.camera.Camera\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oneplus.camera\" class=\"com.oneplus.camera.Camera\" condition=\"#click\" />\n<IntentCommand action=\"android.media.action.STILL_IMAGE_CAMERA\" category=\"android.intent.category.DEFAULT\" condition=\"#click\" />"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.weather\" class=\"com.coloros.weather.OppoMainActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.weather\" class=\"com.coloros.weather.OppoMainActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.weather2\" class=\"com.coloros.weather.OppoMainActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.weather2\" class=\"com.coloros.weather.main.view.WeatherMainActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.weather2\" class=\"com.oplus.weather.main.view.WeatherMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "通讯录/联系人",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.contacts\" class=\"com.android.contacts.PeopleActivityAlias\" condition=\"#click\"/>"
+    },
+    {
+      "name": "日历",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.calendar\" class=\"com.android.calendar.AllInOneActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.calendar\" class=\"com.android.calendar.AllInOneActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "系统音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.music\" class=\"com.oppo.music.MainListActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.music\" class=\"com.nearme.music.splash.SplashActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.music\" class=\"ccom.nearme.music.splash.SplashActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.music\" class=\"com.allsaints.music.ui.splash.SplashActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.music\" class=\"com.nearme.music.splash.SplashActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.music\" class=\"com.nearme.music.play.ui.MusicPlayerActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.music\" class=\"com.allsaints.music.ui.splash.SplashActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.music\" class=\"com.allsaints.music.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "备忘录",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.nearme.note\" class=\"com.nearme.note.view.AllNoteActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.note\" class=\"com.nearme.note.view.AllNoteActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.note\" class=\"com.nearme.note.main.MainActivity\"  condition=\"#click\" />"
+    },
+    {
+      "name": "设置",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.android.settings.Settings\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.settings\" class=\"com.oppo.settings.SettingsActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.yoli\" class=\"com.heytap.yoli.icon_org\" condition=\"#click\" />"
+    },
+    {
+      "name": "浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.browser\" class=\"com.android.browser.BrowserActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.nearme.browser\" class=\"com.android.browser.BrowserActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.browser\" class=\"com.android.browser.BrowserActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.browser\" class=\"com.android.browser.BrowserActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "计算器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.calculator2\" class=\"com.android.calculator2.Calculator\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.calculator\" class=\"com.android.calculator2.Calculator\" condition=\"#click\"/>"
+    },
+    {
+      "name": "光遇游戏",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.netease.sky.nearme.gamecenter\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "第五人格",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.netease.dwrg.nearme.gamecenter\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "应用商店",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.heytap.market\" class=\"com.heytap.market.activity.MainActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.oppo.market\" class=\"com.heytap.cdo.client.cards.page.main.maintab.MainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "邮箱(电子邮件)",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.email\" class=\"com.android.email.login.activity.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "录音机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"oppo.multimedia.soundrecorder\" class=\"oppo.multimedia.soundrecorder.filebrowser.BrowseFile\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.soundrecorder\" class=\"oppo.multimedia.soundrecorder.filebrowser.BrowseFile\" condition=\"#click\"/>"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.wallet\" class=\"com.nearme.wallet.SplashActivity\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.finshell.wallet\" class=\"com.nearme.wallet.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "手机管家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.phonemanager\" class=\"com.coloros.phonemanager.FakeActivity\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand market=\"1\" action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.android.platform.oppo.ads.SplashActivity\" \tcondition=\"#click\" />"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.wallet\" class=\"com.nearme.wallet.SplashActivity\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.finshell.wallet\" class=\"com.nearme.wallet.SplashActivity\" />"
+    },
+    {
+      "name": "手机管家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.coloros.phonemanager\" class=\"com.coloros.phonemanager.FakeActivity\" />"
+    },
+    {
+      "name": "文件管理",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" class=\"com.coloros.filemanager.Main\" package=\"com.coloros.filemanager\"/>\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" class=\"com.oppo.filemanager.Main\" package=\"com.oppo.filemanager\"/>\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" class=\"com.coloros.filemanager.filerefactor.ui.main.MainActivity\" package=\"com.coloros.filemanager\"/>\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" class=\"com.oplus.filemanager.main.ui.MainActivity\" package=\"com.coloros.filemanager\"/>"
+    },
+    {
+      "name": "QQ",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mobileqq\" class=\"com.tencent.mobileqq.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.ugc.aweme\" class=\"com.ss.android.ugc.aweme.splash.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.ui.LauncherUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.scanner.ui.BaseScanUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.collect.ui.CollectMainUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.AlipayLogin\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.scan.as.main.MainCaptureActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.FastStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.payee.ui.PayeeQRActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.android.phone.wallet.aptrip.ui.ApTripActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝卡包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.alipassapp.alkb.kb.ALPMainPage63\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sina.weibo\" class=\"com.sina.weibo.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "菜鸟驿站-app",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.cainiao.wireless\" class=\"com.cainiao.wireless.homepage.view.activity.WelcomeActivity\"  />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.qiyi.video\" class=\"com.qiyi.video.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqlive\" class=\"com.tencent.qqlive.ona.activity.SplashHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "剪映",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.lemon.lv\" class=\"com.vega.main.MainActivity\" />"
+    },
+    {
+      "name": "QQ邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.androidqqmail\" class=\"com.tencent.qqmail.launcher.desktop.LauncherActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youku.phone\" class=\"com.youku.phone.ActivityWelcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.smile.gifmaker\" class=\"com.yxcorp.gifshow.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.alibaba.android.rimet\" class=\"com.alibaba.android.rimet.biz.LaunchHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度",
+      "xml": "*****<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.MainActivity\" />"
+    },
+    {
+      "name": "百度网盘",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.netdisk\" class=\"com.baidu.netdisk.ui.DefaultMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.NewMapActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.WelcomeScreen.Alias0\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.MapsActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.map\" class=\"com.tencent.map.WelcomeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "铁路12306",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.MobileTicket\" class=\"com.MobileTicket.ui.activity.WelcomeGuideActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sdu.didi.psnger\" class=\"com.didi.sdk.app.launch.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "哈啰出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingyao.easybike\" class=\"com.hellobike.atlas.business.portal.PortalActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.MainFrameActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.meituan.android.pt.homepage.activity.MainActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.sankuai.meituan.MPMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity\"  condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.waimai.business.page.homepage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"me.ele\" class=\"me.ele.Launcher\" condition=\"#click\"/>"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.mt.mtxx.mtxx\" class=\"com.mt.mtxx.mtxx.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.taobao\" class=\"com.taobao.tao.welcome.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "咸鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.kuwo.player\" class=\"cn.kuwo.player.activities.EntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cmccwm.mobilemusic\" class=\"cmccwm.mobilemusic.ui.base.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqmusic\" class=\"com.tencent.qqmusic.activity.AppStarterActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.MediaActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "网易云",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.LoadingActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.IconChangeDefaultAlias\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"tv.danmaku.bili\" class=\"tv.danmaku.bili.MainActivityV2\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎牙",
+      "xml": "<IntentCommand condition=\"#click\"  action=\"android.intent.action.MAIN\" package=\"com.duowan.kiwi\" class=\"com.duowan.kiwi.homepage.Homepage\" />"
+    },
+    {
+      "name": "西瓜视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.video\" class=\"com.ss.android.article.video.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xunmeng.pinduoduo\" class=\"com.xunmeng.pinduoduo.ui.activity.MainFrameActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "唯品会",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.achievo.vipshop\" class=\"com.achievo.vipshop.activity.LodingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天猫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tmall.wireless\" class=\"com.tmall.wireless.maintab.module.TMMainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.shizhuang.duapp\" class=\"com.shizhuang.duapp.modules.home.ui.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.sgame\" class=\"com.tencent.tmgp.sgame.SGameActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "英雄联盟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.lolm\" class=\"com.tencent.lolm.lgame\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "和平精英",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.pubgmhd\" class=\"com.epicgames.ue4.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "全民K歌",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.karaoke\" class=\"com.tencent.karaoke.module.splash.ui.SplashBaseActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.hellolua.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ飞车",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.speedmobile\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "穿越火线",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.cf\" class=\"com.tencent.tmgp.cf.AFMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "原神",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.Yuanshen\" class=\"com.miHoYo.GetMobileInfo.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "金铲铲之战",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.jkchess\" class=\"com.tencent.gcloud.msdk.core.policy.ZGamePolicyActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎扑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hupu.games\" class=\"com.hupu.games.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.zhihu.android\" class=\"com.zhihu.android.app.ui.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "搜狗输入法",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sohu.inputmethod.sogou\" class=\"com.sohu.inputmethod.sogou.SogouIMELauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "soul",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.soulapp.android\" class=\"cn.soulapp.android.component.startup.main.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "58同城",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.wuba\" class=\"com.wuba.home.activity.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "大众点评",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dianping.v1\" class=\"com.dianping.v1.NovaMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "最右",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"cn.xiaochuankeji.tieba\" class=\"cn.xiaochuankeji.tieba.ui.base.SplashActivity\"/>"
+    },
+    {
+      "name": "陌陌",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.immomo.momo\" class=\"com.immomo.momo.android.activity.WelcomeActivity\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.gotokeep.keep\" class=\"com.gotokeep.keep.splash.SplashActivity\" />"
+    },
+    {
+      "name": "皮皮虾",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.sup.android.superb\" class=\"com.sup.android.base.MainActivity\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.news\" class=\"com.ss.android.article.news.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xingin.xhs\" class=\"com.xingin.xhs.index.v2.IndexActivityV2\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mtt\" class=\"com.tencent.mtt.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "WPS",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.wps.moffice_eng\" class=\"cn.wps.moffice.documentmanager.PreStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.douban.frodo\" class=\"com.douban.frodo.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "轻颜相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.gorgeous.lite\" class=\"com.light.beauty.mainpage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "快看漫画",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kuaikan.comic\" class=\"com.kuaikan.main.LaunchActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "作业帮",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.homework\" class=\"com.baidu.homework.activity.index.IndexActivity\" />"
+    },
+    {
+      "name": "番茄小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dragon.read\" class=\"com.dragon.read.pages.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "七猫小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kmxs.reader\" class=\"com.km.app.home.view.LoadingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信读书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.weread.LauncherActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易有道词典",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youdao.dict\" class=\"com.youdao.dict.activity.DictSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "企业微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.wework.launch.LaunchSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "探探",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.p1.mobile.putong\" class=\"com.p1.mobile.putong.ui.splash.SplashProxyAct\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"ctrip.android.view\" class=\"ctrip.business.splash.CtripSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "崩坏三",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.bh3.nearme.gamecenter\" class=\"com.miHoYo.overridenativeactivity.OverrideNativeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hunantv.imgo.activity\" class=\"com.hunantv.imgo.activity.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "夸克",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.quark.browser\" class=\"com.ucpro.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "喜马拉雅",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.ximalaya.ting.android\" class=\"com.ximalaya.ting.android.host.activity.MainActivity\"/>"
+    },
+    {
+      "name": "桃源深处有人家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.fiftyone.yc\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "元梦之星",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.letsgo\" class=\"com.epicgames.ue4.GameActivityExt\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东金融",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.mainbox.main.MainActivity\"  />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.zhyy.login.ui.LoginActivity\"/>"
+    },
+    {
+      "name": "同程旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.tongcheng.android\" class=\"com.tongcheng.android.LoadingActivity\"/>"
+    },
+    {
+      "name": "去哪儿旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.Qunar\" class=\"com.mqunar.splash.SplashActivity\" />"
+    },
+    {
+      "name": "蛋仔派对-oppo",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.party.nearme.gamecenter\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" />"
+    }
+  ],
+  "vivo": [
+    {
+      "name": "主题",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.bbk.theme\" class=\"com.bbk.theme.Theme\" condition=\"#click\"/>"
+    },
+    {
+      "name": "短信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.mms\" class=\"com.android.mms.ui.ConversationList\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信编辑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.mms\" class=\"com.android.mms.ui.ComposeMessageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "时钟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.BBKClock\" class=\"com.android.BBKClock.Timer\" condition=\"#click\"/>"
+    },
+    {
+      "name": "相册",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" class=\"com.android.gallery3d.vivo.GalleryTabActivity\" package=\"com.vivo.gallery\" condition=\"#click\"/>"
+    },
+    {
+      "name": "相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.camera\" class=\"com.android.camera.CameraActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.weather\" class=\"com.vivo.weather.WeatherMain\" condition=\"#click\" />"
+    },
+    {
+      "name": "拨号",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.dialer\" class=\"com.android.dialer.TwelveKeyDialer\" condition=\"#click\"/>"
+    },
+    {
+      "name": "通讯录/联系人",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.contacts\" class=\"com.android.contacts.DialtactsContactsEntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "日历",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.bbk.calendar\" class=\"com.bbk.calendar.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "系统音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.bbkmusic\" class=\"com.android.bbkmusic.MusicMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "备忘录",
+      "xml": "<IntentCommand  action=\"android.intent.action.MAIN\" package=\"com.android.notes\" class=\"com.android.notes.Notes\" condition=\"#click\" />"
+    },
+    {
+      "name": "设置",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" class=\"com.android.settings.Settings\" package=\"com.android.settings\" condition=\"#click\"/>"
+    },
+    {
+      "name": "视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.VideoPlayer\" class=\"com.android.VideoPlayer.VideoPlayer\" condition=\"#click\" />"
+    },
+    {
+      "name": "浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.browser\" class=\"com.vivo.browser.BrowserActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "计算器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.bbkcalculator\" class=\"com.android.bbkcalculator.Calculator\" condition=\"#click\" />"
+    },
+    {
+      "name": "光遇游戏",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.netease.sky.vivo\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "第五人格",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.netease.dwrg5.vivo\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "应用商店",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.bbk.appstore\" class=\"com.bbk.appstore.ui.AppStoreTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "邮箱(电子邮件)",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.email\" class=\"com.vivo.email.activity.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "录音机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.android.bbksoundrecorder\" class=\"com.android.bbksoundrecorder.SoundRecorder\" condition=\"#click\" />"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.wallet\" class=\"com.vivo.wallet.StartPageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "运动健康",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.health\" class=\"com.vivo.health.main.activity.GuideActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.vivo.wallet\" class=\"com.vivo.wallet.StartPageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "手机管家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.iqoo.secure\" class=\"com.iqoo.secure.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "文件管理",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.android.filemanager\" class=\"com.android.filemanager.FileManagerActivity\"/>"
+    },
+    {
+      "name": "QQ",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mobileqq\" class=\"com.tencent.mobileqq.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.ugc.aweme\" class=\"com.ss.android.ugc.aweme.splash.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.ui.LauncherUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.scanner.ui.BaseScanUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.collect.ui.CollectMainUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.AlipayLogin\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.scan.as.main.MainCaptureActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.FastStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.payee.ui.PayeeQRActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.android.phone.wallet.aptrip.ui.ApTripActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝卡包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.alipassapp.alkb.kb.ALPMainPage63\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sina.weibo\" class=\"com.sina.weibo.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "菜鸟驿站-app",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.cainiao.wireless\" class=\"com.cainiao.wireless.homepage.view.activity.WelcomeActivity\"  />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.qiyi.video\" class=\"com.qiyi.video.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqlive\" class=\"com.tencent.qqlive.ona.activity.SplashHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "剪映",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.lemon.lv\" class=\"com.vega.main.MainActivity\" />"
+    },
+    {
+      "name": "QQ邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.androidqqmail\" class=\"com.tencent.qqmail.launcher.desktop.LauncherActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youku.phone\" class=\"com.youku.phone.ActivityWelcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.smile.gifmaker\" class=\"com.yxcorp.gifshow.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.alibaba.android.rimet\" class=\"com.alibaba.android.rimet.biz.LaunchHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度",
+      "xml": "*****<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.MainActivity\" />"
+    },
+    {
+      "name": "百度网盘",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.netdisk\" class=\"com.baidu.netdisk.ui.DefaultMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.NewMapActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.WelcomeScreen.Alias0\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.MapsActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.map\" class=\"com.tencent.map.WelcomeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "铁路12306",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.MobileTicket\" class=\"com.MobileTicket.ui.activity.WelcomeGuideActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sdu.didi.psnger\" class=\"com.didi.sdk.app.launch.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "哈啰出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingyao.easybike\" class=\"com.hellobike.atlas.business.portal.PortalActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.MainFrameActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.meituan.android.pt.homepage.activity.MainActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.sankuai.meituan.MPMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity\"  condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.waimai.business.page.homepage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"me.ele\" class=\"me.ele.Launcher\" condition=\"#click\"/>"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.mt.mtxx.mtxx\" class=\"com.mt.mtxx.mtxx.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.taobao\" class=\"com.taobao.tao.welcome.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "咸鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.kuwo.player\" class=\"cn.kuwo.player.activities.EntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cmccwm.mobilemusic\" class=\"cmccwm.mobilemusic.ui.base.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqmusic\" class=\"com.tencent.qqmusic.activity.AppStarterActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.MediaActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "网易云",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.LoadingActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.IconChangeDefaultAlias\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"tv.danmaku.bili\" class=\"tv.danmaku.bili.MainActivityV2\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎牙",
+      "xml": "<IntentCommand condition=\"#click\"  action=\"android.intent.action.MAIN\" package=\"com.duowan.kiwi\" class=\"com.duowan.kiwi.homepage.Homepage\" />"
+    },
+    {
+      "name": "西瓜视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.video\" class=\"com.ss.android.article.video.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xunmeng.pinduoduo\" class=\"com.xunmeng.pinduoduo.ui.activity.MainFrameActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "唯品会",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.achievo.vipshop\" class=\"com.achievo.vipshop.activity.LodingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天猫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tmall.wireless\" class=\"com.tmall.wireless.maintab.module.TMMainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.shizhuang.duapp\" class=\"com.shizhuang.duapp.modules.home.ui.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.sgame\" class=\"com.tencent.tmgp.sgame.SGameActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "英雄联盟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.lolm\" class=\"com.tencent.lolm.lgame\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "和平精英",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.pubgmhd\" class=\"com.epicgames.ue4.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "全民K歌",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.karaoke\" class=\"com.tencent.karaoke.module.splash.ui.SplashBaseActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.hellolua.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ飞车",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.speedmobile\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "穿越火线",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.cf\" class=\"com.tencent.tmgp.cf.AFMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "原神",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.Yuanshen\" class=\"com.miHoYo.GetMobileInfo.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "金铲铲之战",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.jkchess\" class=\"com.tencent.gcloud.msdk.core.policy.ZGamePolicyActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎扑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hupu.games\" class=\"com.hupu.games.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.zhihu.android\" class=\"com.zhihu.android.app.ui.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "搜狗输入法",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sohu.inputmethod.sogou\" class=\"com.sohu.inputmethod.sogou.SogouIMELauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "soul",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.soulapp.android\" class=\"cn.soulapp.android.component.startup.main.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "58同城",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.wuba\" class=\"com.wuba.home.activity.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "大众点评",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dianping.v1\" class=\"com.dianping.v1.NovaMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "最右",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"cn.xiaochuankeji.tieba\" class=\"cn.xiaochuankeji.tieba.ui.base.SplashActivity\"/>"
+    },
+    {
+      "name": "陌陌",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.immomo.momo\" class=\"com.immomo.momo.android.activity.WelcomeActivity\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.gotokeep.keep\" class=\"com.gotokeep.keep.splash.SplashActivity\" />"
+    },
+    {
+      "name": "皮皮虾",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.sup.android.superb\" class=\"com.sup.android.base.MainActivity\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.news\" class=\"com.ss.android.article.news.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xingin.xhs\" class=\"com.xingin.xhs.index.v2.IndexActivityV2\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mtt\" class=\"com.tencent.mtt.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "WPS",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.wps.moffice_eng\" class=\"cn.wps.moffice.documentmanager.PreStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.douban.frodo\" class=\"com.douban.frodo.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "轻颜相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.gorgeous.lite\" class=\"com.light.beauty.mainpage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "快看漫画",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kuaikan.comic\" class=\"com.kuaikan.main.LaunchActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "作业帮",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.homework\" class=\"com.baidu.homework.activity.index.IndexActivity\" />"
+    },
+    {
+      "name": "番茄小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dragon.read\" class=\"com.dragon.read.pages.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "七猫小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kmxs.reader\" class=\"com.km.app.home.view.LoadingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信读书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.weread.LauncherActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易有道词典",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youdao.dict\" class=\"com.youdao.dict.activity.DictSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "企业微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.wework.launch.LaunchSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "探探",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.p1.mobile.putong\" class=\"com.p1.mobile.putong.ui.splash.SplashProxyAct\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"ctrip.android.view\" class=\"ctrip.business.splash.CtripSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "崩坏三",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.bh3.nearme.gamecenter\" class=\"com.miHoYo.overridenativeactivity.OverrideNativeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hunantv.imgo.activity\" class=\"com.hunantv.imgo.activity.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "夸克",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.quark.browser\" class=\"com.ucpro.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "喜马拉雅",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.ximalaya.ting.android\" class=\"com.ximalaya.ting.android.host.activity.MainActivity\"/>"
+    },
+    {
+      "name": "桃源深处有人家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.fiftyone.yc\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "元梦之星",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.letsgo\" class=\"com.epicgames.ue4.GameActivityExt\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东金融",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.mainbox.main.MainActivity\"  />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.zhyy.login.ui.LoginActivity\"/>"
+    },
+    {
+      "name": "同程旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.tongcheng.android\" class=\"com.tongcheng.android.LoadingActivity\"/>"
+    },
+    {
+      "name": "去哪儿旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.Qunar\" class=\"com.mqunar.splash.SplashActivity\" />"
+    },
+    {
+      "name": "蛋仔派对-vivo",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.party.vivo\" class=\"com.netease.ntunisdk.external.protocol.ProtocolLauncher\" />"
+    }
+  ],
+  "xiaomi": [
+    {
+      "name": "主题",
+      "xml": "<IntentCommand  package=\"com.android.thememanager\" class=\"com.android.thememanager.ThemeResourceTabActivity\" condition=\"#click\" />\n<IntentCommand  package=\"com.android.thememanager\" class=\"com.android.thememanager.ThemeResourceProxyTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "联系人",
+      "xml": "<IntentCommand  package=\"com.android.contacts\" class=\"com.android.contacts.activities.PeopleActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "图库",
+      "xml": "<IntentCommand  package=\"com.miui.gallery\" class=\"com.miui.gallery.app.Gallery\" condition=\"#click\" />\n<IntentCommand  package=\"com.miui.gallery\" class=\"com.miui.gallery.activity.HomePageActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand  package=\"com.miui.weather2\" class=\"com.miui.weather2.ActivityWeatherMain\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mobileqq\" class=\"com.tencent.mobileqq.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.ugc.aweme\" class=\"com.ss.android.ugc.aweme.splash.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.ui.LauncherUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.scanner.ui.BaseScanUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mm\" class=\"com.tencent.mm.plugin.collect.ui.CollectMainUI\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.AlipayLogin\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝扫一扫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.scan.as.main.MainCaptureActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝付款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.eg.android.AlipayGphone.FastStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝收款码",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.payee.ui.PayeeQRActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "支付宝出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.android.phone.wallet.aptrip.ui.ApTripActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝卡包",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.eg.android.AlipayGphone\" class=\"com.alipay.mobile.alipassapp.alkb.kb.ALPMainPage63\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sina.weibo\" class=\"com.sina.weibo.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "菜鸟驿站-app",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.cainiao.wireless\" class=\"com.cainiao.wireless.homepage.view.activity.WelcomeActivity\"  />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.qiyi.video\" class=\"com.qiyi.video.WelcomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqlive\" class=\"com.tencent.qqlive.ona.activity.SplashHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "剪映",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.lemon.lv\" class=\"com.vega.main.MainActivity\" />"
+    },
+    {
+      "name": "QQ邮箱",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.androidqqmail\" class=\"com.tencent.qqmail.launcher.desktop.LauncherActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youku.phone\" class=\"com.youku.phone.ActivityWelcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.smile.gifmaker\" class=\"com.yxcorp.gifshow.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.alibaba.android.rimet\" class=\"com.alibaba.android.rimet.biz.LaunchHomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度",
+      "xml": "*****<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.SplashActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.searchbox\" class=\"com.baidu.searchbox.MainActivity\" />"
+    },
+    {
+      "name": "百度网盘",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.netdisk\" class=\"com.baidu.netdisk.ui.DefaultMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.NewMapActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.autonavi.minimap\" class=\"com.autonavi.map.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.WelcomeScreen.Alias0\" condition=\"#click\" />\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.baidu.BaiduMap\" class=\"com.baidu.baidumaps.MapsActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯地图",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.map\" class=\"com.tencent.map.WelcomeActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "铁路12306",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.MobileTicket\" class=\"com.MobileTicket.ui.activity.WelcomeGuideActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sdu.didi.psnger\" class=\"com.didi.sdk.app.launch.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "哈啰出行",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingyao.easybike\" class=\"com.hellobike.atlas.business.portal.PortalActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.MainFrameActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.jingdong.app.mall\" class=\"com.jingdong.app.mall.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.meituan.android.pt.homepage.activity.MainActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan\" class=\"com.sankuai.meituan.MPMainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity\"  condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sankuai.meituan.takeoutnew\" class=\"com.sankuai.waimai.business.page.homepage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"me.ele\" class=\"me.ele.Launcher\" condition=\"#click\"/>"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.mt.mtxx.mtxx\" class=\"com.mt.mtxx.mtxx.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.taobao\" class=\"com.taobao.tao.welcome.Welcome\" condition=\"#click\" />"
+    },
+    {
+      "name": "咸鱼",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.taobao.idlefish\" class=\"com.taobao.fleamarket.home.activity.InitActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.kuwo.player\" class=\"cn.kuwo.player.activities.EntryActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cmccwm.mobilemusic\" class=\"cmccwm.mobilemusic.ui.base.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.qqmusic\" class=\"com.tencent.qqmusic.activity.AppStarterActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.MediaActivity\" condition=\"#click\"/>\n<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kugou.android\" class=\"com.kugou.android.app.splash.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "网易云",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.LoadingActivity\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.IconChangeDefaultAlias\" />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.netease.cloudmusic\" class=\"com.netease.cloudmusic.activity.MainActivity\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"tv.danmaku.bili\" class=\"tv.danmaku.bili.MainActivityV2\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎牙",
+      "xml": "<IntentCommand condition=\"#click\"  action=\"android.intent.action.MAIN\" package=\"com.duowan.kiwi\" class=\"com.duowan.kiwi.homepage.Homepage\" />"
+    },
+    {
+      "name": "西瓜视频",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.video\" class=\"com.ss.android.article.video.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xunmeng.pinduoduo\" class=\"com.xunmeng.pinduoduo.ui.activity.MainFrameActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "唯品会",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.achievo.vipshop\" class=\"com.achievo.vipshop.activity.LodingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "天猫",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tmall.wireless\" class=\"com.tmall.wireless.maintab.module.TMMainTabActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.shizhuang.duapp\" class=\"com.shizhuang.duapp.modules.home.ui.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.sgame\" class=\"com.tencent.tmgp.sgame.SGameActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "英雄联盟",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.lolm\" class=\"com.tencent.lolm.lgame\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "和平精英",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.pubgmhd\" class=\"com.epicgames.ue4.SplashActivity\"  condition=\"#click\"/>"
+    },
+    {
+      "name": "全民K歌",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.karaoke\" class=\"com.tencent.karaoke.module.splash.ui.SplashBaseActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "开心消消乐",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.happyelements.AndroidAnimal\" class=\"com.happyelements.hellolua.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ飞车",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.speedmobile\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "穿越火线",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.tmgp.cf\" class=\"com.tencent.tmgp.cf.AFMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "原神",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.Yuanshen\" class=\"com.miHoYo.GetMobileInfo.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "金铲铲之战",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.jkchess\" class=\"com.tencent.gcloud.msdk.core.policy.ZGamePolicyActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "虎扑",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hupu.games\" class=\"com.hupu.games.main.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.zhihu.android\" class=\"com.zhihu.android.app.ui.activity.MainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "搜狗输入法",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.sohu.inputmethod.sogou\" class=\"com.sohu.inputmethod.sogou.SogouIMELauncher\" condition=\"#click\" />"
+    },
+    {
+      "name": "soul",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.soulapp.android\" class=\"cn.soulapp.android.component.startup.main.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "58同城",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.wuba\" class=\"com.wuba.home.activity.HomeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "大众点评",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dianping.v1\" class=\"com.dianping.v1.NovaMainActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "最右",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"cn.xiaochuankeji.tieba\" class=\"cn.xiaochuankeji.tieba.ui.base.SplashActivity\"/>"
+    },
+    {
+      "name": "陌陌",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.immomo.momo\" class=\"com.immomo.momo.android.activity.WelcomeActivity\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.gotokeep.keep\" class=\"com.gotokeep.keep.splash.SplashActivity\" />"
+    },
+    {
+      "name": "皮皮虾",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.sup.android.superb\" class=\"com.sup.android.base.MainActivity\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.ss.android.article.news\" class=\"com.ss.android.article.news.activity.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.xingin.xhs\" class=\"com.xingin.xhs.index.v2.IndexActivityV2\" condition=\"#click\"/>"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.mtt\" class=\"com.tencent.mtt.SplashActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "WPS",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"cn.wps.moffice_eng\" class=\"cn.wps.moffice.documentmanager.PreStartActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.douban.frodo\" class=\"com.douban.frodo.activity.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "轻颜相机",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.gorgeous.lite\" class=\"com.light.beauty.mainpage.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.UCMobile\" class=\"com.UCMobile.main.UCMobile\" condition=\"#click\" />"
+    },
+    {
+      "name": "快看漫画",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kuaikan.comic\" class=\"com.kuaikan.main.LaunchActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "作业帮",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.baidu.homework\" class=\"com.baidu.homework.activity.index.IndexActivity\" />"
+    },
+    {
+      "name": "番茄小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.dragon.read\" class=\"com.dragon.read.pages.splash.SplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "七猫小说",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.kmxs.reader\" class=\"com.km.app.home.view.LoadingActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "微信读书",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.weread.LauncherActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易有道词典",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.youdao.dict\" class=\"com.youdao.dict.activity.DictSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "企业微信",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.wework\" class=\"com.tencent.wework.launch.LaunchSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "探探",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.p1.mobile.putong\" class=\"com.p1.mobile.putong.ui.splash.SplashProxyAct\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"ctrip.android.view\" class=\"ctrip.business.splash.CtripSplashActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "崩坏三",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.miHoYo.bh3.nearme.gamecenter\" class=\"com.miHoYo.overridenativeactivity.OverrideNativeActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.hunantv.imgo.activity\" class=\"com.hunantv.imgo.activity.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "夸克",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.quark.browser\" class=\"com.ucpro.MainActivity\" condition=\"#click\" />"
+    },
+    {
+      "name": "喜马拉雅",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.ximalaya.ting.android\" class=\"com.ximalaya.ting.android.host.activity.MainActivity\"/>"
+    },
+    {
+      "name": "桃源深处有人家",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.fiftyone.yc\" class=\"com.tencent.gcloud.msdk.core.policy.MSDKPolicyActivity\" condition=\"#click\"/>"
+    },
+    {
+      "name": "元梦之星",
+      "xml": "<IntentCommand action=\"android.intent.action.MAIN\" package=\"com.tencent.letsgo\" class=\"com.epicgames.ue4.GameActivityExt\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东金融",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.mainbox.main.MainActivity\"  />\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.jd.jrapp\" class=\"com.jd.jrapp.bm.zhyy.login.ui.LoginActivity\"/>"
+    },
+    {
+      "name": "同程旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.tongcheng.android\" class=\"com.tongcheng.android.LoadingActivity\"/>"
+    },
+    {
+      "name": "去哪儿旅行",
+      "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.Qunar\" class=\"com.mqunar.splash.SplashActivity\" />"
+    }
+  ],
+  "harmonyos": [
+    {
+      "name": "主题",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmsapp.thememanager\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "短信",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ohos.mms\" class=\"com.ohos.mms.MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "时钟",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.clock\" class=\"com.huawei.hmos.clock.phone\" condition=\"#click\" />"
+    },
+    {
+      "name": "相册",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.photos\" class=\"com.huawei.hmos.photos.MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "相机",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.camera\" class=\"com.huawei.hmos.camera.MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "天气",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\"  package=\"com.huawei.hmsapp.totemweather\" class=\"com.huawei.hmsapp.totemweather.MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "通讯录/联系人",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ohos.contacts\" class=\"com.ohos.contacts.MainAbility\" condition=\"#click\"/>"
+    },
+    {
+      "name": "日历",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.calendar\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "音乐",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmsapp.music\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "运动健康",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.health\" class=\"MainAbility\" condition=\"#click\"/>"
+    },
+    {
+      "name": "备忘录",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.notepad\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "设置",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.settings\" class=\"com.huawei.hmos.settings.MainAbility\" condition=\"#click\"/>"
+    },
+    {
+      "name": "视频",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmsapp.himovie\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "浏览器",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.browser\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "计算器",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.calculator\" class=\"CalculatorAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "畅连",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.meetime\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "华为应用市场",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmsapp.appgallery\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "钱包",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmos.wallet\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "华为阅读",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.huawei.hmsapp.books\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "文件管理",
+      "xml": "<IntentCommand action=\"action.system.home\" package=\"com.huawei.hmos.files\" class=\"EntryAbility\" condition=\"#click\" category=\"entity.system.home\" />"
+    },
+    {
+      "name": "微信",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.wechat\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "qq",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.mqq\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "支付宝",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.alipay.mobile.client\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "小红书",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.xingin.xhs_hos\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "微博",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.sina.weibo.stage\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.zhihu.hmos\" class=\"PhoneAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "抖音",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ss.hm.ugc.aweme\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.sankuai.hmeituan\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "芒果TV",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.mgtv.phone\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯视频",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.videohm\" class=\"AppAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "优酷视频",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.youku.next\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "哔哩哔哩",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"yylx.danmaku.bili\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "爱奇艺",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.qiyi.video.hmy\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "keep",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.gotokeep.hm.keep\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "UC浏览器",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.uc.mobile\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "阿里巴巴",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.alibaba.wireless_hmos\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "得物",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.dewu.hos\" class=\"HomeAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "豆瓣",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.douban.frodo.hap\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "飞书",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ss.feishu\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "航旅纵横",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.umetrip.hm.app\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "今日头条",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ss.hm.article.news\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "快手",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.kuaishou.hmapp\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "美图秀秀",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.meitu.meitupic\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕视频",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.cmcc.cmvideohm\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "淘宝",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.taobao.taobao4hmos\" class=\"Taobao_mainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "腾讯新闻",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.hm.news\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷狗音乐",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.kugou.hmmusic\" class=\"MainAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ音乐",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.hm.qqmusic\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "网易云音乐",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.netease.cloudmusic.hm\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "咪咕音乐",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"cn.migu.music\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "酷我",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.hmkuwo.cn\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.taobao.idlefish4ohos\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "小猿搜题",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.kanyun.hos.solar\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "智联招聘",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.zhilian.zhaopin\" class=\"PhoneAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "百度",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.baidu.baiduapp\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "高德地图",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.amap.hmapp\" class=\"EntryAbility\" condition=\"#click\"/>"
+    },
+    {
+      "name": "百度地图",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.baidu.hmmap\" class=\"EntryAbility\" condition=\"#click\"/>"
+    },
+    {
+      "name": "饿了么",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"me.ele.eleme\" class=\"EntryElemeAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "知乎",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.zhihu.hmos\" class=\"PhoneAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "美团外卖",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.meituan.takeaway\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "王者荣耀",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.tmgp.sgame.hw\" class=\"SGameAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "钉钉",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.dingtalk.hmos\" class=\"dingtalk\" condition=\"#click\" />"
+    },
+    {
+      "name": "京东",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.jd.hm.mall\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "滴滴",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.sdu.didi.hmos.psnger\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "携程",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.ctrip.harmonynext\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "闲鱼",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.taobao.idlefish4ohos\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "QQ浏览器",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.tencent.mtthm\" class=\"EntryAbility\" condition=\"#click\" />"
+    },
+    {
+      "name": "拼多多",
+      "xml": "<IntentCommand action=\"action.system.home\" category=\"entity.system.home\" package=\"com.xunmeng.pinduoduo.hos\" class=\"EntryAbility\" condition=\"#click\" />"
+    }
+  ]
+}
