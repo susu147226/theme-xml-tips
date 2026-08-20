@@ -172,5 +172,20 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('activate不抛错且注册2个provider', ctx.subscriptions.length === 3, String(ctx.subscriptions.length));
 }
 
+// 10) 免输 < 直接输入中英文触发（v1.8.0）：标签体内直接打字的 text 上下文
+{
+    const text = '<Button x="0" y="0">\n主';
+    const items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), endPos(text));
+    check('直接输中文-出快捷跳转', sc(items).length === 125 * 2, String(sc(items).length));
+    check('直接输中文-中文名可过滤', sc(items).some(i => i.filterText.includes('主题')));
+    check('直接输中文-出平台片段', vs(items).length > 0);
+}
+// 11) package.json 已为 [xml] 默认开启 quickSuggestions（保证免 < 直接打字即弹列表）
+{
+    const pkg = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'package.json'), 'utf8'));
+    const qs = pkg.contributes.configurationDefaults && pkg.contributes.configurationDefaults['[xml]'];
+    check('已配置[xml]默认quickSuggestions', !!(qs && qs['editor.quickSuggestions'] && qs['editor.quickSuggestions'].other === true));
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

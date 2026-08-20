@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.8.0 (2026-08-20)
+
+- 新增：快捷跳转与平台代码片段**免输 `<`**——在标签体内部直接输入中文名称（主题/微信/天气…）或英文关键词（intent/unlock/var…）即自动弹出提示
+- 新增：通过 `configurationDefaults` 为 XML 文件默认开启 `editor.quickSuggestions`（含字符串内），保证直接打字即弹列表；关闭 wordBasedSuggestions 避免干扰
+- 调整：与 Red Hat XML 扩展兼容共存，本扩展提示项排序置顶（sortText 优先），双方提示合并显示、本扩展主导
+- 集成测试扩至 40 个用例（新增免输 `<` 直接触发与配置断言）
+
 ## 1.7.2 (2026-08-20)
 
 - **重要修复**：补全/悬停 provider 误以裸函数注册，真实 VS Code 中抛 `provideCompletionItems is not a function` 导致所有动态提示（标签/属性/变量/函数/快捷跳转/平台片段）完全不工作——已改为对象注册并新增注册契约测试（离线桩测试此前直接调用函数，无法暴露该问题）
