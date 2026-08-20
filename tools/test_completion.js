@@ -111,5 +111,18 @@ function check(name, cond, extra) {
     check('admin路径-不误判小米', sc(items).length === 659 * 2, String(sc(items).length));
 }
 
+// 6) 光标紧贴完整标签名时也应给出属性提示（v1.7.0 修复）
+for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text']]) {
+    const items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', text), endPos(text));
+    const attrs = items.filter(i => i.kind === 5);
+    check(`${text} 含属性提示`, attrs.length > 0, String(attrs.length));
+    check(`${text} 属性插入带前导空格`, attrs.every(i => i.insertText.value.startsWith(' ')));
+    check(`${text} 仍含标签提示`, items.some(i => i.kind === 7));
+}
+{
+    const items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', '<Va'), endPos('<Va'));
+    check('半成品标签名不出属性', items.filter(i => i.kind === 5).length === 0);
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

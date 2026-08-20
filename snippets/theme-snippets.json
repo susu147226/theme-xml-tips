@@ -341,8 +341,8 @@
     "description": "CommonWallpaper 桌面模板：常用变量预置（唤醒词 wallpaper / wall）"
   },
 
-  "Wallpaper NEXT 桌面模板（next）": {
-    "prefix": "next",
+  "Wallpaper NEXT 桌面模板（wall-next）": {
+    "prefix": "wall-next",
     "body": [
       "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
       "<Wallpaper version=\"1\" frameRate=\"30\" screenWidth=\"1080\">",
@@ -354,7 +354,7 @@
       "$0",
       "</Wallpaper>"
     ],
-    "description": "Wallpaper 桌面模板：常用变量预置（唤醒词 next）"
+    "description": "Wallpaper 桌面模板：常用变量预置（唤醒词 wall-next）"
   },
 
   "Button + Trigger 按钮触发": {

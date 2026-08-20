@@ -139,7 +139,6 @@ function tagDoc(t) {
     const md = new vscode.MarkdownString();
     md.appendMarkdown(`**<${t.name}>**`);
     if (t.title) md.appendMarkdown(` — ${t.title}`);
-    if (t.section) md.appendMarkdown(`  \n规范章节：${t.section}`);
     if (t.description) md.appendMarkdown(`  \n  \n${t.description}`);
     if (t.children && t.children.length) {
         md.appendMarkdown(`  \n  \n子元素：${t.children.map(c => '`' + c + '`').join(' ')}`);
@@ -246,6 +245,20 @@ function varSnippetCompletions(document) {
     return items;
 }
 
+/** 指定标签的属性补全项（标签与属性提示不区分平台，全平台一致） */
+function attrCompletions(tagName) {
+    const t = tagMap.get(tagName);
+    if (!t) return [];
+    return Object.entries(t.attributes || {}).map(([an, a]) => {
+        const it = new vscode.CompletionItem(an, vscode.CompletionItemKind.Field);
+        it.detail = [a.type, a.required].filter(Boolean).join(' · ');
+        it.documentation = attrDoc(tagName, an, a);
+        it.insertText = new vscode.SnippetString(`${an}="$1"`);
+        it.sortText = (a.required === '必填' ? '0' : '1') + an;
+        return it;
+    });
+}
+
 function provideCompletions(document, position) {
     const ctx = getContext(document, position);
     const items = [];
@@ -262,6 +275,17 @@ function provideCompletions(document, position) {
             it.sortText = (childSet && childSet.has(t.name) ? '0' : (DATA.rootTags.includes(t.name) ? '1' : '2')) + t.name;
             items.push(it);
         }
+        // 修复：光标紧贴完整标签名时（如 <Var| 或 <Var|/>）也给出该标签的属性提示。
+        // 用光标处空区间插入，避免替换掉已输入的标签名；前导空格补出分隔。
+        if (ctx.tagName && tagMap.has(ctx.tagName)) {
+            for (const it of attrCompletions(ctx.tagName)) {
+                it.range = new vscode.Range(position, position);
+                it.filterText = '';
+                it.insertText = new vscode.SnippetString(` ${it.label}="$1"`);
+                it.sortText = '0' + (it.sortText || it.label);
+                items.push(it);
+            }
+        }
         // 快捷跳转提示（单独跳转 / 跳转+解锁 各一条）
         items.push(...shortcutCompletions(document));
         // 平台代码片段提示（常用 Var 定义，按平台过滤）
@@ -270,17 +294,7 @@ function provideCompletions(document, position) {
     }
 
     if (ctx.kind === 'attr' && ctx.tagName) {
-        const t = tagMap.get(ctx.tagName);
-        const attrs = t ? Object.entries(t.attributes || {}) : [];
-        for (const [an, a] of attrs) {
-            const it = new vscode.CompletionItem(an, vscode.CompletionItemKind.Field);
-            it.detail = [a.type, a.required].filter(Boolean).join(' · ');
-            it.documentation = attrDoc(ctx.tagName, an, a);
-            it.insertText = new vscode.SnippetString(`${an}="$1"`);
-            it.sortText = (a.required === '必填' ? '0' : '1') + an;
-            items.push(it);
-        }
-        return items;
+        return attrCompletions(ctx.tagName);
     }
 
     if (ctx.kind === 'value') {
