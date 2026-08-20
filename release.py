@@ -102,6 +102,8 @@ def main():
     run([sys.executable, os.path.join("tools", "enrich_data.py")])
     # 1.6 快捷跳转数据（若桌面 快捷跳转.md 存在则重新生成，幂等）
     run([sys.executable, os.path.join("tools", "build_shortcuts.py")])
+    # 1.7 平台代码片段数据（若桌面 代码片段.md 存在则重新生成，幂等）
+    run([sys.executable, os.path.join("tools", "build_varsnippets.py")])
     # 2~3. 适配包 + VSIX
     run([sys.executable, "build_adapters.py"])
     run([sys.executable, "build_vsix.py"])

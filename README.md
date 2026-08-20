@@ -15,12 +15,13 @@
 - **代码片段**：18 个常用标签写法 + 完整锁屏模板（`unlock`/`xml`/`theme`）+ 桌面模板（`wallpaper`/`wall`/`next`）+ 百变卡片模板（`w2_h1`/`w2_h2`/`w4_h2`/`w4_h4`）等
 - **平台识别**（仅 VS Code）：根据 XML 文件所在路径向上遍历父文件夹，自动识别平台——鸿蒙（鸿蒙/next/HarmonyOS/purax/pad/鸿蒙折叠 等）、华为（华为/4.0/huawei/hw）、荣耀（荣耀/honor）、OPPO（oppo 或父级存在 advance 文件夹）、vivo、小米（mi/小米/xiaomi）
 - **快捷跳转提示**（仅 VS Code）：识别平台后，输入 `<` 即提示该平台可用的快捷跳转（IntentCommand，共 659 条），每个跳转提供两条提示——单独的快捷跳转、快捷跳转 + `<ExternCommand command="unlock" condition="#click" />` 解锁；无法识别平台时列出全部平台并标注平台名
+- **平台代码片段**（仅 VS Code）：16 组常用 Var 定义片段（时间、日期、农历、平闰月判断、干支纪年、天气），按识别到的平台过滤——如鸿蒙工程只出鸿蒙写法、OPPO 工程只出 OPPO 写法；未识别平台时全部列出并标注适用平台
 
 ## 安装
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.5.0.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-1.6.0.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -30,30 +31,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-1.5.0.vsix`
+1. 下载 Release 中的 `theme-xml-tips-1.6.0.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.5.0.vsix
+code --install-extension theme-xml-tips-1.6.0.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.5.0.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.6.0.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.5.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.6.0.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.5.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.6.0.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 

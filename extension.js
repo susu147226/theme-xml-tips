@@ -13,6 +13,8 @@ let varMap = new Map();
 let funcMap = new Map();
 /** @type {Object<string, Array<{name: string, xml: string}>>} 各平台快捷跳转 */
 let SHORTCUTS = {};
+/** @type {Array<{name: string, category: string, platforms: string[], xml: string}>} 平台代码片段 */
+let VARSNIPPETS = [];
 
 function loadData(context) {
     const file = path.join(context.extensionPath, 'data', 'tags.json');
@@ -24,6 +26,10 @@ function loadData(context) {
         const sf = path.join(context.extensionPath, 'data', 'shortcuts.json');
         if (fs.existsSync(sf)) SHORTCUTS = JSON.parse(fs.readFileSync(sf, 'utf8'));
     } catch (e) { SHORTCUTS = {}; }
+    try {
+        const vf = path.join(context.extensionPath, 'data', 'varsnippets.json');
+        if (fs.existsSync(vf)) VARSNIPPETS = JSON.parse(fs.readFileSync(vf, 'utf8'));
+    } catch (e) { VARSNIPPETS = []; }
 }
 
 /**
@@ -217,6 +223,29 @@ function shortcutCompletions(document) {
     return items;
 }
 
+/** 平台代码片段提示：识别到平台时只出该平台片段，未识别时全量并标注平台 */
+function varSnippetCompletions(document) {
+    const platform = detectPlatform(document);
+    const labelOf = key => (PLATFORM_RULES.find(r => r.key === key) || {}).label || key;
+    const items = [];
+    for (const s of VARSNIPPETS) {
+        const hit = platform && s.platforms.includes(platform);
+        if (platform && !hit) continue;
+        const plabels = s.platforms.map(labelOf).join('/');
+        const label = '代码片段·' + s.name + (platform ? '' : '（' + plabels + '）');
+        const it = new vscode.CompletionItem(label, vscode.CompletionItemKind.Snippet);
+        it.detail = '平台代码片段 · ' + plabels;
+        const doc = new vscode.MarkdownString();
+        doc.appendMarkdown('适用平台：' + plabels + '  \n\n```xml\n' + s.xml + '\n```');
+        it.documentation = doc;
+        it.insertText = new vscode.SnippetString(s.xml.replace(/\$/g, '\\$'));
+        it.filterText = s.name + ' ' + s.category + ' var ' + s.xml.slice(0, 200);
+        it.sortText = '3' + s.category + s.name;
+        items.push(it);
+    }
+    return items;
+}
+
 function provideCompletions(document, position) {
     const ctx = getContext(document, position);
     const items = [];
@@ -235,6 +264,8 @@ function provideCompletions(document, position) {
         }
         // 快捷跳转提示（单独跳转 / 跳转+解锁 各一条）
         items.push(...shortcutCompletions(document));
+        // 平台代码片段提示（常用 Var 定义，按平台过滤）
+        items.push(...varSnippetCompletions(document));
         return items;
     }
 
@@ -373,4 +404,4 @@ function activate(context) {
 
 function deactivate() {}
 
-module.exports = { activate, deactivate, _test: { detectPlatform, folderMatches } };
+module.exports = { activate, deactivate, _test: { detectPlatform, folderMatches, provideCompletions, init: dir => loadData({ extensionPath: dir }) } };

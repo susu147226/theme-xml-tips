@@ -52,6 +52,8 @@ FILES = [
 ]
 if os.path.exists(os.path.join(ROOT, "data", "shortcuts.json")):
     FILES.append("data/shortcuts.json")
+if os.path.exists(os.path.join(ROOT, "data", "varsnippets.json")):
+    FILES.append("data/varsnippets.json")
 
 with zipfile.ZipFile(VSIX, "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("extension.vsixmanifest", MANIFEST)
