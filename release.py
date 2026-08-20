@@ -91,6 +91,8 @@ def main():
 
     # 1. 版本号
     run([sys.executable, os.path.join("tools", "set_version.py"), ver])
+    # 1.5 数据增强（函数/枚举，幂等）
+    run([sys.executable, os.path.join("tools", "enrich_data.py")])
     # 2~3. 适配包 + VSIX
     run([sys.executable, "build_adapters.py"])
     run([sys.executable, "build_vsix.py"])

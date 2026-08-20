@@ -9,12 +9,15 @@ let DATA = null;
 let tagMap = new Map();
 /** @type {Map<string, any>} */
 let varMap = new Map();
+/** @type {Map<string, any>} */
+let funcMap = new Map();
 
 function loadData(context) {
     const file = path.join(context.extensionPath, 'data', 'tags.json');
     DATA = JSON.parse(fs.readFileSync(file, 'utf8'));
     tagMap = new Map(DATA.tags.map(t => [t.name, t]));
     varMap = new Map(DATA.variables.map(v => [v.name, v]));
+    funcMap = new Map((DATA.functions || []).map(f => [f.name, f]));
 }
 
 /** 判断 position 前文本的上下文：'tag' 标签名 | 'attr' 属性名 | 'value' 属性值 | 'text' 其他 */
@@ -58,6 +61,18 @@ function parentChain(document, position) {
     return stack;
 }
 
+/** 扫描当前文件，提取 <Var name="..."> 定义的全部变量名 */
+function fileVarNames(document) {
+    const text = document.getText();
+    const names = new Set();
+    const re = /<Var\s[^>]*?\bname\s*=\s*"([^"]+)"/g;
+    let m;
+    while ((m = re.exec(text))) {
+        if (m[1]) names.add(m[1]);
+    }
+    return [...names];
+}
+
 function tagDoc(t) {
     const md = new vscode.MarkdownString();
     md.appendMarkdown(`**<${t.name}>**`);
@@ -79,10 +94,28 @@ function attrDoc(tagName, attrName, a) {
     if (a.required) meta.push(a.required);
     if (meta.length) md.appendMarkdown(`  \n${meta.join('，')}`);
     if (a.description) md.appendMarkdown(`  \n  \n${a.description}`);
+    const vals = attrValues(tagName, attrName);
+    if (vals && vals.length && vals.length <= 12) {
+        md.appendMarkdown(`  \n  \n可选值：${vals.map(v => '`' + v + '`').join(' ')}`);
+    }
     return md;
 }
 
+function funcDoc(f) {
+    const md = new vscode.MarkdownString();
+    md.appendMarkdown(`**${f.signature}** — ${f.category}函数`);
+    if (f.params && f.params.length) {
+        md.appendMarkdown(`  \n  \n参数：`);
+        for (const p of f.params) md.appendMarkdown(`  \n- \`${p}\``);
+    }
+    if (f.description) md.appendMarkdown(`  \n  \n${f.description}`);
+    return md;
+}
+
+/** 属性取值：优先 标签.属性 专属枚举，其次全局属性枚举，最后布尔 */
 function attrValues(tagName, attrName) {
+    const tve = DATA.tagValueEnums || {};
+    if (tagName && tve[tagName + '.' + attrName]) return tve[tagName + '.' + attrName];
     if (DATA.valueEnums[attrName]) return DATA.valueEnums[attrName];
     if (DATA.boolAttributes.includes(attrName)) return ['true', 'false'];
     return null;
@@ -122,27 +155,61 @@ function provideCompletions(document, position) {
     }
 
     if (ctx.kind === 'value') {
+        // 1) 属性支持参数提示（枚举值）
         const vals = attrValues(ctx.tagName, ctx.attrName);
         if (vals) {
             for (const v of vals) {
                 const it = new vscode.CompletionItem(v, vscode.CompletionItemKind.EnumMember);
+                it.detail = `${ctx.attrName} 可选值`;
+                it.sortText = '0' + v;
                 items.push(it);
             }
         }
-        // # / @ 变量提示
+
+        // 2) # / @ 变量提示：文件内 <Var name> 定义优先，其次引擎全局变量
         const linePrefix = document.getText(new vscode.Range(position.with(undefined, Math.max(0, position.character - 1)), position));
         const word = document.getText(document.getWordRangeAtPosition(position, /[#@]?[\w.]+/)) || '';
         if (/[#@]/.test(linePrefix) || /^[#@]/.test(word)) {
             const cfg = vscode.workspace.getConfiguration('themeXmlTips');
             if (cfg.get('enableVariableCompletion', true)) {
+                const localNames = new Set(fileVarNames(document));
+                for (const name of localNames) {
+                    const it = new vscode.CompletionItem(name, vscode.CompletionItemKind.Variable);
+                    it.detail = '文件内变量（Var）';
+                    it.documentation = '当前文件中通过 <Var name="' + name + '"> 定义的变量';
+                    it.sortText = '00' + name;
+                    items.push(it);
+                }
                 for (const v of DATA.variables) {
+                    if (localNames.has(v.name)) continue;      // 与文件内变量重名时优先文件内
                     const it = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
-                    it.detail = [v.type, v.group].filter(Boolean).join(' · ');
+                    it.detail = [v.type, v.group].filter(Boolean).join(' · ') || '引擎全局变量';
                     it.documentation = v.description || '';
-                    it.sortText = '0' + v.name;
+                    it.sortText = '01' + v.name;
                     items.push(it);
                 }
             }
+        }
+
+        // 3) 表达式函数提示（带参数占位符）
+        for (const f of (DATA.functions || [])) {
+            const it = new vscode.CompletionItem(f.signature, vscode.CompletionItemKind.Function);
+            it.filterText = f.name;
+            it.detail = f.category + '函数';
+            it.documentation = funcDoc(f);
+            if (f.params && f.params.length) {
+                const snip = new vscode.SnippetString(f.name + '(');
+                f.params.forEach((p, i) => {
+                    if (i > 0) snip.appendText(', ');
+                    snip.appendPlaceholder(p.split('：')[0].split('，')[0]);
+                });
+                snip.appendText(')');
+                it.insertText = snip;
+            } else {
+                it.insertText = f.name + '()';
+            }
+            it.sortText = '3' + f.name;
+            items.push(it);
         }
         return items;
     }
@@ -150,7 +217,7 @@ function provideCompletions(document, position) {
 }
 
 function provideHover(document, position) {
-    // 变量悬停
+    // 变量悬停（引擎全局变量 / 文件内 Var 变量）
     const vRange = document.getWordRangeAtPosition(position, /[#@][\w.]+/);
     if (vRange) {
         const name = document.getText(vRange).slice(1);
@@ -163,10 +230,21 @@ function provideHover(document, position) {
             if (v.description) md.appendMarkdown(`  \n  \n${v.description}`);
             return new vscode.Hover(md, vRange);
         }
+        if (fileVarNames(document).includes(name)) {
+            const md = new vscode.MarkdownString();
+            md.appendMarkdown(`**${document.getText(vRange)}** — 文件内变量`);
+            md.appendMarkdown(`  \n当前文件中通过 \`<Var name="${name}">\` 定义`);
+            return new vscode.Hover(md, vRange);
+        }
     }
     const range = document.getWordRangeAtPosition(position, /[A-Za-z][\w.-]*/);
     if (!range) return null;
     const word = document.getText(range);
+    // 函数悬停：函数名后紧跟 (
+    const afterWord = document.getText(new vscode.Range(range.end, range.end.translate(0, 1)));
+    if (afterWord === '(' && funcMap.has(word)) {
+        return new vscode.Hover(funcDoc(funcMap.get(word)), range);
+    }
     // 标签悬停：前面是 < 或 </
     const before = document.getText(new vscode.Range(new vscode.Position(0, 0), range.start));
     if (/<\/?$/.test(before)) {
@@ -190,7 +268,7 @@ function activate(context) {
     loadData(context);
     const sel = { language: 'xml', scheme: '*' };
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider(sel, provideCompletions, '<', ' ', '"', '#', '@'),
+        vscode.languages.registerCompletionItemProvider(sel, provideCompletions, '<', ' ', '"', '#', '@', '(', ','),
         vscode.languages.registerHoverProvider(sel, provideHover)
     );
 }
