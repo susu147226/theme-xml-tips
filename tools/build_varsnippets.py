@@ -102,6 +102,7 @@ def main():
     md = Path(sys.argv[1]) if len(sys.argv) > 1 else None
     candidates = [md] if md else [
         Path.home() / "Desktop" / "代码片段.md",
+        ROOT.parent / "代码片段-source.md",   # 工作区备份
     ]
     src = None
     for c in candidates:
