@@ -21,7 +21,7 @@
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.8.2.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-1.9.0.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -31,30 +31,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-1.8.2.vsix`
+1. 下载 Release 中的 `theme-xml-tips-1.9.0.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.8.2.vsix
+code --install-extension theme-xml-tips-1.9.0.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.8.2.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.9.0.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.8.2.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.9.0.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.8.2.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.9.0.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 
@@ -160,6 +160,14 @@ code --install-extension theme-xml-tips-1.8.2.vsix
 **与 Red Hat XML 扩展的关系**：两者可兼容共存，VS Code 会合并双方提示，本扩展的提示项排序置顶（标签/属性/变量/跳转优先于通用 XML 提示）。本扩展已为 XML 文件默认开启快速建议（quickSuggestions），确保直接输入中英文即弹出提示。
 
 **模板代码片段**：在 XML 文件中直接输入唤醒词（如 `unlock`、`wall-next`、`w2_h1`），选择对应片段回车插入。
+
+**自定义代码片段**（仅 VS Code）：
+
+- **新增**：在 XML 文件中**右键 → 新增 XML 代码片段**，或命令面板（`Ctrl+Shift+P`）执行 `管理自定义代码片段`，打开表格管理面板
+- 表格字段：唤醒词（必填）、描述（必填）、代码片段 xml格式（必填），保存/取消按钮
+- 保存后片段写入本地文件 `%APPDATA%\Code\User\globalStorage\susu147226.theme-xml-tips\custom-snippets.json`（JSON 序列化自动完成引号/换行转义，插入时自动转义 `$`、`\`）；**修改后再次保存会自动重新转义**
+- 也可在插件设置 `themeXmlTips.customSnippets` 中直接维护（数组项含 prefix/description/body）
+- 面板中以表格查看全部自定义片段，支持编辑与删除；保存后立即生效，直接输入唤醒词（中英文）即可提示插入
 
 ## 标签覆盖范围
 

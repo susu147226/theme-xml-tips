@@ -41,6 +41,8 @@ vscodeStub.window = {
     showWarningMessage: () => Promise.resolve(),
 };
 vscodeStub.extensions = { getExtension: () => undefined };
+vscodeStub.commands = { registerCommand: () => ({ dispose() {} }) };
+vscodeStub.ViewColumn = { One: 1 };
 
 const origLoad = Module._load;
 Module._load = function (request, ...rest) {
@@ -182,6 +184,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     const ctx = {
         subscriptions: [],
         extensionPath: require('path').join(__dirname, '..'),
+        globalStorageUri: { fsPath: require('fs').mkdtempSync(require('path').join(require('os').tmpdir(), 'txtsnip-act-')) },
         globalState: { get: () => undefined, update: () => Promise.resolve() },
     };
     ext.activate(ctx);
@@ -189,7 +192,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
         !!capturedCompletionProvider && typeof capturedCompletionProvider.provideCompletionItems === 'function');
     check('悬停provider为对象且含provideHover',
         !!capturedHoverProvider && typeof capturedHoverProvider.provideHover === 'function');
-    check('activate不抛错且注册2个provider', ctx.subscriptions.length === 3, String(ctx.subscriptions.length));
+    check('activate不抛错且注册全部订阅', ctx.subscriptions.length === 5, String(ctx.subscriptions.length));
 }
 
 // 10) 免输 < 直接输入中英文触发（v1.8.0）：标签体内直接打字的 text 上下文
@@ -228,6 +231,29 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     t = '<Text text="';
     items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
     check('Text.text 不输#不出变量', varItems(items).length === 0, String(varItems(items).length));
+}
+
+// 13) 自定义代码片段（v1.9.0）：转义 / 本地JSON存储 / 补全接入
+{
+    const os = require('os'), fsx = require('fs'), pth = require('path');
+    check('$与\\自动转义', ext._test.escapeSnippetBody('<Var expression="$1" a="b\\c"/>') === '<Var expression="\\$1" a="b\\\\c"/>');
+    const tmp = fsx.mkdtempSync(pth.join(os.tmpdir(), 'txtsnip-'));
+    ext._test.initSnippets(tmp);
+    check('初始为空', ext._test.getCustomSnippets().length === 0);
+    ext._test.saveCustomSnippets([{ prefix: 'mytest', description: '我的测试片段', body: '<Var name="a" expression="$1"/>' }]);
+    const storeFile = pth.join(tmp, 'custom-snippets.json');
+    check('已写入本地JSON文件', fsx.existsSync(storeFile));
+    const saved = JSON.parse(fsx.readFileSync(storeFile, 'utf8'));
+    check('JSON内容正确且原文保留', saved.length === 1 && saved[0].body === '<Var name="a" expression="$1"/>');
+    // text 上下文：完整插入（含 <）
+    let items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', '<Button>\n'), endPos('<Button>\n'));
+    let mine = items.find(i => i.label === 'mytest');
+    check('text上下文出自定义片段', !!mine && mine.insertText.value.includes('<Var') && mine.insertText.value.includes('\\$1'));
+    // tag 上下文（已输入 <）：去掉片段开头的 < 防止重复
+    items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', '<Button>\n<'), endPos('<Button>\n<'));
+    mine = items.find(i => i.label === 'mytest');
+    check('tag上下文去掉重复<', !!mine && !mine.insertText.value.startsWith('<'));
+    fsx.rmSync(tmp, { recursive: true, force: true });
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');

@@ -4,9 +4,9 @@ echo =======================================================
 echo  HarmonyOS Theme XML Tips - Manual Installer
 echo =======================================================
 echo.
-set VSIX=%~dp0theme-xml-tips-1.8.2.vsix
+set VSIX=%~dp0theme-xml-tips-1.9.0.vsix
 if not exist "%VSIX%" (
-    echo [ERROR] theme-xml-tips-1.8.2.vsix not found next to this script.
+    echo [ERROR] theme-xml-tips-1.9.0.vsix not found next to this script.
     pause
     exit /b 1
 )

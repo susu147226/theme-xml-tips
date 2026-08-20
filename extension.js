@@ -289,6 +289,8 @@ function provideCompletions(document, position) {
         items.push(...shortcutCompletions(document));
         // 平台代码片段提示（常用 Var 定义，按平台过滤）
         items.push(...varSnippetCompletions(document));
+        // 用户自定义代码片段（去掉片段体开头的 <，避免与已输入的 < 重复）
+        items.push(...customSnippetCompletions(true));
         return items;
     }
 
@@ -361,6 +363,7 @@ function provideCompletions(document, position) {
     if (ctx.kind === 'text') {
         items.push(...shortcutCompletions(document));
         items.push(...varSnippetCompletions(document));
+        items.push(...customSnippetCompletions(false));
         return items;
     }
     return items;
@@ -446,17 +449,194 @@ function setupPlatformNotify(context) {
     }
 }
 
+// ===================== 自定义代码片段（用户表格管理） =====================
+
+/** @type {Array<{prefix: string, description: string, body: string}>} */
+let CUSTOM_SNIPPETS = [];
+let customStorePath = null;
+
+/** 初始化存储：globalStorage 目录下的 custom-snippets.json */
+function initCustomSnippets(context) {
+    const dir = context.globalStorageUri.fsPath;
+    fs.mkdirSync(dir, { recursive: true });
+    customStorePath = path.join(dir, 'custom-snippets.json');
+    reloadCustomSnippets();
+}
+
+/** 重新加载：本地文件 + 设置项 themeXmlTips.customSnippets 合并 */
+function reloadCustomSnippets() {
+    CUSTOM_SNIPPETS = [];
+    try {
+        if (customStorePath && fs.existsSync(customStorePath)) {
+            const arr = JSON.parse(fs.readFileSync(customStorePath, 'utf8'));
+            if (Array.isArray(arr)) CUSTOM_SNIPPETS.push(...arr.filter(s => s && s.prefix && s.body));
+        }
+    } catch (e) { /* 文件损坏时忽略，不阻塞补全 */ }
+    try {
+        const fromSettings = vscode.workspace.getConfiguration('themeXmlTips').get('customSnippets', []);
+        if (Array.isArray(fromSettings)) {
+            for (const s of fromSettings) {
+                if (s && s.prefix && s.body && !CUSTOM_SNIPPETS.some(x => x.prefix === s.prefix)) {
+                    CUSTOM_SNIPPETS.push({ prefix: s.prefix, description: s.description || '', body: s.body });
+                }
+            }
+        }
+    } catch (e) { /* ignore */ }
+}
+
+function saveCustomSnippetsFile() {
+    // 只持久化本地文件部分（设置项里的由用户自己在 settings.json 维护）
+    const fromSettings = vscode.workspace.getConfiguration('themeXmlTips').get('customSnippets', []);
+    const settingPrefixes = new Set(Array.isArray(fromSettings) ? fromSettings.map(s => s && s.prefix) : []);
+    const local = CUSTOM_SNIPPETS.filter(s => !settingPrefixes.has(s.prefix));
+    fs.writeFileSync(customStorePath, JSON.stringify(local, null, 2), 'utf8');   // JSON 序列化自动完成引号/换行等转义
+}
+
+/** 插入时转义代码片段体（snippet 语法中的 $ 与 \），保证原样插入 */
+function escapeSnippetBody(body) {
+    return String(body).replace(/\\/g, '\\\\').replace(/\$/g, '\\$');
+}
+
+/** 自定义片段补全项；stripLt 用于 < 已输入的标签上下文，去掉片段体开头的 < */
+function customSnippetCompletions(stripLt) {
+    const items = [];
+    for (const s of CUSTOM_SNIPPETS) {
+        let body = s.body;
+        if (stripLt) body = body.replace(/^\s*</, '');
+        const it = new vscode.CompletionItem(s.prefix, vscode.CompletionItemKind.Snippet);
+        it.detail = '自定义片段' + (s.description ? ' · ' + s.description : '');
+        it.documentation = new vscode.MarkdownString('```xml\n' + s.body + '\n```');
+        it.insertText = new vscode.SnippetString(escapeSnippetBody(body));
+        it.filterText = s.prefix + ' ' + (s.description || '') + ' custom';
+        it.sortText = '2' + s.prefix;
+        items.push(it);
+    }
+    return items;
+}
+
+/** 管理面板（表格增删改查） */
+function openSnippetManager(context, focusAdd) {
+    const panel = vscode.window.createWebviewPanel(
+        'themeXmlTips.snippets', '自定义代码片段 · Theme XML Tips',
+        vscode.ViewColumn.One, { enableScripts: true }
+    );
+    panel.webview.html = snippetManagerHtml();
+    const pushList = () => panel.webview.postMessage({ type: 'list', snippets: CUSTOM_SNIPPETS, focusAdd: !!focusAdd });
+    panel.webview.onDidReceiveMessage(msg => {
+        if (msg.type === 'ready') { pushList(); return; }
+        if (msg.type === 'save') {
+            const { oldPrefix, prefix, description, body } = msg;
+            if (!prefix || !description || !body) {
+                vscode.window.showErrorMessage('唤醒词、描述、代码片段均为必填项');
+                return;
+            }
+            if (oldPrefix) CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.filter(s => s.prefix !== oldPrefix);
+            if (CUSTOM_SNIPPETS.some(s => s.prefix === prefix)) {
+                CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.map(s => s.prefix === prefix ? { prefix, description, body } : s);
+            } else {
+                CUSTOM_SNIPPETS.push({ prefix, description, body });
+            }
+            saveCustomSnippetsFile();     // 保存即自动转义并写入本地 JSON
+            reloadCustomSnippets();
+            pushList();
+            vscode.window.showInformationMessage(`代码片段「${prefix}」已保存`);
+            return;
+        }
+        if (msg.type === 'delete') {
+            CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.filter(s => s.prefix !== msg.prefix);
+            saveCustomSnippetsFile();
+            reloadCustomSnippets();
+            pushList();
+            return;
+        }
+    }, undefined, context.subscriptions);
+}
+
+function snippetManagerHtml() {
+    return `<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><style>
+body{font-family:var(--vscode-font-family);padding:16px;color:var(--vscode-foreground)}
+table{width:100%;border-collapse:collapse;margin-bottom:16px}
+th,td{border:1px solid var(--vscode-panel-border);padding:6px 10px;text-align:left;font-size:13px}
+th{background:var(--vscode-editor-inactiveSelectionBackground)}
+textarea,input{width:100%;box-sizing:border-box;background:var(--vscode-input-background);color:var(--vscode-input-foreground);border:1px solid var(--vscode-input-border);padding:6px;margin:4px 0 10px}
+textarea{min-height:140px;font-family:monospace}
+button{background:var(--vscode-button-background);color:var(--vscode-button-foreground);border:none;padding:6px 16px;cursor:pointer;margin-right:8px}
+button.sec{background:var(--vscode-button-secondaryBackground);color:var(--vscode-button-secondaryForeground)}
+#form{display:none;border:1px solid var(--vscode-panel-border);padding:16px;margin-top:8px}
+.req{color:#e81123}
+small{opacity:.7}
+</style></head><body>
+<h3>自定义代码片段</h3>
+<table><thead><tr><th>唤醒词</th><th>描述</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
+<button id="addBtn">＋ 新增代码片段</button>
+<div id="form">
+  <label>唤醒词：<span class="req">*</span></label><input id="fPrefix" placeholder="如 my-unlock">
+  <label>描述：<span class="req">*</span></label><input id="fDesc" placeholder="如 我的解锁命令">
+  <label>代码片段（xml格式）：<span class="req">*</span></label>
+  <textarea id="fBody" placeholder='<ExternCommand command="unlock" condition="#click" />'></textarea>
+  <small>保存时自动完成 JSON/片段转义；唤醒词、描述、代码片段均为必填。</small><br><br>
+  <button id="saveBtn">保存</button><button id="cancelBtn" class="sec">取消</button>
+</div>
+<script>
+const vscode = acquireVsCodeApi();
+let editing = null;
+const rows = document.getElementById('rows'), form = document.getElementById('form');
+const fPrefix = document.getElementById('fPrefix'), fDesc = document.getElementById('fDesc'), fBody = document.getElementById('fBody');
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function render(list){
+  rows.innerHTML = list.map(s=>\`<tr><td><b>\${esc(s.prefix)}</b></td><td>\${esc(s.description||'')}</td>
+    <td><button class="sec" data-edit="\${esc(s.prefix)}">编辑</button>
+    <button class="sec" data-del="\${esc(s.prefix)}">删除</button></td></tr>\`).join('');
+  rows.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit));
+  rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ if(confirm('删除代码片段「'+b.dataset.del+'」？')) vscode.postMessage({type:'delete',prefix:b.dataset.del}); });
+  window._list = list;
+  if (!list.length) rows.innerHTML = '<tr><td colspan="3" style="opacity:.6">暂无自定义代码片段</td></tr>';
+}
+function edit(prefix){
+  const s = (window._list||[]).find(x=>x.prefix===prefix);
+  if(!s) return;
+  editing = prefix; fPrefix.value = s.prefix; fDesc.value = s.description||''; fBody.value = s.body;
+  form.style.display = 'block';
+}
+document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; form.style.display='block'; fPrefix.focus(); };
+document.getElementById('cancelBtn').onclick = ()=>{ form.style.display='none'; };
+document.getElementById('saveBtn').onclick = ()=>{
+  const d = { oldPrefix: editing, prefix: fPrefix.value.trim(), description: fDesc.value.trim(), body: fBody.value };
+  if(!d.prefix || !d.description || !d.body.trim()){ alert('唤醒词、描述、代码片段均为必填项'); return; }
+  vscode.postMessage({type:'save', ...d});
+  form.style.display='none';
+};
+window.addEventListener('message', e=>{ if(e.data.type==='list'){ render(e.data.snippets); if(e.data.focusAdd){ document.getElementById('addBtn').click(); } } });
+vscode.postMessage({type:'ready'});
+</script></body></html>`;
+}
+
+// ===================== 激活 =====================
+
 function activate(context) {
     loadData(context);
+    initCustomSnippets(context);
     const sel = { language: 'xml', scheme: '*' };
     // 注意：provider 必须传对象（实现 provideCompletionItems / provideHover），不能直接传函数
     context.subscriptions.push(
         vscode.languages.registerCompletionItemProvider(sel, { provideCompletionItems: provideCompletions }, '<', ' ', '"', '#', '@', '(', ','),
-        vscode.languages.registerHoverProvider(sel, { provideHover: provideHover })
+        vscode.languages.registerHoverProvider(sel, { provideHover: provideHover }),
+        vscode.commands.registerCommand('themeXmlTips.addSnippet', () => openSnippetManager(context, true)),
+        vscode.commands.registerCommand('themeXmlTips.manageSnippets', () => openSnippetManager(context, false))
     );
     setupPlatformNotify(context);
 }
 
 function deactivate() {}
 
-module.exports = { activate, deactivate, _test: { detectPlatform, folderMatches, provideCompletions, init: dir => loadData({ extensionPath: dir }) } };
+module.exports = {
+    activate, deactivate,
+    _test: {
+        detectPlatform, folderMatches, provideCompletions, escapeSnippetBody,
+        init: dir => loadData({ extensionPath: dir }),
+        initSnippets: dir => initCustomSnippets({ globalStorageUri: { fsPath: dir } }),
+        getCustomSnippets: () => CUSTOM_SNIPPETS,
+        saveCustomSnippets: arr => { CUSTOM_SNIPPETS = arr.slice(); saveCustomSnippetsFile(); reloadCustomSnippets(); },
+    }
+};

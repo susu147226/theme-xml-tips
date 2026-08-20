@@ -2,7 +2,7 @@
   "name": "theme-xml-tips",
   "displayName": "Theme XML Tips",
   "description": "主题引擎 XML 代码提示：标签/属性/枚举/变量补全、悬停文档与代码片段。适配 VS Code / WebStorm / HBuilderX / Sublime Text。作者：云舒眠眠。",
-  "version": "1.8.2",
+  "version": "1.9.0",
   "publisher": "susu147226",
   "author": {
     "name": "云舒眠眠"
@@ -29,6 +29,25 @@
     "onLanguage:xml"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "themeXmlTips.addSnippet",
+        "title": "新增 XML 代码片段（Theme XML Tips）"
+      },
+      {
+        "command": "themeXmlTips.manageSnippets",
+        "title": "管理自定义代码片段（Theme XML Tips）"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "themeXmlTips.addSnippet",
+          "when": "resourceLangId == xml",
+          "group": "navigation@9"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "xml",
@@ -42,6 +61,33 @@
           "type": "boolean",
           "default": true,
           "description": "在属性值中输入 # 或 @ 时提示主题引擎全局变量"
+        },
+        "themeXmlTips.customSnippets": {
+          "type": "array",
+          "default": [],
+          "description": "自定义代码片段（也可在 XML 文件中右键 → 新增 XML 代码片段，用表格管理）。每项：{\"prefix\": \"唤醒词(必填)\", \"description\": \"描述(必填)\", \"body\": \"代码片段(xml格式，必填)\"}",
+          "items": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "type": "string",
+                "description": "唤醒词（必填）"
+              },
+              "description": {
+                "type": "string",
+                "description": "描述（必填）"
+              },
+              "body": {
+                "type": "string",
+                "description": "代码片段（xml格式，必填）"
+              }
+            },
+            "required": [
+              "prefix",
+              "description",
+              "body"
+            ]
+          }
         }
       }
     },
