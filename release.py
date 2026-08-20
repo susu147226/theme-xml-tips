@@ -63,7 +63,7 @@ def git_token():
 
 
 def gh_api(token, method, url, data=None, file=None, ctype=None):
-    import urllib.request
+    import urllib.request, urllib.error
     req = urllib.request.Request(url, method=method)
     req.add_header("Authorization", "Bearer " + token)
     req.add_header("Accept", "application/vnd.github+json")
@@ -73,9 +73,16 @@ def gh_api(token, method, url, data=None, file=None, ctype=None):
     elif data is not None:
         req.add_header("Content-Type", "application/json")
         req.data = json.dumps(data).encode("utf-8")
-    with urllib.request.urlopen(req) as resp:
-        body = resp.read()
-        return resp.status, json.loads(body) if body else {}
+    try:
+        with urllib.request.urlopen(req) as resp:
+            body = resp.read()
+            return resp.status, json.loads(body) if body else {}
+    except urllib.error.HTTPError as e:
+        body = e.read()
+        try:
+            return e.code, json.loads(body) if body else {}
+        except Exception:
+            return e.code, {}
 
 
 def main():
@@ -135,9 +142,21 @@ def main():
                          data={"tag_name": tag, "name": "Theme XML Tips %s" % tag, "body": body})
     rid = rel.get("id")
     if not rid:
-        sys.exit("创建 Release 失败: %s" % rel)
-    print("release id:", rid)
+        # 可能 tag 推送已触发 Actions 自动发版（release 已存在）——复用现有 release
+        st2, rel2 = gh_api(token, "GET",
+                           "https://api.github.com/repos/%s/releases/tags/%s" % (REPO, tag))
+        rid = rel2.get("id")
+        if not rid:
+            sys.exit("创建 Release 失败: %s" % rel)
+        print("release 已存在（可能由 Actions 创建），复用 id:", rid)
+        existing = {a["name"] for a in rel2.get("assets", [])}
+    else:
+        existing = set()
+        print("release id:", rid)
     for name, ctype in assets(ver):
+        if name in existing:
+            print(name, "-> 已存在，跳过")
+            continue
         status, r = gh_api(token, "POST",
                            "https://uploads.github.com/repos/%s/releases/%s/assets?name=%s" % (REPO, rid, name),
                            file=os.path.join(DIST, name), ctype=ctype)
