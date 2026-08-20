@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.2 (2026-08-20)
+
+- 数据更新：OPPO 平台快捷跳转移除 6 条个性化主题商店链接（Aa链接/萌叔/花兮/字遇系/嗨字/喵喵拯救世界链接），「主题」条目名称简化；快捷跳转总数 659 → 653
+- 同步更新源文档，保证数据可幂等重建
+- 集成测试的跳转条数断言改为从数据文件动态读取，源文档更新不再导致误报
+
 ## 1.8.1 (2026-08-20)
 
 - 新增：命令标签（Command、VariableCommand、VideoCommand、CardInteractionCommand、StyleCommand、Collaboration*Command 等所有 `*Command` 标签）的 `name` 属性无需输入 `#`/`@` 即直接提示变量名（文件内 Var 定义优先 + 引擎全局变量）

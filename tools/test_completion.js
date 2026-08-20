@@ -87,6 +87,11 @@ const XML_HEAD = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<';
 const sc = items => items.filter(i => String(i.detail || '').startsWith('快捷跳转'));
 const vs = items => items.filter(i => String(i.label).startsWith('代码片段·'));
 
+// 跳转条数从数据文件动态读取，避免源文档更新后硬编码失效
+const SC_DATA = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'shortcuts.json'), 'utf8'));
+const SC_COUNT = k => (SC_DATA[k] || []).length;
+const SC_TOTAL = Object.values(SC_DATA).reduce((n, v) => n + v.length, 0);
+
 let fail = 0;
 function check(name, cond, extra) {
     console.log((cond ? 'PASS' : 'FAIL') + '  ' + name + (extra ? '  (' + extra + ')' : ''));
@@ -97,7 +102,7 @@ function check(name, cond, extra) {
 {
     const text = XML_HEAD;
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\lockscreen\\main.xml', text), endPos(text));
-    check('鸿蒙路径-跳转数量', sc(items).length === 68 * 2, String(sc(items).length));
+    check('鸿蒙路径-跳转数量', sc(items).length === SC_COUNT("harmonyos") * 2, String(sc(items).length));
     check('鸿蒙路径-片段数量', vs(items).length === 6, String(vs(items).length));
     check('鸿蒙路径-跳转不带平台标注', sc(items).every(i => !String(i.label).includes('（')));
     check('鸿蒙路径-片段不带平台标注', vs(items).every(i => !String(i.label).includes('（')));
@@ -112,7 +117,7 @@ function check(name, cond, extra) {
 {
     const text = XML_HEAD;
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\coloros\\advance\\main.xml', text), endPos(text));
-    check('OPPO路径-跳转数量', sc(items).length === 129 * 2, String(sc(items).length));
+    check('OPPO路径-跳转数量', sc(items).length === SC_COUNT("oppo") * 2, String(sc(items).length));
     check('OPPO路径-片段数量', vs(items).length === 7, String(vs(items).length));
     check('OPPO路径-含当天天气片段', vs(items).some(i => i.label.includes('天气-当天天气')));
 }
@@ -121,7 +126,7 @@ function check(name, cond, extra) {
 {
     const text = XML_HEAD;
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\mi\\main.xml', text), endPos(text));
-    check('小米路径-跳转数量', sc(items).length === 98 * 2, String(sc(items).length));
+    check('小米路径-跳转数量', sc(items).length === SC_COUNT("xiaomi") * 2, String(sc(items).length));
     check('小米路径-片段数量', vs(items).length === 1 && vs(items)[0].label.includes('日期'), String(vs(items).length));
 }
 
@@ -129,7 +134,7 @@ function check(name, cond, extra) {
 {
     const text = XML_HEAD;
     const items = ext._test.provideCompletions(makeDoc('C:\\plain\\main.xml', text), endPos(text));
-    check('未知路径-跳转全量', sc(items).length === 659 * 2, String(sc(items).length));
+    check('未知路径-跳转全量', sc(items).length === SC_TOTAL * 2, String(sc(items).length));
     check('未知路径-片段全量', vs(items).length === 16, String(vs(items).length));
     check('未知路径-跳转标注平台', sc(items).every(i => /（.+）/.test(String(i.label))));
 }
@@ -138,7 +143,7 @@ function check(name, cond, extra) {
 {
     const text = XML_HEAD;
     const items = ext._test.provideCompletions(makeDoc('C:\\Users\\Administrator\\Desktop\\main.xml', text), endPos(text));
-    check('admin路径-不误判小米', sc(items).length === 659 * 2, String(sc(items).length));
+    check('admin路径-不误判小米', sc(items).length === SC_TOTAL * 2, String(sc(items).length));
 }
 
 // 6) 光标紧贴完整标签名时也应给出属性提示（v1.7.0 修复）
@@ -158,7 +163,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
 {
     const text = XML_HEAD + '主';
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\a.xml', text), endPos(text));
-    check('<主 中文触发快捷跳转', sc(items).length === 68 * 2, String(sc(items).length));
+    check('<主 中文触发快捷跳转', sc(items).length === SC_COUNT("harmonyos") * 2, String(sc(items).length));
     check('<主 filterText含中文名', sc(items).some(i => i.filterText.includes('主题')));
 }
 
@@ -166,7 +171,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
 {
     const text = '<Button x="0" y="0">\n';
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), endPos(text));
-    check('Button内部-快捷跳转', sc(items).length === 125 * 2, String(sc(items).length));
+    check('Button内部-快捷跳转', sc(items).length === SC_COUNT("huawei") * 2, String(sc(items).length));
     check('Button内部-平台片段', vs(items).length > 0, String(vs(items).length));
     const theme = sc(items).find(i => i.label === '主题');
     check('Button内部-主题为华为包名', !!theme && theme.insertText.value.includes('com.huawei.android.thememanager'));
@@ -191,7 +196,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
 {
     const text = '<Button x="0" y="0">\n主';
     const items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), endPos(text));
-    check('直接输中文-出快捷跳转', sc(items).length === 125 * 2, String(sc(items).length));
+    check('直接输中文-出快捷跳转', sc(items).length === SC_COUNT("huawei") * 2, String(sc(items).length));
     check('直接输中文-中文名可过滤', sc(items).some(i => i.filterText.includes('主题')));
     check('直接输中文-出平台片段', vs(items).length > 0);
 }

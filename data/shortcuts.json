@@ -977,36 +977,12 @@
   ],
   "oppo": [
     {
-      "name": "主题：汉仪和Aa按照需求前缀选择。",
+      "name": "主题",
       "xml": "<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.nearme.themespace\" class=\"com.nearme.themespace.activities.ThemeActivity\"/>\n<IntentCommand condition=\"#click\" action=\"android.intent.action.MAIN\" package=\"com.nearme.themestore\" class=\"com.nearme.themespace.activities.ThemeActivity\"/>"
     },
     {
       "name": "汉仪链接",
       "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D37999085\"/>"
-    },
-    {
-      "name": "Aa链接",
-      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D71723910\"/>"
-    },
-    {
-      "name": "萌叔",
-      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D422842040\"/>"
-    },
-    {
-      "name": "花兮",
-      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D602500800\" condition=\"#click\"/>"
-    },
-    {
-      "name": "字遇系",
-      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D459202668\" condition=\"#click\"/>"
-    },
-    {
-      "name": "嗨字",
-      "xml": "<IntentCommand uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D406769206\" condition=\"#click\"/>"
-    },
-    {
-      "name": "喵喵拯救世界链接",
-      "xml": "<IntentCommand condition=\"#click\" uri=\"oaps://theme/home?_SWL_=1&amp;swl=1&amp;enterId=100038&amp;oapTargetUri=oaps%3A%2F%2Ftheme%2Fdesigner%2Fcustomized%3FenterId%3D100038%26id%3D861692866\"/>"
     },
     {
       "name": "拨号",
