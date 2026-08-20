@@ -568,7 +568,7 @@ button.sec{background:var(--vscode-button-secondaryBackground);color:var(--vscod
 small{opacity:.7}
 </style></head><body>
 <h3>自定义代码片段</h3>
-<table><thead><tr><th>唤醒词</th><th>描述</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
+<table><thead><tr><th>唤醒词</th><th>描述</th><th>代码片段</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
 <button id="addBtn">＋ 新增代码片段</button>
 <div id="form">
   <label>唤醒词：<span class="req">*</span></label><input id="fPrefix" placeholder="如 my-unlock">
@@ -576,7 +576,7 @@ small{opacity:.7}
   <label>代码片段（xml格式）：<span class="req">*</span></label>
   <textarea id="fBody" placeholder='<ExternCommand command="unlock" condition="#click" />'></textarea>
   <small>保存时自动完成 JSON/片段转义；唤醒词、描述、代码片段均为必填。</small><br><br>
-  <button id="saveBtn">保存</button><button id="cancelBtn" class="sec">取消</button>
+  <button id="saveBtn">保存</button><button id="cancelBtn" class="sec">取消</button><button id="delInForm" class="sec" style="display:none">删除</button>
 </div>
 <script>
 const vscode = acquireVsCodeApi();
@@ -585,22 +585,28 @@ const rows = document.getElementById('rows'), form = document.getElementById('fo
 const fPrefix = document.getElementById('fPrefix'), fDesc = document.getElementById('fDesc'), fBody = document.getElementById('fBody');
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function render(list){
+  const prev = s => { const t = String(s.body||'').replace(/\\s+/g,' ').trim(); return t.length>50 ? t.slice(0,50)+'…' : t; };
   rows.innerHTML = list.map(s=>\`<tr><td><b>\${esc(s.prefix)}</b></td><td>\${esc(s.description||'')}</td>
+    <td style="max-width:280px;opacity:.8;font-family:monospace;font-size:12px">\${esc(prev(s))}</td>
     <td><button class="sec" data-edit="\${esc(s.prefix)}">编辑</button>
     <button class="sec" data-del="\${esc(s.prefix)}">删除</button></td></tr>\`).join('');
   rows.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit));
   rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ if(confirm('删除代码片段「'+b.dataset.del+'」？')) vscode.postMessage({type:'delete',prefix:b.dataset.del}); });
   window._list = list;
-  if (!list.length) rows.innerHTML = '<tr><td colspan="3" style="opacity:.6">暂无自定义代码片段</td></tr>';
+  if (!list.length) rows.innerHTML = '<tr><td colspan="4" style="opacity:.6">暂无自定义代码片段</td></tr>';
 }
 function edit(prefix){
   const s = (window._list||[]).find(x=>x.prefix===prefix);
   if(!s) return;
   editing = prefix; fPrefix.value = s.prefix; fDesc.value = s.description||''; fBody.value = s.body;
+  document.getElementById('delInForm').style.display = 'inline-block';
   form.style.display = 'block';
 }
-document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; form.style.display='block'; fPrefix.focus(); };
+document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; document.getElementById('delInForm').style.display='none'; form.style.display='block'; fPrefix.focus(); };
 document.getElementById('cancelBtn').onclick = ()=>{ form.style.display='none'; };
+document.getElementById('delInForm').onclick = ()=>{
+  if(editing && confirm('删除代码片段「'+editing+'」？')){ vscode.postMessage({type:'delete',prefix:editing}); form.style.display='none'; }
+};
 document.getElementById('saveBtn').onclick = ()=>{
   const d = { oldPrefix: editing, prefix: fPrefix.value.trim(), description: fDesc.value.trim(), body: fBody.value };
   if(!d.prefix || !d.description || !d.body.trim()){ alert('唤醒词、描述、代码片段均为必填项'); return; }
@@ -623,7 +629,8 @@ function activate(context) {
         vscode.languages.registerCompletionItemProvider(sel, { provideCompletionItems: provideCompletions }, '<', ' ', '"', '#', '@', '(', ','),
         vscode.languages.registerHoverProvider(sel, { provideHover: provideHover }),
         vscode.commands.registerCommand('themeXmlTips.addSnippet', () => openSnippetManager(context, true)),
-        vscode.commands.registerCommand('themeXmlTips.manageSnippets', () => openSnippetManager(context, false))
+        vscode.commands.registerCommand('themeXmlTips.manageSnippets', () => openSnippetManager(context, false)),
+        vscode.commands.registerCommand('themeXmlTips.viewSnippets', () => openSnippetManager(context, false))
     );
     setupPlatformNotify(context);
 }
@@ -638,5 +645,6 @@ module.exports = {
         initSnippets: dir => initCustomSnippets({ globalStorageUri: { fsPath: dir } }),
         getCustomSnippets: () => CUSTOM_SNIPPETS,
         saveCustomSnippets: arr => { CUSTOM_SNIPPETS = arr.slice(); saveCustomSnippetsFile(); reloadCustomSnippets(); },
+        snippetManagerHtml,
     }
 };

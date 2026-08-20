@@ -192,7 +192,20 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
         !!capturedCompletionProvider && typeof capturedCompletionProvider.provideCompletionItems === 'function');
     check('悬停provider为对象且含provideHover',
         !!capturedHoverProvider && typeof capturedHoverProvider.provideHover === 'function');
-    check('activate不抛错且注册全部订阅', ctx.subscriptions.length === 5, String(ctx.subscriptions.length));
+    check('activate不抛错且注册全部订阅', ctx.subscriptions.length === 6, String(ctx.subscriptions.length));
+}
+
+// 14) 自定义片段右键菜单与面板结构（v1.9.1）
+{
+    const pkg = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'package.json'), 'utf8'));
+    const cmds = pkg.contributes.commands.map(c => c.command);
+    check('注册3个命令', ['themeXmlTips.addSnippet', 'themeXmlTips.manageSnippets', 'themeXmlTips.viewSnippets'].every(c => cmds.includes(c)));
+    const menus = pkg.contributes.menus['editor/context'].map(m => m.command);
+    check('右键菜单含新增与查看', menus.includes('themeXmlTips.addSnippet') && menus.includes('themeXmlTips.viewSnippets'));
+    const html = ext._test.snippetManagerHtml();
+    check('列表含代码片段预览列', html.includes('<th>代码片段</th>'));
+    check('编辑表单含删除按钮', html.includes('delInForm'));
+    check('面板含必填校验', html.includes('唤醒词、描述、代码片段均为必填项'));
 }
 
 // 10) 免输 < 直接输入中英文触发（v1.8.0）：标签体内直接打字的 text 上下文

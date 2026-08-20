@@ -21,7 +21,7 @@
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.9.0.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-1.9.1.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -31,30 +31,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-1.9.0.vsix`
+1. 下载 Release 中的 `theme-xml-tips-1.9.1.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.9.0.vsix
+code --install-extension theme-xml-tips-1.9.1.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.9.0.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.9.1.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.9.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.9.1.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.9.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.9.1.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 
@@ -163,7 +163,8 @@ code --install-extension theme-xml-tips-1.9.0.vsix
 
 **自定义代码片段**（仅 VS Code）：
 
-- **新增**：在 XML 文件中**右键 → 新增 XML 代码片段**，或命令面板（`Ctrl+Shift+P`）执行 `管理自定义代码片段`，打开表格管理面板
+- **新增/查看**：在 XML 文件中**右键 → 新增 XML 代码片段 / 查看自定义代码片段**，或命令面板（`Ctrl+Shift+P`）执行 `管理自定义代码片段`，打开表格管理面板
+- 列表以表格展示：唤醒词、描述、代码片段（预览前 50 字符），每行含编辑、删除按钮；编辑表单内也有删除按钮
 - 表格字段：唤醒词（必填）、描述（必填）、代码片段 xml格式（必填），保存/取消按钮
 - 保存后片段写入本地文件 `%APPDATA%\Code\User\globalStorage\susu147226.theme-xml-tips\custom-snippets.json`（JSON 序列化自动完成引号/换行转义，插入时自动转义 `$`、`\`）；**修改后再次保存会自动重新转义**
 - 也可在插件设置 `themeXmlTips.customSnippets` 中直接维护（数组项含 prefix/description/body）
