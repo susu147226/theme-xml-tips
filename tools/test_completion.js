@@ -206,6 +206,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('列表含代码片段预览列', html.includes('<th>代码片段</th>'));
     check('编辑表单含删除按钮', html.includes('delInForm'));
     check('面板含必填校验', html.includes('唤醒词、描述、代码片段均为必填项'));
+    check('面板不使用沙箱禁用的confirm/alert', !html.includes('confirm(') && !html.includes('alert('));
 }
 
 // 10) 免输 < 直接输入中英文触发（v1.8.0）：标签体内直接打字的 text 上下文

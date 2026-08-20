@@ -543,10 +543,17 @@ function openSnippetManager(context, focusAdd) {
             return;
         }
         if (msg.type === 'delete') {
-            CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.filter(s => s.prefix !== msg.prefix);
-            saveCustomSnippetsFile();
-            reloadCustomSnippets();
-            pushList();
+            // webview 沙箱中 confirm/alert 被禁用，确认框放在扩展侧用原生模态框
+            vscode.window.showWarningMessage(
+                `确定删除代码片段「${msg.prefix}」？`, { modal: true }, '删除'
+            ).then(choice => {
+                if (choice !== '删除') return;
+                CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.filter(s => s.prefix !== msg.prefix);
+                saveCustomSnippetsFile();
+                reloadCustomSnippets();
+                pushList();
+                vscode.window.showInformationMessage(`代码片段「${msg.prefix}」已删除`);
+            });
             return;
         }
     }, undefined, context.subscriptions);
@@ -575,7 +582,8 @@ small{opacity:.7}
   <label>描述：<span class="req">*</span></label><input id="fDesc" placeholder="如 我的解锁命令">
   <label>代码片段（xml格式）：<span class="req">*</span></label>
   <textarea id="fBody" placeholder='<ExternCommand command="unlock" condition="#click" />'></textarea>
-  <small>保存时自动完成 JSON/片段转义；唤醒词、描述、代码片段均为必填。</small><br><br>
+  <small>保存时自动完成 JSON/片段转义；唤醒词、描述、代码片段均为必填。</small><br>
+  <span id="errMsg" style="display:none;color:#e81123"></span><br>
   <button id="saveBtn">保存</button><button id="cancelBtn" class="sec">取消</button><button id="delInForm" class="sec" style="display:none">删除</button>
 </div>
 <script>
@@ -591,7 +599,7 @@ function render(list){
     <td><button class="sec" data-edit="\${esc(s.prefix)}">编辑</button>
     <button class="sec" data-del="\${esc(s.prefix)}">删除</button></td></tr>\`).join('');
   rows.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit));
-  rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ if(confirm('删除代码片段「'+b.dataset.del+'」？')) vscode.postMessage({type:'delete',prefix:b.dataset.del}); });
+  rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ vscode.postMessage({type:'delete',prefix:b.dataset.del}); });
   window._list = list;
   if (!list.length) rows.innerHTML = '<tr><td colspan="4" style="opacity:.6">暂无自定义代码片段</td></tr>';
 }
@@ -605,11 +613,13 @@ function edit(prefix){
 document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; document.getElementById('delInForm').style.display='none'; form.style.display='block'; fPrefix.focus(); };
 document.getElementById('cancelBtn').onclick = ()=>{ form.style.display='none'; };
 document.getElementById('delInForm').onclick = ()=>{
-  if(editing && confirm('删除代码片段「'+editing+'」？')){ vscode.postMessage({type:'delete',prefix:editing}); form.style.display='none'; }
+  if(editing){ vscode.postMessage({type:'delete',prefix:editing}); form.style.display='none'; }
 };
 document.getElementById('saveBtn').onclick = ()=>{
   const d = { oldPrefix: editing, prefix: fPrefix.value.trim(), description: fDesc.value.trim(), body: fBody.value };
-  if(!d.prefix || !d.description || !d.body.trim()){ alert('唤醒词、描述、代码片段均为必填项'); return; }
+  const err = document.getElementById('errMsg');
+  if(!d.prefix || !d.description || !d.body.trim()){ err.textContent='唤醒词、描述、代码片段均为必填项'; err.style.display='block'; return; }
+  err.style.display='none';
   vscode.postMessage({type:'save', ...d});
   form.style.display='none';
 };
