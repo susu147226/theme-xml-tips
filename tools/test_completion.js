@@ -55,11 +55,26 @@ function makeDoc(filePath, text) {
     const lineOffsets = [0];
     for (let i = 0; i < text.length; i++) if (text[i] === '\n') lineOffsets.push(i + 1);
     const toOffset = p => lineOffsets[p.line] + p.character;
+    const toPos = off => {
+        let line = 0;
+        for (let i = 0; i < lineOffsets.length; i++) { if (lineOffsets[i] <= off) line = i; else break; }
+        return new Position(line, off - lineOffsets[line]);
+    };
     return {
         uri: { fsPath: filePath },
         getText(range) {
             if (!range) return text;
             return text.slice(toOffset(range.start), toOffset(range.end));
+        },
+        getWordRangeAtPosition(pos, regex) {
+            const off = toOffset(pos);
+            const re = new RegExp(regex.source, regex.flags.includes('g') ? regex.flags : regex.flags + 'g');
+            let m;
+            while ((m = re.exec(text))) {
+                if (off >= m.index && off <= m.index + m[0].length) return new Range(toPos(m.index), toPos(m.index + m[0].length));
+                if (m.index > off) break;
+            }
+            return undefined;
         },
     };
 }
@@ -185,6 +200,29 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     const pkg = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'package.json'), 'utf8'));
     const qs = pkg.contributes.configurationDefaults && pkg.contributes.configurationDefaults['[xml]'];
     check('已配置[xml]默认quickSuggestions', !!(qs && qs['editor.quickSuggestions'] && qs['editor.quickSuggestions'].other === true));
+}
+
+// 12) 命令标签 name 属性免 #/@ 直接提示变量（v1.8.1）；expression 仍需 #/@；其他标签不变
+{
+    const varItems = items => items.filter(i => i.kind === 6);
+    // 命令标签 name：不输入 #/@ 也出变量
+    let t = '<Trigger action="down">\n<VariableCommand name="';
+    let items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
+    check('VariableCommand.name 免#出变量', varItems(items).length > 100, String(varItems(items).length));
+    t = '<Command name="';
+    items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
+    check('Command.name 免#出变量', varItems(items).length > 100, String(varItems(items).length));
+    // 命令标签 expression：不输 # 不出变量，输 # 出变量
+    t = '<VariableCommand expression="';
+    items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
+    check('expression 不输#不出变量', varItems(items).length === 0, String(varItems(items).length));
+    t = '<VariableCommand expression="#';
+    items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
+    check('expression 输#出变量', varItems(items).length > 100, String(varItems(items).length));
+    // 非命令标签 name 类属性不受影响（Text.text 不输 #/@ 不出变量）
+    t = '<Text text="';
+    items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', t), endPos(t));
+    check('Text.text 不输#不出变量', varItems(items).length === 0, String(varItems(items).length));
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.1 (2026-08-20)
+
+- 新增：命令标签（Command、VariableCommand、VideoCommand、CardInteractionCommand、StyleCommand、Collaboration*Command 等所有 `*Command` 标签）的 `name` 属性无需输入 `#`/`@` 即直接提示变量名（文件内 Var 定义优先 + 引擎全局变量）
+- 不变：`expression` 属性仍按输入 `#`/`@` 触发变量提示，其余标签的提示行为不受影响
+- 测试桩补齐 getWordRangeAtPosition，属性值上下文纳入集成测试（45 个用例）
+
 ## 1.8.0 (2026-08-20)
 
 - 新增：快捷跳转与平台代码片段**免输 `<`**——在标签体内部直接输入中文名称（主题/微信/天气…）或英文关键词（intent/unlock/var…）即自动弹出提示

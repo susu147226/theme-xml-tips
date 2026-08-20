@@ -308,10 +308,11 @@ function provideCompletions(document, position) {
             }
         }
 
-        // 2) # / @ 变量提示：文件内 <Var name> 定义优先，其次引擎全局变量
+        // 2) 变量提示：命令标签(*Command)的 name 属性直接提示（无需 #/@）；其余属性值需输入 # / @ 触发
         const linePrefix = document.getText(new vscode.Range(position.with(undefined, Math.max(0, position.character - 1)), position));
         const word = document.getText(document.getWordRangeAtPosition(position, /[#@]?[\w.]+/)) || '';
-        if (/[#@]/.test(linePrefix) || /^[#@]/.test(word)) {
+        const isCommandName = /Command$/.test(ctx.tagName || '') && ctx.attrName === 'name';
+        if (isCommandName || /[#@]/.test(linePrefix) || /^[#@]/.test(word)) {
             const cfg = vscode.workspace.getConfiguration('themeXmlTips');
             if (cfg.get('enableVariableCompletion', true)) {
                 const localNames = new Set(fileVarNames(document));

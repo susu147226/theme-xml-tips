@@ -21,7 +21,7 @@
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.8.0.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-1.8.1.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -31,30 +31,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-1.8.0.vsix`
+1. 下载 Release 中的 `theme-xml-tips-1.8.1.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.8.0.vsix
+code --install-extension theme-xml-tips-1.8.1.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.8.0.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.8.1.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.8.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.8.1.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.8.0.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.8.1.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 
@@ -144,6 +144,7 @@ code --install-extension theme-xml-tips-1.8.0.vsix
 - 输入完整标签名后按**空格**，如 `<Var `，弹出该标签的全部属性（标注类型、必填/选填），选中自动补 `=""`
 - 光标**紧贴标签名**时（如 `<Var|`、`<Var|/>`）按 `Ctrl+Space`（或自动触发），标签与属性提示同时出现
 - 在属性值引号内输入时，有固定取值的属性自动提示可选参数（枚举值、`true`/`false`、变速函数等）；输入 `#` 或 `@` 提示变量（当前文件 `<Var>` 定义的优先），输入函数名提示 36 个表达式函数并自动带参数占位符
+- 命令标签（`Command` / `VariableCommand` / `VideoCommand` 等 `*Command`）的 `name` 属性**无需输入 `#`/`@`** 即直接提示变量名；`expression` 属性仍按 `#`/`@` 触发
 
 **快捷跳转**（仅 VS Code，按平台识别结果过滤）：
 
