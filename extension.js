@@ -94,10 +94,8 @@ function getContext(document, position) {
     if (!m) return { kind: 'text' };
     const tagName = m[1] || '';
     const rest = m[2] || '';
-    if (!/[\s]/.test(rest) && !rest.includes('=')) {
-        // 还在输入标签名
-        if (rest === '' && !/\s$/.test(inner)) return { kind: 'tag', tagName };
-    }
+    // 还在输入标签名（含中文过滤词，如 <主）：整个 inner 无空白与等号即视为标签名输入
+    if (!/[\s=]/.test(inner)) return { kind: 'tag', tagName };
     // 属性值中？
     const vm = rest.match(/([\w-]+)\s*=\s*"([^"]*)$/);
     if (vm) return { kind: 'value', tagName, attrName: vm[1], valuePrefix: vm[2] };
@@ -199,22 +197,24 @@ function shortcutCompletions(document) {
     const items = [];
     for (const g of groups) {
         for (const s of g.list) {
-            const base = '快捷跳转·' + s.name + (g.label ? '（' + g.label + '）' : '');
+            // 提示词直接用快捷跳转名称；filterText 同时含中文名与英文（intent 等），中英文输入均可触发
+            const base = s.name + (g.label ? '（' + g.label + '）' : '');
+            const filter = s.name + ' 快捷跳转 intent IntentCommand ' + s.xml;
             // 1) 单独的快捷跳转
             const it1 = new vscode.CompletionItem(base, vscode.CompletionItemKind.Snippet);
             it1.detail = '快捷跳转';
             it1.documentation = new vscode.MarkdownString('```xml\n' + s.xml + '\n```');
             it1.insertText = new vscode.SnippetString(s.xml.replace(/\$/g, '\\$'));
-            it1.filterText = s.name + ' ' + s.xml;
+            it1.filterText = filter;
             it1.sortText = '4' + s.name;
             items.push(it1);
             // 2) 快捷跳转 + 解锁
             const withUnlock = s.xml + '\n<ExternCommand command="unlock" condition="#click" />';
-            const it2 = new vscode.CompletionItem(base + '+解锁', vscode.CompletionItemKind.Snippet);
+            const it2 = new vscode.CompletionItem(base + ' +解锁', vscode.CompletionItemKind.Snippet);
             it2.detail = '快捷跳转 + ExternCommand 解锁';
             it2.documentation = new vscode.MarkdownString('```xml\n' + withUnlock + '\n```');
             it2.insertText = new vscode.SnippetString(withUnlock.replace(/\$/g, '\\$'));
-            it2.filterText = s.name + ' unlock ' + s.xml;
+            it2.filterText = filter + ' unlock 解锁';
             it2.sortText = '4' + s.name + '~';
             items.push(it2);
         }
@@ -354,6 +354,13 @@ function provideCompletions(document, position) {
             it.sortText = '3' + f.name;
             items.push(it);
         }
+        return items;
+    }
+
+    // 标签体内部（如 <Button> 与 </Button> 之间）：Ctrl+Space 或输入后也可唤起快捷跳转与平台代码片段
+    if (ctx.kind === 'text') {
+        items.push(...shortcutCompletions(document));
+        items.push(...varSnippetCompletions(document));
         return items;
     }
     return items;

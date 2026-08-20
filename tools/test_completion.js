@@ -55,7 +55,7 @@ function endPos(text) {
 }
 
 const XML_HEAD = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<';
-const sc = items => items.filter(i => String(i.label).startsWith('快捷跳转·'));
+const sc = items => items.filter(i => String(i.detail || '').startsWith('快捷跳转'));
 const vs = items => items.filter(i => String(i.label).startsWith('代码片段·'));
 
 let fail = 0;
@@ -72,10 +72,11 @@ function check(name, cond, extra) {
     check('鸿蒙路径-片段数量', vs(items).length === 6, String(vs(items).length));
     check('鸿蒙路径-跳转不带平台标注', sc(items).every(i => !String(i.label).includes('（')));
     check('鸿蒙路径-片段不带平台标注', vs(items).every(i => !String(i.label).includes('（')));
-    const theme = sc(items).find(i => i.label === '快捷跳转·主题');
+    const theme = sc(items).find(i => i.label === '主题');
     check('鸿蒙路径-主题跳转为鸿蒙包名', !!theme && theme.insertText.value.includes('com.huawei.hmsapp.thememanager'));
-    const unlock = sc(items).find(i => i.label === '快捷跳转·主题+解锁');
+    const unlock = sc(items).find(i => i.label === '主题 +解锁');
     check('鸿蒙路径-主题+解锁含ExternCommand', !!unlock && unlock.insertText.value.includes('<ExternCommand command="unlock" condition="#click" />'));
+    check('鸿蒙路径-提示词即跳转名称', !!theme && theme.filterText.includes('主题') && theme.filterText.toLowerCase().includes('intent'));
 }
 
 // 2) OPPO 路径（advance 父目录）：只出 OPPO 跳转（129×2）与含 OPPO 的片段（7 个）
@@ -122,6 +123,24 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
 {
     const items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', '<Va'), endPos('<Va'));
     check('半成品标签名不出属性', items.filter(i => i.kind === 5).length === 0);
+}
+
+// 7) < 后输入中文过滤词（v1.7.1 修复）：<主 应判定为标签输入并出快捷跳转
+{
+    const text = XML_HEAD + '主';
+    const items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\a.xml', text), endPos(text));
+    check('<主 中文触发快捷跳转', sc(items).length === 68 * 2, String(sc(items).length));
+    check('<主 filterText含中文名', sc(items).some(i => i.filterText.includes('主题')));
+}
+
+// 8) 标签体内部（如 <Button> 内）手动唤起：应提供快捷跳转与平台片段（v1.7.1 修复）
+{
+    const text = '<Button x="0" y="0">\n';
+    const items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), endPos(text));
+    check('Button内部-快捷跳转', sc(items).length === 125 * 2, String(sc(items).length));
+    check('Button内部-平台片段', vs(items).length > 0, String(vs(items).length));
+    const theme = sc(items).find(i => i.label === '主题');
+    check('Button内部-主题为华为包名', !!theme && theme.insertText.value.includes('com.huawei.android.thememanager'));
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
