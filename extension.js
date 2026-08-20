@@ -280,7 +280,6 @@ function provideCompletions(document, position) {
         if (ctx.tagName && tagMap.has(ctx.tagName)) {
             for (const it of attrCompletions(ctx.tagName)) {
                 it.range = new vscode.Range(position, position);
-                it.filterText = '';
                 it.insertText = new vscode.SnippetString(` ${it.label}="$1"`);
                 it.sortText = '0' + (it.sortText || it.label);
                 items.push(it);
@@ -414,13 +413,47 @@ function provideHover(document, position) {
     return null;
 }
 
+const PLATFORM_LABELS = { harmonyos: '鸿蒙', huawei: '华为', honor: '荣耀', oppo: 'OPPO', vivo: 'vivo', xiaomi: '小米' };
+
+/** 打开/切换到 XML 文件时弹出平台识别结果（每个文件每次会话提醒一次，便于确认识别是否正确） */
+function setupPlatformNotify(context) {
+    const shown = new Set();
+    const notify = editor => {
+        const doc = editor && editor.document;
+        if (!doc || doc.languageId !== 'xml') return;
+        const key = doc.uri.toString();
+        if (shown.has(key)) return;
+        shown.add(key);
+        const p = detectPlatform(doc);
+        vscode.window.showInformationMessage(
+            p
+                ? `Theme XML Tips：当前文件识别为【${PLATFORM_LABELS[p]}】平台，快捷跳转与代码片段已按该平台过滤`
+                : 'Theme XML Tips：未识别到平台（路径不含平台关键词），将列出全部平台的快捷跳转与代码片段'
+        );
+    };
+    context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(notify));
+    notify(vscode.window.activeTextEditor);
+
+    // 检测到 Red Hat XML 扩展时提醒一次：其部分版本在补全解析阶段会报错，可能影响提示体验
+    if (!context.globalState.get('redhatMuted') && vscode.extensions.getExtension('redhat.vscode-xml')) {
+        vscode.window.showWarningMessage(
+            'Theme XML Tips：检测到已安装 Red Hat XML 扩展，若补全列表异常可在本工作区尝试禁用该扩展',
+            '不再提示'
+        ).then(choice => {
+            if (choice) context.globalState.update('redhatMuted', true);
+        });
+    }
+}
+
 function activate(context) {
     loadData(context);
     const sel = { language: 'xml', scheme: '*' };
+    // 注意：provider 必须传对象（实现 provideCompletionItems / provideHover），不能直接传函数
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider(sel, provideCompletions, '<', ' ', '"', '#', '@', '(', ','),
-        vscode.languages.registerHoverProvider(sel, provideHover)
+        vscode.languages.registerCompletionItemProvider(sel, { provideCompletionItems: provideCompletions }, '<', ' ', '"', '#', '@', '(', ','),
+        vscode.languages.registerHoverProvider(sel, { provideHover: provideHover })
     );
+    setupPlatformNotify(context);
 }
 
 function deactivate() {}

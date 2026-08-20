@@ -27,6 +27,20 @@ const vscodeStub = {
     CompletionItemKind: { Class: 7, Field: 5, EnumMember: 20, Variable: 6, Function: 3, Snippet: 15 },
     workspace: { getConfiguration: () => ({ get: (k, d) => d }) },
 };
+// activate() 依赖的 API（用于注册契约测试）
+let capturedCompletionProvider = null;
+let capturedHoverProvider = null;
+vscodeStub.languages = {
+    registerCompletionItemProvider: (sel, provider, ...triggers) => { capturedCompletionProvider = provider; return { dispose() {} }; },
+    registerHoverProvider: (sel, provider) => { capturedHoverProvider = provider; return { dispose() {} }; },
+};
+vscodeStub.window = {
+    onDidChangeActiveTextEditor: () => ({ dispose() {} }),
+    activeTextEditor: null,
+    showInformationMessage: () => Promise.resolve(),
+    showWarningMessage: () => Promise.resolve(),
+};
+vscodeStub.extensions = { getExtension: () => undefined };
 
 const origLoad = Module._load;
 Module._load = function (request, ...rest) {
@@ -141,6 +155,21 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('Button内部-平台片段', vs(items).length > 0, String(vs(items).length));
     const theme = sc(items).find(i => i.label === '主题');
     check('Button内部-主题为华为包名', !!theme && theme.insertText.value.includes('com.huawei.android.thememanager'));
+}
+
+// 9) 注册契约测试（v1.7.2 修复）：provider 必须是对象而非裸函数，否则真实 VS Code 报 provider FAILED
+{
+    const ctx = {
+        subscriptions: [],
+        extensionPath: require('path').join(__dirname, '..'),
+        globalState: { get: () => undefined, update: () => Promise.resolve() },
+    };
+    ext.activate(ctx);
+    check('补全provider为对象且含provideCompletionItems',
+        !!capturedCompletionProvider && typeof capturedCompletionProvider.provideCompletionItems === 'function');
+    check('悬停provider为对象且含provideHover',
+        !!capturedHoverProvider && typeof capturedHoverProvider.provideHover === 'function');
+    check('activate不抛错且注册2个provider', ctx.subscriptions.length === 3, String(ctx.subscriptions.length));
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
