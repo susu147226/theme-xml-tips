@@ -143,6 +143,277 @@
         ],
         "description": "截取子串，如 substr('今天真热',1,2)=天真"
       }
+    ],
+    "tagDocs": {
+      "Normal": {
+        "title": "按钮正常状态",
+        "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "Pressed": {
+        "title": "按钮按下状态",
+        "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "NormalState": {
+        "title": "正常状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
+        "attributes": {}
+      },
+      "PressedState": {
+        "title": "按下状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
+        "attributes": {}
+      },
+      "ReachedState": {
+        "title": "到达状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
+        "attributes": {}
+      },
+      "Slider": {
+        "title": "滑块",
+        "description": "锁屏滑动激活操作：StartPoint 随手指移动落入 EndPoint 目标区域时松开即触发。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "滑块命名"
+          },
+          "bounceInitSpeed": {
+            "type": "数值",
+            "description": "回弹动画初始速度（像素/秒），最小 100"
+          },
+          "bounceAcceleration": {
+            "type": "数值",
+            "description": "回弹加速度，最小 10"
+          },
+          "keyPoint": {
+            "type": "数值",
+            "description": "回弹点，可实现多次回弹"
+          },
+          "visibility": {
+            "type": "0/1",
+            "description": "可见性，支持表达式"
+          }
+        }
+      },
+      "Intent": {
+        "title": "跳转意图",
+        "description": "Slider/Unlocker 的 EndPoint 子标签：滑动到达后执行的应用跳转。",
+        "attributes": {
+          "action": {
+            "type": "字符串",
+            "description": "intent 的 action"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "intent 的 type"
+          },
+          "category": {
+            "type": "字符串",
+            "description": "intent 的 category"
+          },
+          "package": {
+            "type": "字符串",
+            "description": "包名"
+          },
+          "class": {
+            "type": "字符串",
+            "description": "类名"
+          }
+        }
+      },
+      "ContentProviderBinder": {
+        "title": "数据绑定",
+        "description": "绑定访问 ContentProvider 数据（天气/计步/日历等），将查询列映射到变量。置于 VariableBinders 内。",
+        "attributes": {
+          "uri": {
+            "type": "字符串",
+            "description": "ContentProvider 的 URI，如 content://weather/weather"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "Binder 名称标识"
+          },
+          "columns": {
+            "type": "字符串",
+            "description": "查询列名，逗号分隔"
+          },
+          "countName": {
+            "type": "字符串",
+            "description": "查询结果数量绑定到的变量名"
+          },
+          "where": {
+            "type": "字符串",
+            "description": "查询条件（SQL WHERE）"
+          },
+          "whereExp": {
+            "type": "字符串",
+            "description": "WHERE 表达式，支持变量"
+          },
+          "order": {
+            "type": "字符串",
+            "description": "排序（SQL ORDER BY）"
+          },
+          "dependency": {
+            "type": "字符串",
+            "description": "依赖刷新"
+          }
+        }
+      },
+      "Calendar": {
+        "title": "日历组件",
+        "description": "老引擎日历组件标签。",
+        "attributes": {}
+      },
+      "ControlPoint": {
+        "title": "控制点",
+        "description": "FramerateController 等动画控制的控制点子标签。",
+        "attributes": {}
+      },
+      "FramerateController": {
+        "title": "帧率控制器",
+        "description": "按变量值控制动画帧率。",
+        "attributes": {}
+      },
+      "Paint": {
+        "title": "画笔",
+        "description": "画笔/绘制标签（老引擎）。",
+        "attributes": {}
+      },
+      "ParticleScatter": {
+        "title": "粒子散射",
+        "description": "粒子散射效果（老引擎）。",
+        "attributes": {}
+      },
+      "PathItem": {
+        "title": "路径点",
+        "description": "Text 等标签的自定义路径子标签。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "quadTo / lineTo"
+          },
+          "controlX": {
+            "type": "数值",
+            "description": "控制点 x"
+          },
+          "controlY": {
+            "type": "数值",
+            "description": "控制点 y"
+          },
+          "x": {
+            "type": "数值",
+            "description": "x 坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "y 坐标"
+          }
+        }
+      },
+      "Rotate": {
+        "title": "旋转",
+        "description": "网格化/位移动画的旋转子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数，0 不重复，-1 无限循环"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "旋转参数，逗号分隔，2-5 个"
+          }
+        }
+      },
+      "RotateView": {
+        "title": "旋转视图",
+        "description": "旋转视图（老引擎）。",
+        "attributes": {}
+      },
+      "Scale": {
+        "title": "缩放",
+        "description": "网格化缩放动画子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "缩放参数，逗号分隔"
+          }
+        }
+      },
+      "VR": {
+        "title": "VR全景图",
+        "description": "360° 全景图，支持陀螺仪切换视角和跟手切换。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "全景图资源名称"
+          },
+          "srcid": {
+            "type": "数值",
+            "description": "资源名序号，可用变量切换多张全景图"
+          },
+          "touchType": {
+            "type": "数值/true/false",
+            "description": "0 支持跟手切换，1 不支持"
+          }
+        }
+      },
+      "WaterWallpaper": {
+        "title": "水波纹壁纸",
+        "description": "全屏水波纹效果，网格越多越细腻但消耗越大。",
+        "attributes": {
+          "xmesh": {
+            "type": "数值",
+            "description": "x 方向网格数"
+          },
+          "ymesh": {
+            "type": "数值",
+            "description": "y 方向网格数"
+          },
+          "src": {
+            "type": "字符串",
+            "description": "资源文件"
+          },
+          "torsion": {
+            "type": "数值",
+            "description": "扭曲度 1-10"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "触摸处顶点颜色，如 #0cf02b"
+          }
+        }
+      },
+      "Weight": {
+        "title": "权重",
+        "description": "物理/动画权重子标签（老引擎）。",
+        "attributes": {}
+      }
+    },
+    "variableTypeEnum": [
+      "number",
+      "string",
+      "int"
     ]
   },
   "honor": {
@@ -204,6 +475,277 @@
         ],
         "description": "截取子串，如 substr('今天真热',1,2)=天真"
       }
+    ],
+    "tagDocs": {
+      "Normal": {
+        "title": "按钮正常状态",
+        "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "Pressed": {
+        "title": "按钮按下状态",
+        "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "NormalState": {
+        "title": "正常状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
+        "attributes": {}
+      },
+      "PressedState": {
+        "title": "按下状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
+        "attributes": {}
+      },
+      "ReachedState": {
+        "title": "到达状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
+        "attributes": {}
+      },
+      "Slider": {
+        "title": "滑块",
+        "description": "锁屏滑动激活操作：StartPoint 随手指移动落入 EndPoint 目标区域时松开即触发。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "滑块命名"
+          },
+          "bounceInitSpeed": {
+            "type": "数值",
+            "description": "回弹动画初始速度（像素/秒），最小 100"
+          },
+          "bounceAcceleration": {
+            "type": "数值",
+            "description": "回弹加速度，最小 10"
+          },
+          "keyPoint": {
+            "type": "数值",
+            "description": "回弹点，可实现多次回弹"
+          },
+          "visibility": {
+            "type": "0/1",
+            "description": "可见性，支持表达式"
+          }
+        }
+      },
+      "Intent": {
+        "title": "跳转意图",
+        "description": "Slider/Unlocker 的 EndPoint 子标签：滑动到达后执行的应用跳转。",
+        "attributes": {
+          "action": {
+            "type": "字符串",
+            "description": "intent 的 action"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "intent 的 type"
+          },
+          "category": {
+            "type": "字符串",
+            "description": "intent 的 category"
+          },
+          "package": {
+            "type": "字符串",
+            "description": "包名"
+          },
+          "class": {
+            "type": "字符串",
+            "description": "类名"
+          }
+        }
+      },
+      "ContentProviderBinder": {
+        "title": "数据绑定",
+        "description": "绑定访问 ContentProvider 数据（天气/计步/日历等），将查询列映射到变量。置于 VariableBinders 内。",
+        "attributes": {
+          "uri": {
+            "type": "字符串",
+            "description": "ContentProvider 的 URI，如 content://weather/weather"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "Binder 名称标识"
+          },
+          "columns": {
+            "type": "字符串",
+            "description": "查询列名，逗号分隔"
+          },
+          "countName": {
+            "type": "字符串",
+            "description": "查询结果数量绑定到的变量名"
+          },
+          "where": {
+            "type": "字符串",
+            "description": "查询条件（SQL WHERE）"
+          },
+          "whereExp": {
+            "type": "字符串",
+            "description": "WHERE 表达式，支持变量"
+          },
+          "order": {
+            "type": "字符串",
+            "description": "排序（SQL ORDER BY）"
+          },
+          "dependency": {
+            "type": "字符串",
+            "description": "依赖刷新"
+          }
+        }
+      },
+      "Calendar": {
+        "title": "日历组件",
+        "description": "老引擎日历组件标签。",
+        "attributes": {}
+      },
+      "ControlPoint": {
+        "title": "控制点",
+        "description": "FramerateController 等动画控制的控制点子标签。",
+        "attributes": {}
+      },
+      "FramerateController": {
+        "title": "帧率控制器",
+        "description": "按变量值控制动画帧率。",
+        "attributes": {}
+      },
+      "Paint": {
+        "title": "画笔",
+        "description": "画笔/绘制标签（老引擎）。",
+        "attributes": {}
+      },
+      "ParticleScatter": {
+        "title": "粒子散射",
+        "description": "粒子散射效果（老引擎）。",
+        "attributes": {}
+      },
+      "PathItem": {
+        "title": "路径点",
+        "description": "Text 等标签的自定义路径子标签。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "quadTo / lineTo"
+          },
+          "controlX": {
+            "type": "数值",
+            "description": "控制点 x"
+          },
+          "controlY": {
+            "type": "数值",
+            "description": "控制点 y"
+          },
+          "x": {
+            "type": "数值",
+            "description": "x 坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "y 坐标"
+          }
+        }
+      },
+      "Rotate": {
+        "title": "旋转",
+        "description": "网格化/位移动画的旋转子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数，0 不重复，-1 无限循环"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "旋转参数，逗号分隔，2-5 个"
+          }
+        }
+      },
+      "RotateView": {
+        "title": "旋转视图",
+        "description": "旋转视图（老引擎）。",
+        "attributes": {}
+      },
+      "Scale": {
+        "title": "缩放",
+        "description": "网格化缩放动画子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "缩放参数，逗号分隔"
+          }
+        }
+      },
+      "VR": {
+        "title": "VR全景图",
+        "description": "360° 全景图，支持陀螺仪切换视角和跟手切换。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "全景图资源名称"
+          },
+          "srcid": {
+            "type": "数值",
+            "description": "资源名序号，可用变量切换多张全景图"
+          },
+          "touchType": {
+            "type": "数值/true/false",
+            "description": "0 支持跟手切换，1 不支持"
+          }
+        }
+      },
+      "WaterWallpaper": {
+        "title": "水波纹壁纸",
+        "description": "全屏水波纹效果，网格越多越细腻但消耗越大。",
+        "attributes": {
+          "xmesh": {
+            "type": "数值",
+            "description": "x 方向网格数"
+          },
+          "ymesh": {
+            "type": "数值",
+            "description": "y 方向网格数"
+          },
+          "src": {
+            "type": "字符串",
+            "description": "资源文件"
+          },
+          "torsion": {
+            "type": "数值",
+            "description": "扭曲度 1-10"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "触摸处顶点颜色，如 #0cf02b"
+          }
+        }
+      },
+      "Weight": {
+        "title": "权重",
+        "description": "物理/动画权重子标签（老引擎）。",
+        "attributes": {}
+      }
+    },
+    "variableTypeEnum": [
+      "number",
+      "string",
+      "int"
     ]
   },
   "oppo": {
@@ -861,6 +1403,808 @@
         "dst_atop",
         "xor"
       ]
+    },
+    "tagDocs": {
+      "Root": {
+        "title": "百变引擎根标签",
+        "description": "OPPO 百变引擎根标签之一（LockScreen/Root/Fullscreen/Oneshot/Widget）。支持通用根属性：screenWidth/version/frameRate/frameRateBatteryFull/frameRateCharging/frameRateBatteryLow/pressure/id/vibrate。version>=10000 时 hour 为系统常量。",
+        "attributes": {
+          "screenWidth": {
+            "type": "数值",
+            "description": "设定屏幕宽度标准，如 1080"
+          },
+          "version": {
+            "type": "数值",
+            "description": "语法版本，>=10000 时 hour 为系统常量、weather_index=1 查明日天气"
+          },
+          "frameRate": {
+            "type": "数值",
+            "description": "屏幕刷新帧率，推荐 60"
+          },
+          "frameRateBatteryFull": {
+            "type": "数值",
+            "description": "电量充满下刷新帧率，默认同 frameRate"
+          },
+          "frameRateCharging": {
+            "type": "数值",
+            "description": "充电状态下刷新帧率"
+          },
+          "frameRateBatteryLow": {
+            "type": "数值",
+            "description": "低电量（<20）刷新帧率，默认 30"
+          },
+          "pressure": {
+            "type": "true/false",
+            "description": "是否支持按压屏幕压力值"
+          },
+          "vibrate": {
+            "type": "true/false",
+            "description": "是否支持震动"
+          }
+        }
+      },
+      "Fullscreen": {
+        "title": "全屏特效根标签",
+        "description": "OPPO 主题卡全屏特效根标签（也写作 FullScreen），点击主题卡显示全屏内容，如烟花动画。支持所有通用根属性。",
+        "attributes": {
+          "screenWidth": {
+            "type": "数值",
+            "description": "设定屏幕宽度标准"
+          },
+          "frameRate": {
+            "type": "数值",
+            "description": "刷新帧率"
+          },
+          "version": {
+            "type": "数值",
+            "description": "语法版本"
+          }
+        }
+      },
+      "Oneshot": {
+        "title": "一镜到底根标签",
+        "description": "OPPO 一镜到底资源包脚本根标签（也写作 OneShot）。支持所有通用根属性。一镜到底场景 ExternalCommands 支持 Trigger action=\"Launcher2Aod\" 等桌面/息屏切换事件。",
+        "attributes": {
+          "screenWidth": {
+            "type": "数值",
+            "description": "设定屏幕宽度标准"
+          },
+          "frameRate": {
+            "type": "数值",
+            "description": "刷新帧率"
+          },
+          "version": {
+            "type": "数值",
+            "description": "语法版本"
+          }
+        }
+      },
+      "CancelDelayCommand": {
+        "title": "取消延迟命令",
+        "description": "取消通过 delay 延迟执行的命令。target 必须与目标命令的 tag 属性值一致。只取消延迟执行，已执行的逻辑无法取消。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "要取消的目标命令的 tag 值",
+            "required": "必填"
+          },
+          "condition": {
+            "type": "数字",
+            "description": "执行条件，1 执行 0 不执行，默认 1"
+          }
+        }
+      },
+      "VibratorCommand": {
+        "title": "震动命令",
+        "description": "设置设备震动效果（ColorOS 7+）。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "每次震动持续时间（毫秒）"
+          },
+          "loop": {
+            "type": "0/1 或 true/false",
+            "description": "是否循环震动"
+          },
+          "spacetime": {
+            "type": "数值",
+            "description": "两次震动间隔时间（毫秒）"
+          }
+        }
+      },
+      "CollBodyCommand": {
+        "title": "刚体命令",
+        "description": "改变物理引擎中刚体的运动速度、受力方向、刚体属性和类型，配合 CollisionWorld 2D 物理碰撞使用。",
+        "attributes": {
+          "collbodyid": {
+            "type": "字符串",
+            "description": "要调整的刚体 id",
+            "required": "必填"
+          },
+          "forceX": {
+            "type": "float",
+            "description": "x 方向受力调整，建议 ±10000000"
+          },
+          "forceY": {
+            "type": "float",
+            "description": "y 方向受力调整"
+          },
+          "vx": {
+            "type": "float",
+            "description": "x 方向速度调整"
+          },
+          "vy": {
+            "type": "float",
+            "description": "y 方向速度调整"
+          },
+          "isActive": {
+            "type": "int",
+            "description": "0 为非刚体（可被穿过），默认 1 为刚体"
+          },
+          "type": {
+            "type": "int",
+            "description": "2 为动态刚体，其他值/默认静态刚体"
+          }
+        }
+      },
+      "ParticleCommand": {
+        "title": "流体粒子命令",
+        "description": "配合 FluidsView 动态增加/删除/重置流体。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "目标 FluidsView 的 name",
+            "required": "必填"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "add 添加（需含 CircleShape/PolygonShape 子元素）/ delete 移除（配 deleteNum）/ reset 重置，默认 add"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "新增流体颜色（type=add 时可选）"
+          },
+          "deleteNum": {
+            "type": "数字",
+            "description": "删除的流体数量，默认 100 最高 10000"
+          },
+          "condition": {
+            "type": "数字",
+            "description": "执行条件，非 0 执行"
+          }
+        }
+      },
+      "ProviderCommand": {
+        "title": "数据提供者命令",
+        "description": "访问其它应用 ContentProvider，执行对应方法。",
+        "attributes": {
+          "action": {
+            "type": "字符串",
+            "description": "操作类型，目前支持 \"call\"",
+            "required": "必填"
+          },
+          "uri": {
+            "type": "字符串",
+            "description": "ContentProvider 完整 URI（与 authority 至少提供一个）"
+          },
+          "authority": {
+            "type": "字符串",
+            "description": "ContentProvider 的 authority"
+          },
+          "method": {
+            "type": "字符串",
+            "description": "action 为 call 时要调用的方法名"
+          },
+          "extras": {
+            "type": "字符串",
+            "description": "额外参数，格式 \"key=value\"，多个用 \" and \" 分隔"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "执行条件"
+          }
+        }
+      },
+      "FullScreenCommand": {
+        "title": "全屏特效命令",
+        "description": "主题卡场景：点击拉起内置全屏页面，页面内容由脚本渲染，支持帧动画/音频/自动关闭。",
+        "attributes": {
+          "path": {
+            "type": "字符串",
+            "description": "全屏脚本路径，默认 fullscreen_manifest.xml"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "执行条件"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "delayCondition": {
+            "type": "表达式",
+            "description": "延时条件"
+          }
+        }
+      },
+      "FilamentCommand": {
+        "title": "3D渲染命令",
+        "description": "对 FilamentView 执行切换模型、灯光环境、动画及替换素材。子标签：ModelAction/IndirectLightAction/AnimationAction/MaterialAction。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "目标 FilamentView 的 name",
+            "required": "必填"
+          },
+          "condition": {
+            "type": "数字",
+            "description": "执行条件，默认 1"
+          },
+          "delay": {
+            "type": "数字",
+            "description": "延迟执行时长，默认 0"
+          }
+        }
+      },
+      "ModelAction": {
+        "title": "模型操作",
+        "description": "FilamentCommand 子标签，切换 3D 模型文件。",
+        "attributes": {
+          "path": {
+            "type": "字符串",
+            "description": "模型文件路径"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "模型类型：glb / gltf"
+          },
+          "textureDir": {
+            "type": "字符串",
+            "description": "gltf 模型纹理目录"
+          },
+          "unitCubeTransform": {
+            "type": "字符串",
+            "description": "单位立方体根变换，三个数字逗号分隔，默认 \"0,0,-4\""
+          }
+        }
+      },
+      "IndirectLightAction": {
+        "title": "灯光操作",
+        "description": "FilamentCommand 子标签，加载模型灯光环境。",
+        "attributes": {
+          "path": {
+            "type": "字符串",
+            "description": "灯光文件路径（.ktx）"
+          },
+          "intensity": {
+            "type": "数字",
+            "description": "灯光强度，默认 30000"
+          }
+        }
+      },
+      "AnimationAction": {
+        "title": "模型动画操作",
+        "description": "FilamentCommand 子标签，切换模型动画。animationIndex 与 animationName 同时存在时优先 animationIndex。",
+        "attributes": {
+          "animationName": {
+            "type": "字符串",
+            "description": "播放动画的名称"
+          },
+          "animationIndex": {
+            "type": "数字",
+            "description": "播放动画的下标"
+          },
+          "loop": {
+            "type": "数字",
+            "description": "1 循环播放 / 0 只播一次，默认 1"
+          }
+        }
+      },
+      "MaterialAction": {
+        "title": "素材纹理操作",
+        "description": "FilamentCommand 子标签，替换模型素材纹理。",
+        "attributes": {
+          "key": {
+            "type": "字符串",
+            "description": "素材名称",
+            "required": "必填"
+          },
+          "texture": {
+            "type": "字符串",
+            "description": "素材纹理路径",
+            "required": "必填"
+          }
+        }
+      },
+      "PropertyAnimation": {
+        "title": "属性动画",
+        "description": "将目标标签的属性从当前值渐变到最终值。property/value 支持逗号分隔多属性一一对应。同标签同属性多个动画同时播放时只执行最后一个。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "动画更新的标签对象名",
+            "required": "必填"
+          },
+          "property": {
+            "type": "字符串",
+            "description": "更新的属性：x,y,z,w,width,h,height,alpha,scale,scaleX,scaleY,rotation,rotationX,rotationY，逗号分隔多个",
+            "required": "必填"
+          },
+          "value": {
+            "type": "数字表达式",
+            "description": "属性最终值，与 property 一一对应",
+            "required": "必填"
+          },
+          "duration": {
+            "type": "数字",
+            "description": "播放时长（毫秒），默认 500"
+          },
+          "condition": {
+            "type": "数字表达式",
+            "description": "播放条件，0 不执行，默认 1"
+          },
+          "easeExp": {
+            "type": "字符串",
+            "description": "缓动函数，如 BackEaseOut(1.1)"
+          }
+        }
+      },
+      "ValueAnimation": {
+        "title": "数值动画",
+        "description": "Trigger 子命令，动画改变数值。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "目标"
+          },
+          "property": {
+            "type": "字符串",
+            "description": "属性"
+          },
+          "value": {
+            "type": "数字表达式",
+            "description": "最终值"
+          },
+          "duration": {
+            "type": "数字",
+            "description": "时长毫秒"
+          }
+        }
+      },
+      "WebpImage": {
+        "title": "Webp动图",
+        "description": "在界面上播放 webp 动图。内置变量：#name.state（0 IDLE/1 PLAY/2 PAUSE/3 END）、#name.isPlaying。可用 Command target=\"name.play\"/\"name.setSrc\"/\"name.loopCount\" 控制。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "webp 图片文件路径",
+            "required": "必填"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "标签名称，需全脚本唯一；需命令控制时必填"
+          },
+          "loopCount": {
+            "type": "数字",
+            "description": "循环次数，<=0 为无限循环（默认）"
+          },
+          "play": {
+            "type": "数字",
+            "description": "1 播放（默认）/ 0 暂停"
+          },
+          "x": {
+            "type": "数字",
+            "description": "横向坐标"
+          },
+          "y": {
+            "type": "数字",
+            "description": "纵向坐标"
+          },
+          "w": {
+            "type": "数字",
+            "description": "宽度"
+          },
+          "h": {
+            "type": "数字",
+            "description": "高度"
+          }
+        }
+      },
+      "Lottie": {
+        "title": "Lottie动画",
+        "description": "播放 lottie 动画（.json）。内置变量 #name.state/#name.isPlaying；Command 支持 name.play/setSrc/loopCount/progress/minProgress/maxProgress。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "lottie 动画文件路径"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "标签名称，需唯一"
+          },
+          "loopCount": {
+            "type": "数字",
+            "description": "循环次数，<=0 无限循环（默认）"
+          },
+          "loopMode": {
+            "type": "字符串",
+            "description": "循环模式：restart 从头播放（默认）/ reverse 反向播放"
+          },
+          "play": {
+            "type": "数字",
+            "description": "1 允许播放（默认）/ 0 不播放"
+          },
+          "progress": {
+            "type": "数字",
+            "description": "当前播放进度 0-1"
+          },
+          "minProgress": {
+            "type": "数字",
+            "description": "最小播放进度 0-1"
+          },
+          "maxProgress": {
+            "type": "数字",
+            "description": "最大播放进度 0-1"
+          },
+          "w": {
+            "type": "数字",
+            "description": "宽度"
+          },
+          "h": {
+            "type": "数字",
+            "description": "高度"
+          },
+          "x": {
+            "type": "数字",
+            "description": "横坐标"
+          },
+          "y": {
+            "type": "数字",
+            "description": "纵坐标"
+          }
+        }
+      },
+      "GLModel": {
+        "title": "3D模型",
+        "description": "3D 效果，可全方位旋转查看，支持自动旋转和跟手旋转。模型仅支持 obj 格式，需配套贴图与 mtl 文件。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "3D 模型文件名（.obj）"
+          },
+          "cameraPos": {
+            "type": "数值",
+            "description": "摄像机位置，默认 -1 自动计算；0 表示原点在坐标中心"
+          },
+          "autoRotateAngle": {
+            "type": "数值",
+            "description": "自动旋转每帧角度，默认 0 不自动旋转（跟手旋转）"
+          },
+          "x": {
+            "type": "数值",
+            "description": "横坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "纵坐标"
+          },
+          "width": {
+            "type": "数值",
+            "description": "宽度"
+          },
+          "height": {
+            "type": "数值",
+            "description": "高度"
+          }
+        }
+      },
+      "StereDropView": {
+        "title": "俯视下落",
+        "description": "粒子在屏幕内随机位置生成，整体向指定位置移动并逐渐变小变透明，呈下落效果。子标签：StereoImage（静态图）、StereoDropItem（下落粒子）。",
+        "attributes": {
+          "width": {
+            "type": "数值",
+            "description": "视图宽度"
+          },
+          "height": {
+            "type": "数值",
+            "description": "视图高度"
+          },
+          "depth": {
+            "type": "数值",
+            "description": "视图深度，默认最小值 10"
+          },
+          "bgSrc": {
+            "type": "字符串",
+            "description": "背景图"
+          }
+        }
+      },
+      "StereoImage": {
+        "title": "俯视下落静态图",
+        "description": "StereDropView 中的静态图片，可用 SourcesAnimation/SourceImage 设置帧动画。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "图片路径"
+          },
+          "x": {
+            "type": "数值",
+            "description": "x 坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "y 坐标"
+          },
+          "depth": {
+            "type": "数值",
+            "description": "图片深度，需小于 StereDropView 的 depth"
+          }
+        }
+      },
+      "StereoDropItem": {
+        "title": "下落粒子",
+        "description": "StereDropView 中的下落粒子效果。子标签：ItemPosition/ItemVelocity/ItemConvergence。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "粒子图片路径"
+          },
+          "maxCount": {
+            "type": "数值",
+            "description": "粒子最大数量"
+          },
+          "respawnCount": {
+            "type": "数值",
+            "description": "粒子重孵化数量"
+          }
+        }
+      },
+      "ItemPosition": {
+        "title": "粒子位置",
+        "description": "定义 StereoDropItem 粒子出现位置。x/y 为归一化坐标（0,0 为屏幕中心，范围 -1~1）。",
+        "attributes": {
+          "isRandom": {
+            "type": "true/false",
+            "description": "位置是否随机，默认 false"
+          },
+          "x": {
+            "type": "数值",
+            "description": "初始 x（-1~1），不随机时有效"
+          },
+          "y": {
+            "type": "数值",
+            "description": "初始 y（-1~1）"
+          },
+          "z": {
+            "type": "数值",
+            "description": "初始 z（50~depth）"
+          }
+        }
+      },
+      "ItemVelocity": {
+        "title": "粒子速度",
+        "description": "定义 StereoDropItem 粒子初始速度。isRandom=true 时在 (lowestVelocityX, velocityX) 间随机。",
+        "attributes": {
+          "isRandom": {
+            "type": "true/false",
+            "description": "初始速度是否随机"
+          },
+          "velocityX": {
+            "type": "数值",
+            "description": "x 方向初始速度（像素/秒）"
+          },
+          "velocityY": {
+            "type": "数值",
+            "description": "y 方向初始速度"
+          },
+          "velocityZ": {
+            "type": "数值",
+            "description": "z 方向初始速度（深度/秒）"
+          },
+          "lowestVelocityX": {
+            "type": "数值",
+            "description": "随机时 x 最低速度"
+          },
+          "lowestVelocityY": {
+            "type": "数值",
+            "description": "随机时 y 最低速度"
+          },
+          "lowestVelocityZ": {
+            "type": "数值",
+            "description": "随机时 z 最低速度"
+          }
+        }
+      },
+      "ItemConvergence": {
+        "title": "粒子汇聚点",
+        "description": "定义粒子汇聚点和汇聚方式。",
+        "attributes": {
+          "x": {
+            "type": "数值",
+            "description": "汇聚点 x，计算方式随 type"
+          },
+          "y": {
+            "type": "数值",
+            "description": "汇聚点 y"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "ratio：(-1,1) 比例值 / gravity：(-9.8,9.8) 配合重力传感器 / screen：屏幕坐标"
+          }
+        }
+      },
+      "FluidsView": {
+        "title": "流体视图",
+        "description": "模拟流体流动效果，可设置颜色、数量、区域，支持自定义重力（配合 gravity 类型 SensorBinder）。子标签 CircleShape/PolygonShape；配合 ParticleCommand 动态增删流体。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "唯一标识，名称不可重复",
+            "required": "必填"
+          },
+          "bgSrc": {
+            "type": "字符串表达式",
+            "description": "流体世界背景图"
+          },
+          "bgColor": {
+            "type": "字符串表达式",
+            "description": "背景色（被背景图遮挡）"
+          },
+          "color": {
+            "type": "字符串表达式",
+            "description": "液体颜色"
+          },
+          "gravityRatio": {
+            "type": "数字表达式",
+            "description": "液体重力系数 0-1"
+          },
+          "customGravity": {
+            "type": "true/false",
+            "description": "true 时用 gravityX/gravityY 自定义重力"
+          },
+          "gravityX": {
+            "type": "数字表达式",
+            "description": "横向重力（customGravity=true 生效），负值向左"
+          },
+          "gravityY": {
+            "type": "数字表达式",
+            "description": "纵向重力，负值向下"
+          },
+          "viscosity": {
+            "type": "数字表达式",
+            "description": "粘滞系数 0-1"
+          },
+          "waterAlpha": {
+            "type": "数字表达式",
+            "description": "液体透明度 0-1，0 全透明"
+          },
+          "waterAlphaThreshold": {
+            "type": "数字表达式",
+            "description": "混合透明度阈值 0-1，推荐 0.7"
+          },
+          "scaleType": {
+            "type": "字符串",
+            "description": "背景图缩放：center_crop（默认）/fill/fill_center/no_scale"
+          },
+          "weightScale": {
+            "type": "数字",
+            "description": "流体粒子权重 0-1，默认 0.05（控制阴影）"
+          },
+          "weightRangeShift": {
+            "type": "数字",
+            "description": "权重范围 0-1，默认 0.8"
+          },
+          "weightCutoff": {
+            "type": "数字",
+            "description": "权重阈值 0-1，默认 0.7"
+          },
+          "mixColor": {
+            "type": "true/false",
+            "description": "是否混合不同颜色流体，默认 true"
+          },
+          "refreshRate": {
+            "type": "数字表达式",
+            "description": "刷新率 30-90，默认 60，不建议大于 70"
+          },
+          "debug": {
+            "type": "true/false",
+            "description": "调试模式，正式包必须为 false"
+          }
+        }
+      },
+      "CircleShape": {
+        "title": "圆形形状",
+        "description": "FluidsView/ParticleCommand 子元素，圆形流体或物体。屏幕宽映射为 3，xPosition 取值 0-3。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "water 液体（默认）/ solid 透明固体 / staticBody 静态物体 / dynamicBody 动态物体"
+          },
+          "radius": {
+            "type": "数字表达式",
+            "description": "圆形半径"
+          },
+          "xPosition": {
+            "type": "数字表达式",
+            "description": "圆心 x 坐标（0-3）"
+          },
+          "yPosition": {
+            "type": "数字表达式",
+            "description": "圆心 y 坐标"
+          },
+          "density": {
+            "type": "数字表达式",
+            "description": "密度（type 非 water 时生效）"
+          },
+          "src": {
+            "type": "字符串表达式",
+            "description": "绑定图片（staticBody/dynamicBody 时生效）"
+          }
+        }
+      },
+      "PolygonShape": {
+        "title": "方形形状",
+        "description": "FluidsView/ParticleCommand 子元素，方形流体或物体。hx/hy 比例最好保持图片宽高比。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "water（默认）/ solid / staticBody / dynamicBody"
+          },
+          "hx": {
+            "type": "数字表达式",
+            "description": "方形半宽"
+          },
+          "hy": {
+            "type": "数字表达式",
+            "description": "方形半高"
+          },
+          "xPosition": {
+            "type": "数字表达式",
+            "description": "中心 x 坐标（0-3）"
+          },
+          "yPosition": {
+            "type": "数字表达式",
+            "description": "中心 y 坐标"
+          },
+          "angle": {
+            "type": "数字表达式",
+            "description": "旋转角度 0-360"
+          },
+          "density": {
+            "type": "数字表达式",
+            "description": "密度"
+          },
+          "src": {
+            "type": "字符串表达式",
+            "description": "绑定图片"
+          }
+        }
+      },
+      "MusicControl": {
+        "title": "音乐控件",
+        "description": "在界面上控制音乐播放与暂停（仅系统音乐）。必须包含 4 个 Button（music_prev/music_next/music_play/music_pause）和显示文字 Text（music_track/music_artist/music_display）。变量：#name.position_ms/#name.duration_ms/@name.position/@name.duration/#music_state。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "一般指定 music_control，生成带 name 前缀的变量"
+          },
+          "visibility": {
+            "type": "0/1 或 true/false",
+            "description": "可见性控制"
+          }
+        }
+      },
+      "ReachedUpState": {
+        "title": "到达抬起状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：到达目标点且手指离开屏幕时显示的内容。",
+        "attributes": {}
+      },
+      "ReachedDownState": {
+        "title": "到达按下状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：到达目标点且手指仍按下时显示的内容。",
+        "attributes": {}
+      }
     }
   },
   "vivo": {
@@ -1015,6 +2359,358 @@
         ],
         "description": "截取子串，如 substr('今天真热',1,2)=天真"
       }
+    ],
+    "tagDocs": {
+      "Normal": {
+        "title": "按钮正常状态",
+        "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "Pressed": {
+        "title": "按钮按下状态",
+        "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "NormalState": {
+        "title": "正常状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
+        "attributes": {}
+      },
+      "PressedState": {
+        "title": "按下状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
+        "attributes": {}
+      },
+      "ReachedState": {
+        "title": "到达状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
+        "attributes": {}
+      },
+      "Slider": {
+        "title": "滑块",
+        "description": "锁屏滑动激活操作：StartPoint 随手指移动落入 EndPoint 目标区域时松开即触发。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "滑块命名"
+          },
+          "bounceInitSpeed": {
+            "type": "数值",
+            "description": "回弹动画初始速度（像素/秒），最小 100"
+          },
+          "bounceAcceleration": {
+            "type": "数值",
+            "description": "回弹加速度，最小 10"
+          },
+          "keyPoint": {
+            "type": "数值",
+            "description": "回弹点，可实现多次回弹"
+          },
+          "visibility": {
+            "type": "0/1",
+            "description": "可见性，支持表达式"
+          }
+        }
+      },
+      "Intent": {
+        "title": "跳转意图",
+        "description": "Slider/Unlocker 的 EndPoint 子标签：滑动到达后执行的应用跳转。",
+        "attributes": {
+          "action": {
+            "type": "字符串",
+            "description": "intent 的 action"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "intent 的 type"
+          },
+          "category": {
+            "type": "字符串",
+            "description": "intent 的 category"
+          },
+          "package": {
+            "type": "字符串",
+            "description": "包名"
+          },
+          "class": {
+            "type": "字符串",
+            "description": "类名"
+          }
+        }
+      },
+      "ContentProviderBinder": {
+        "title": "数据绑定",
+        "description": "绑定访问 ContentProvider 数据（天气/计步/日历等），将查询列映射到变量。置于 VariableBinders 内。",
+        "attributes": {
+          "uri": {
+            "type": "字符串",
+            "description": "ContentProvider 的 URI，如 content://weather/weather"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "Binder 名称标识"
+          },
+          "columns": {
+            "type": "字符串",
+            "description": "查询列名，逗号分隔"
+          },
+          "countName": {
+            "type": "字符串",
+            "description": "查询结果数量绑定到的变量名"
+          },
+          "where": {
+            "type": "字符串",
+            "description": "查询条件（SQL WHERE）"
+          },
+          "whereExp": {
+            "type": "字符串",
+            "description": "WHERE 表达式，支持变量"
+          },
+          "order": {
+            "type": "字符串",
+            "description": "排序（SQL ORDER BY）"
+          },
+          "dependency": {
+            "type": "字符串",
+            "description": "依赖刷新"
+          }
+        }
+      },
+      "Calendar": {
+        "title": "日历组件",
+        "description": "老引擎日历组件标签。",
+        "attributes": {}
+      },
+      "ControlPoint": {
+        "title": "控制点",
+        "description": "FramerateController 等动画控制的控制点子标签。",
+        "attributes": {}
+      },
+      "FramerateController": {
+        "title": "帧率控制器",
+        "description": "按变量值控制动画帧率。",
+        "attributes": {}
+      },
+      "Paint": {
+        "title": "画笔",
+        "description": "画笔/绘制标签（老引擎）。",
+        "attributes": {}
+      },
+      "ParticleScatter": {
+        "title": "粒子散射",
+        "description": "粒子散射效果（老引擎）。",
+        "attributes": {}
+      },
+      "PathItem": {
+        "title": "路径点",
+        "description": "Text 等标签的自定义路径子标签。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "quadTo / lineTo"
+          },
+          "controlX": {
+            "type": "数值",
+            "description": "控制点 x"
+          },
+          "controlY": {
+            "type": "数值",
+            "description": "控制点 y"
+          },
+          "x": {
+            "type": "数值",
+            "description": "x 坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "y 坐标"
+          }
+        }
+      },
+      "Rotate": {
+        "title": "旋转",
+        "description": "网格化/位移动画的旋转子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数，0 不重复，-1 无限循环"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "旋转参数，逗号分隔，2-5 个"
+          }
+        }
+      },
+      "RotateView": {
+        "title": "旋转视图",
+        "description": "旋转视图（老引擎）。",
+        "attributes": {}
+      },
+      "Scale": {
+        "title": "缩放",
+        "description": "网格化缩放动画子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "缩放参数，逗号分隔"
+          }
+        }
+      },
+      "VR": {
+        "title": "VR全景图",
+        "description": "360° 全景图，支持陀螺仪切换视角和跟手切换。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "全景图资源名称"
+          },
+          "srcid": {
+            "type": "数值",
+            "description": "资源名序号，可用变量切换多张全景图"
+          },
+          "touchType": {
+            "type": "数值/true/false",
+            "description": "0 支持跟手切换，1 不支持"
+          }
+        }
+      },
+      "WaterWallpaper": {
+        "title": "水波纹壁纸",
+        "description": "全屏水波纹效果，网格越多越细腻但消耗越大。",
+        "attributes": {
+          "xmesh": {
+            "type": "数值",
+            "description": "x 方向网格数"
+          },
+          "ymesh": {
+            "type": "数值",
+            "description": "y 方向网格数"
+          },
+          "src": {
+            "type": "字符串",
+            "description": "资源文件"
+          },
+          "torsion": {
+            "type": "数值",
+            "description": "扭曲度 1-10"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "触摸处顶点颜色，如 #0cf02b"
+          }
+        }
+      },
+      "Weight": {
+        "title": "权重",
+        "description": "物理/动画权重子标签（老引擎）。",
+        "attributes": {}
+      },
+      "FluidsView": {
+        "title": "流体视图",
+        "description": "vivo 锁屏引擎流体流动效果。子标签 CircleShape/FluidsZone；配合 FluidsParticleCommand 动态增删流体。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "唯一标识",
+            "required": "必填"
+          },
+          "bgSrc": {
+            "type": "字符串",
+            "description": "背景图"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "液体颜色"
+          },
+          "gravityRatio": {
+            "type": "数字",
+            "description": "重力系数 0-1"
+          },
+          "viscosity": {
+            "type": "数字",
+            "description": "粘滞系数 0-1"
+          },
+          "waterAlpha": {
+            "type": "数字",
+            "description": "液体透明度 0-1"
+          },
+          "refreshRate": {
+            "type": "数字",
+            "description": "刷新率"
+          }
+        }
+      },
+      "CircleShape": {
+        "title": "圆形形状",
+        "description": "vivo FluidsView 子元素：圆形流体/固体。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "water / solid / staticBody / dynamicBody"
+          },
+          "radius": {
+            "type": "数字",
+            "description": "半径"
+          },
+          "xPosition": {
+            "type": "数字",
+            "description": "圆心 x"
+          },
+          "yPosition": {
+            "type": "数字",
+            "description": "圆心 y"
+          }
+        }
+      },
+      "FluidsZone": {
+        "title": "流体区域",
+        "description": "vivo FluidsView 子元素：限定流体区域。",
+        "attributes": {}
+      },
+      "FluidsParticleCommand": {
+        "title": "流体粒子命令",
+        "description": "vivo：动态增加/删除 FluidsView 中的流体。",
+        "attributes": {
+          "target": {
+            "type": "字符串",
+            "description": "目标 FluidsView 的 name",
+            "required": "必填"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "add / delete / reset"
+          },
+          "deleteNum": {
+            "type": "数字",
+            "description": "删除数量"
+          }
+        }
+      }
+    },
+    "variableTypeEnum": [
+      "number",
+      "string",
+      "int"
     ]
   },
   "xiaomi": {
@@ -1074,6 +2770,277 @@
         ],
         "description": "截取子串，如 substr('今天真热',1,2)=天真"
       }
+    ],
+    "tagDocs": {
+      "Normal": {
+        "title": "按钮正常状态",
+        "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "Pressed": {
+        "title": "按钮按下状态",
+        "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
+        "attributes": {}
+      },
+      "NormalState": {
+        "title": "正常状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
+        "attributes": {}
+      },
+      "PressedState": {
+        "title": "按下状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
+        "attributes": {}
+      },
+      "ReachedState": {
+        "title": "到达状态",
+        "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
+        "attributes": {}
+      },
+      "Slider": {
+        "title": "滑块",
+        "description": "锁屏滑动激活操作：StartPoint 随手指移动落入 EndPoint 目标区域时松开即触发。",
+        "attributes": {
+          "name": {
+            "type": "字符串",
+            "description": "滑块命名"
+          },
+          "bounceInitSpeed": {
+            "type": "数值",
+            "description": "回弹动画初始速度（像素/秒），最小 100"
+          },
+          "bounceAcceleration": {
+            "type": "数值",
+            "description": "回弹加速度，最小 10"
+          },
+          "keyPoint": {
+            "type": "数值",
+            "description": "回弹点，可实现多次回弹"
+          },
+          "visibility": {
+            "type": "0/1",
+            "description": "可见性，支持表达式"
+          }
+        }
+      },
+      "Intent": {
+        "title": "跳转意图",
+        "description": "Slider/Unlocker 的 EndPoint 子标签：滑动到达后执行的应用跳转。",
+        "attributes": {
+          "action": {
+            "type": "字符串",
+            "description": "intent 的 action"
+          },
+          "type": {
+            "type": "字符串",
+            "description": "intent 的 type"
+          },
+          "category": {
+            "type": "字符串",
+            "description": "intent 的 category"
+          },
+          "package": {
+            "type": "字符串",
+            "description": "包名"
+          },
+          "class": {
+            "type": "字符串",
+            "description": "类名"
+          }
+        }
+      },
+      "ContentProviderBinder": {
+        "title": "数据绑定",
+        "description": "绑定访问 ContentProvider 数据（天气/计步/日历等），将查询列映射到变量。置于 VariableBinders 内。",
+        "attributes": {
+          "uri": {
+            "type": "字符串",
+            "description": "ContentProvider 的 URI，如 content://weather/weather"
+          },
+          "name": {
+            "type": "字符串",
+            "description": "Binder 名称标识"
+          },
+          "columns": {
+            "type": "字符串",
+            "description": "查询列名，逗号分隔"
+          },
+          "countName": {
+            "type": "字符串",
+            "description": "查询结果数量绑定到的变量名"
+          },
+          "where": {
+            "type": "字符串",
+            "description": "查询条件（SQL WHERE）"
+          },
+          "whereExp": {
+            "type": "字符串",
+            "description": "WHERE 表达式，支持变量"
+          },
+          "order": {
+            "type": "字符串",
+            "description": "排序（SQL ORDER BY）"
+          },
+          "dependency": {
+            "type": "字符串",
+            "description": "依赖刷新"
+          }
+        }
+      },
+      "Calendar": {
+        "title": "日历组件",
+        "description": "老引擎日历组件标签。",
+        "attributes": {}
+      },
+      "ControlPoint": {
+        "title": "控制点",
+        "description": "FramerateController 等动画控制的控制点子标签。",
+        "attributes": {}
+      },
+      "FramerateController": {
+        "title": "帧率控制器",
+        "description": "按变量值控制动画帧率。",
+        "attributes": {}
+      },
+      "Paint": {
+        "title": "画笔",
+        "description": "画笔/绘制标签（老引擎）。",
+        "attributes": {}
+      },
+      "ParticleScatter": {
+        "title": "粒子散射",
+        "description": "粒子散射效果（老引擎）。",
+        "attributes": {}
+      },
+      "PathItem": {
+        "title": "路径点",
+        "description": "Text 等标签的自定义路径子标签。",
+        "attributes": {
+          "type": {
+            "type": "字符串",
+            "description": "quadTo / lineTo"
+          },
+          "controlX": {
+            "type": "数值",
+            "description": "控制点 x"
+          },
+          "controlY": {
+            "type": "数值",
+            "description": "控制点 y"
+          },
+          "x": {
+            "type": "数值",
+            "description": "x 坐标"
+          },
+          "y": {
+            "type": "数值",
+            "description": "y 坐标"
+          }
+        }
+      },
+      "Rotate": {
+        "title": "旋转",
+        "description": "网格化/位移动画的旋转子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数，0 不重复，-1 无限循环"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "旋转参数，逗号分隔，2-5 个"
+          }
+        }
+      },
+      "RotateView": {
+        "title": "旋转视图",
+        "description": "旋转视图（老引擎）。",
+        "attributes": {}
+      },
+      "Scale": {
+        "title": "缩放",
+        "description": "网格化缩放动画子标签。",
+        "attributes": {
+          "duration": {
+            "type": "数值",
+            "description": "动画时间（毫秒）"
+          },
+          "repeat": {
+            "type": "0/-1",
+            "description": "重复次数"
+          },
+          "delay": {
+            "type": "数值",
+            "description": "延迟毫秒数"
+          },
+          "values": {
+            "type": "数值列表",
+            "description": "缩放参数，逗号分隔"
+          }
+        }
+      },
+      "VR": {
+        "title": "VR全景图",
+        "description": "360° 全景图，支持陀螺仪切换视角和跟手切换。",
+        "attributes": {
+          "src": {
+            "type": "字符串",
+            "description": "全景图资源名称"
+          },
+          "srcid": {
+            "type": "数值",
+            "description": "资源名序号，可用变量切换多张全景图"
+          },
+          "touchType": {
+            "type": "数值/true/false",
+            "description": "0 支持跟手切换，1 不支持"
+          }
+        }
+      },
+      "WaterWallpaper": {
+        "title": "水波纹壁纸",
+        "description": "全屏水波纹效果，网格越多越细腻但消耗越大。",
+        "attributes": {
+          "xmesh": {
+            "type": "数值",
+            "description": "x 方向网格数"
+          },
+          "ymesh": {
+            "type": "数值",
+            "description": "y 方向网格数"
+          },
+          "src": {
+            "type": "字符串",
+            "description": "资源文件"
+          },
+          "torsion": {
+            "type": "数值",
+            "description": "扭曲度 1-10"
+          },
+          "color": {
+            "type": "字符串",
+            "description": "触摸处顶点颜色，如 #0cf02b"
+          }
+        }
+      },
+      "Weight": {
+        "title": "权重",
+        "description": "物理/动画权重子标签（老引擎）。",
+        "attributes": {}
+      }
+    },
+    "variableTypeEnum": [
+      "number",
+      "string",
+      "int"
     ]
   },
   "miuiBaseVars": [

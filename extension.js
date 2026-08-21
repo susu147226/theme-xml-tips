@@ -56,6 +56,31 @@ function platformExtraFuncs(platform) {
     return platformRule(platform).extraFunctions || [];
 }
 
+/** 某平台扩展标签的文档（tagDocs：悬浮与补全共用），无则返回 null */
+function platformTagDoc(platform, tagName) {
+    const docs = platformRule(platform).tagDocs || {};
+    return docs[tagName] || null;
+}
+
+/** 平台扩展标签的属性补全项（tagDocs 属性优先，extraTagAttrs 补充无描述项） */
+function platformAttrCompletions(platform, tagName) {
+    const doc = platformTagDoc(platform, tagName);
+    const prule = platformRule(platform);
+    const names = new Set([...Object.keys((doc && doc.attributes) || {}), ...((prule.extraTagAttrs || {})[tagName] || [])]);
+    if (!names.size) return [];
+    const items = [];
+    for (const an of names) {
+        const a = (doc && doc.attributes && doc.attributes[an]) || {};
+        const it = new vscode.CompletionItem(an, vscode.CompletionItemKind.Field);
+        it.detail = [a.type, a.required].filter(Boolean).join(' · ');
+        if (a.description) it.documentation = new vscode.MarkdownString(a.description);
+        it.insertText = new vscode.SnippetString(`${an}="$1"`);
+        it.sortText = (a.required === '必填' ? '0' : '1') + an;
+        items.push(it);
+    }
+    return items;
+}
+
 /**
  * 平台识别规则（按优先级依次判定，命中即返回）。
  * 匹配方式：中文词直接子串匹配；纯拉丁词长度 <= 3（mi / hw / pad / next 除外按词边界）
@@ -328,10 +353,24 @@ function provideCompletions(document, position) {
             it.sortText = (childSet && childSet.has(t.name) ? '0' : (DATA.rootTags.includes(t.name) ? '1' : '2')) + t.name;
             items.push(it);
         }
+        // 平台扩展标签提示（如 OPPO 的 FluidsView/PropertyAnimation、老引擎的 Slider/Normal 等）
+        const platNow = detectPlatform(document);
+        const platDocs = platformRule(platNow).tagDocs || {};
+        for (const tagName of (platformRule(platNow).extraTags || [])) {
+            if (tagMap.has(tagName)) continue;   // 基础数据已有定义的不重复
+            const pdoc = platDocs[tagName];
+            const it = new vscode.CompletionItem(tagName, vscode.CompletionItemKind.Class);
+            it.detail = pdoc && pdoc.title ? pdoc.title + '（平台扩展标签）' : '平台扩展标签';
+            if (pdoc && pdoc.description) it.documentation = new vscode.MarkdownString(pdoc.description);
+            it.insertText = tagName;
+            it.sortText = '2' + tagName;
+            items.push(it);
+        }
         // 修复：光标紧贴完整标签名时（如 <Var| 或 <Var|/>）也给出该标签的属性提示。
         // 用光标处空区间插入，避免替换掉已输入的标签名；前导空格补出分隔。
-        if (ctx.tagName && tagMap.has(ctx.tagName)) {
-            for (const it of attrCompletions(ctx.tagName)) {
+        if (ctx.tagName && (tagMap.has(ctx.tagName) || platformTagDoc(platNow, ctx.tagName))) {
+            const attrItems = tagMap.has(ctx.tagName) ? attrCompletions(ctx.tagName) : platformAttrCompletions(platNow, ctx.tagName);
+            for (const it of attrItems) {
                 it.range = new vscode.Range(position, position);
                 it.insertText = new vscode.SnippetString(` ${it.label}="$1"`);
                 it.sortText = '0' + (it.sortText || it.label);
@@ -348,7 +387,10 @@ function provideCompletions(document, position) {
     }
 
     if (ctx.kind === 'attr' && ctx.tagName) {
-        return attrCompletions(ctx.tagName);
+        const base = attrCompletions(ctx.tagName);
+        if (base.length) return base;
+        // 平台扩展标签（如 OPPO FluidsView、老引擎 Slider）的属性提示
+        return platformAttrCompletions(detectPlatform(document), ctx.tagName);
     }
 
     if (ctx.kind === 'value') {
@@ -497,6 +539,14 @@ function provideHover(document, position) {
     if (/<\/?$/.test(before)) {
         const t = tagMap.get(word);
         if (t) return new vscode.Hover(tagDoc(t), range);
+        // 平台扩展标签悬停（如 OPPO FluidsView、老引擎 Slider）
+        const pdoc = platformTagDoc(detectPlatform(document), word);
+        if (pdoc) {
+            const md = new vscode.MarkdownString();
+            md.appendMarkdown(`**${word}** — ${pdoc.title || '平台扩展标签'}`);
+            if (pdoc.description) md.appendMarkdown(`  \n  \n${pdoc.description}`);
+            return new vscode.Hover(md, range);
+        }
     }
     // 属性悬停：在某标签内且后面跟 =
     const ctx = getContext(document, range.start);
@@ -506,6 +556,15 @@ function provideHover(document, position) {
             const t = tagMap.get(ctx.tagName);
             const a = t && t.attributes ? t.attributes[word] : null;
             if (a) return new vscode.Hover(attrDoc(ctx.tagName, word, a), range);
+            // 平台扩展标签的属性悬停
+            const pdoc = platformTagDoc(detectPlatform(document), ctx.tagName);
+            const pa = pdoc && pdoc.attributes ? pdoc.attributes[word] : null;
+            if (pa) {
+                const md = new vscode.MarkdownString();
+                md.appendMarkdown(`**${ctx.tagName}.${word}** — ${[pa.type, pa.required].filter(Boolean).join(' · ') || '属性'}`);
+                if (pa.description) md.appendMarkdown(`  \n  \n${pa.description}`);
+                return new vscode.Hover(md, range);
+            }
         }
     }
     return null;
@@ -1102,7 +1161,7 @@ module.exports = {
     activate, deactivate,
     _test: {
         detectPlatform, folderMatches, provideCompletions, escapeSnippetBody,
-        lintText, parseSublimeSnippet, parseImportFile,
+        lintText, parseSublimeSnippet, parseImportFile, provideHover,
         init: dir => loadData({ extensionPath: dir }),
         initSnippets: dir => initCustomSnippets({ globalStorageUri: { fsPath: dir } }),
         getCustomSnippets: () => CUSTOM_SNIPPETS,

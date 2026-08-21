@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.2.1 (2026-08-21)
+
+- 修正：华为/荣耀/vivo/小米平台的 `ContentProviderBinder` 内 `Variable` 的 type 支持 `int`（与 Var 一致），并新增类型校验（写错类型会标错）；华为 `Var`/`VariableCommand` 的 `type="int"` 规则确认生效
+- 修正：鸿蒙平台 `Video`/`Image`/`Group`/`ImageNumber` 补齐 `active` 属性（与 `Button` 一致），不再误报且提供补全
+- 新增：平台扩展标签的悬浮提示与代码补全——
+  - 标签提示：输入 `<` 时按当前平台列出扩展标签（OPPO 31 个：FluidsView/PropertyAnimation/FilamentCommand 全家/WebpImage/Lottie/StereDropView 全家等；华为/荣耀/vivo/小米 20+ 个老引擎标签：Slider/Normal/Pressed/NormalState/VR/WaterWallpaper/ContentProviderBinder 等），带中文标题与功能描述
+  - 属性提示：平台扩展标签内输入属性名时给出属性列表（类型、必填、说明）
+  - 悬浮提示：悬停在平台扩展标签/属性上显示中文说明；不同平台同名标签显示各自平台的描述（如 vivo 与 OPPO 的 FluidsView）
 ## 2.2.0 (2026-08-21)
 
 - 根据 OPPO 开放平台百变引擎/锁屏引擎全部章节（67 个补充文档页）完善 OPPO 平台语法规则：
