@@ -2,7 +2,7 @@
   "name": "theme-xml-tips",
   "displayName": "Theme XML Tips",
   "description": "主题引擎 XML 代码提示：标签/属性/枚举/变量补全、悬停文档与代码片段。适配 VS Code / WebStorm / HBuilderX / Sublime Text。作者：云舒眠眠。",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "publisher": "susu147226",
   "author": {
     "name": "云舒眠眠"

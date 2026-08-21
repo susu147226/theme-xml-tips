@@ -766,8 +766,8 @@ function lintText(text, platform) {
         // 标签名合法性
         const t = tagMap.get(name);
         if (!t) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
-        // 属性名称与语法校验
-        if (t) {
+        // 属性名称与语法校验（IntentCommand 为应用跳转标签，包名/类名/action 需适配多平台，不做属性级检测）
+        if (t && name !== 'IntentCommand') {
             const attrRe = /([\w.-]+)\s*=\s*"([^"]*)"/g;
             let am;
             while ((am = attrRe.exec(attrText))) {

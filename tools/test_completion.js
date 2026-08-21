@@ -376,6 +376,11 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('非鸿蒙srcExp含{}警告', d.some(x => x.message.includes('不支持 {} 包裹写法')), JSON.stringify(d));
     d = lint('<Image srcExp="\'bg_\'+#hour+\'.jpg\'" w="1" h="1"/>', 'oppo');
     check('非鸿蒙srcExp拼接不警告', !d.some(x => x.message.includes('srcExp')), JSON.stringify(d));
+    // IntentCommand 为应用跳转标签，包名/类名/action 适配多平台，不做属性级检测（v1.9.6）
+    d = lint('<IntentCommand action="com.x.custom.ACTION" package="com.x" class="com.x.Main" foo="bar"/>', null);
+    check('IntentCommand属性不检测', d.length === 0, JSON.stringify(d));
+    d = lint('<Lockscreen>\n<IntentCommand action="x">\n</Lockscreen>', null);
+    check('IntentCommand标签配对仍检测', d.some(x => x.message.includes('不匹配')), JSON.stringify(d));
     // 导入解析
     const sub = ext._test.parseSublimeSnippet('<snippet>\n<description>网络接口</description>\n<content><![CDATA[\n<WebServiceBinder name="$1"/>\n]]></content>\n<tabTrigger>WebServiceBinder</tabTrigger>\n<scope>text.xml</scope>\n</snippet>');
     check('sublime片段-唤醒词取tabTrigger', sub.prefix === 'WebServiceBinder');
