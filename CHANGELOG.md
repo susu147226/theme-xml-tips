@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.2 (2026-08-21)
+
+- condition 属性全平台同步：基础标签库 121 个标签 + 各平台扩展标签 109 个统一补齐 `condition`（触发条件：表达式为真才生效/执行），六个平台（鸿蒙/华为/荣耀/OPPO/vivo/小米）所有标签均支持 condition 的代码补全与悬浮说明，与鸿蒙行为一致；华为平台属性值含 `>` 等特殊字符的报错为华为4.0文档既定规则（建议用 gt()/lt() 等函数代替比较符），保持不变
+- 华为4.0 `type` 支持 int 复核确认：Var/VarArray/VariableCommand 的 lint 与值补全均已包含 int（2.2.1 已生效），ContentProviderBinder 内 Variable 同样支持
 ## 2.2.1 (2026-08-21)
 
 - 修正：华为/荣耀/vivo/小米平台的 `ContentProviderBinder` 内 `Variable` 的 type 支持 `int`（与 Var 一致），并新增类型校验（写错类型会标错）；华为 `Var`/`VariableCommand` 的 `type="int"` 规则确认生效

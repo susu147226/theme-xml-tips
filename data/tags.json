@@ -324,6 +324,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -353,6 +357,10 @@
      "type": "数值",
      "required": "必填",
      "description": "[0-~]，相对于起始帧的间隔时间（毫秒），不小于0。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -374,6 +382,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -398,6 +410,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -422,6 +438,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "变速函数标志，取值见 3.46 变速函数（如 QuartFun_Out 等）。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -591,6 +611,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -705,6 +729,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -716,7 +744,12 @@
    "title": "适配功能：充电状态",
    "section": "3.59",
    "description": "充电状态功能可以获取当前手机电量状态，并根据文本Text中的category属性来决定是否展示该文本。category中可包括\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"四种状态，分别表示电量正常，正在充电，电量不足和电量充满。如果Text中category属性中的电量状态与当前手机状态匹配，则显示该条文本信息；匹配不上，则不显示。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -724,7 +757,12 @@
    "title": "数据开放：蓝牙耳机数据开放",
    "section": "3.54",
    "description": "开放蓝牙耳机数据，包括：蓝牙耳机连接状态、名称和电量。使用BluetoothBattery需要在manifest中添加权限申请。\"permissions\": [\"BLUETOOTH\"]",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -837,6 +875,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -884,6 +926,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -913,6 +959,10 @@
      "type": "字符串",
      "required": "必填",
      "description": "卡片互动数据"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -939,6 +989,10 @@
      "type": "数值",
      "required": "选填",
      "description": "屏幕刷新的帧率，数值越大，效果越好，功耗相对较高。默认60，推荐使用30；"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1108,6 +1162,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1147,6 +1205,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "共享数据名称,用于标识不同的数据分享节点,支持多个 DataShare 节点区分数据"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -1169,6 +1231,10 @@
      "type": "字符串",
      "required": "必填",
      "description": "发送接收的对应 DataShare 的 name 数据,必须与CollaborationCommands 中定义的 DataShare 节点的 name 属性一致"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1188,6 +1254,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1322,6 +1392,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1606,6 +1680,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -1798,6 +1876,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -1832,6 +1914,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -1848,6 +1934,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -1964,6 +2054,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -2165,6 +2259,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -2336,6 +2434,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -2350,6 +2452,10 @@
      "type": "",
      "required": "",
      "description": "控制情绪感知能力是否打开，0：关闭，1：打开，支持数值表达式。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -2449,6 +2555,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -2540,6 +2650,10 @@
      "type": "",
      "required": "",
      "description": "返回一个数的绝对值"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -2549,7 +2663,12 @@
    "title": "",
    "section": "",
    "description": "外部命令组容器，包含若干 Trigger，常用于在亮屏（resume）/熄屏（pause）等时机执行命令。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Trigger"
    ]
@@ -2588,7 +2707,12 @@
    "title": "适配功能：恒定帧率",
    "section": "3.60",
    "description": "恒定帧率能力：通过 <Lockscreen frameRate=\"...\"/> 设置引擎固定帧率，本身并非独立标签。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -2596,7 +2720,12 @@
    "title": "变量：全局变量",
    "section": "3.20",
    "description": "全局变量是指在引擎中已经预置好的固定名字的变量，可供直接使用，全局变量为放置在项目GlobalManager中的一系列全局变量，在整个项目的任意位置都能够调用获取最新的全局变量的值，使用#取数值，使用@取字符串。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -2738,6 +2867,10 @@
     "active": {
      "type": "数值",
      "description": "激活状态：0 不激活（视图不显示，动画与可见性失效），默认 1"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -2773,6 +2906,10 @@
      "type": "字符串",
      "required": "必填",
      "description": "传入命令组中具体Trigger action名称"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -2862,6 +2999,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -2881,6 +3022,10 @@
      "type": "数值",
      "required": "选填",
      "description": "轮询时间间隔，单位（秒），最小值为1，仅在polling为true的时候有效。默认是5秒。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -2892,7 +3037,12 @@
    "title": "数据开放：运动健康数据对象",
    "section": "3.51",
    "description": "运动健康数据对象是在主题引擎中已经预定好的固定的数据类型，可供在声明变量时使用。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -3078,6 +3228,10 @@
     "active": {
      "type": "数值",
      "description": "激活状态：0 不激活（视图不显示，动画与可见性失效），默认 1"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3118,6 +3272,10 @@
     "active": {
      "type": "数值",
      "description": "激活状态：0 不激活（视图不显示，动画与可见性失效），默认 1"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -3227,6 +3385,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -3326,6 +3488,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -3404,6 +3570,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3430,6 +3600,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3526,6 +3700,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3539,7 +3717,12 @@
    "title": "",
    "section": "",
    "description": "VarArray/Array 的条目容器，包含若干 Item。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Item"
    ]
@@ -3559,6 +3742,10 @@
      "type": "数值",
      "required": "选填",
      "description": "单位：ms毫秒。控制锁屏在一定时间内抑制亮屏，不自动灭屏，限制：最小值10秒，最大值 10分钟。默认：10s"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -3678,6 +3865,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3849,6 +4040,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -3903,6 +4098,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "displayDesktop 的另一种大小写写法，是否同时应用到桌面。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -3951,6 +4150,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -4107,6 +4310,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4215,6 +4422,10 @@
     "xfermode": {
      "type": "枚举",
      "description": "遮罩混合模式：clear/src/dst/src_over/dst_over/src_in/dst_in/src_out/dst_out/src_atop/dst_atop/xor"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4248,6 +4459,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "指定音乐App的包名，当前仅支持指定华为音乐App（com.huawei.music）"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4352,6 +4567,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4471,6 +4690,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -4518,6 +4741,10 @@
      "type": "数值",
      "required": "选填",
      "description": "y轴方向不动的点，离中心点大于no_move_distance_y距离的点不动。设置的值需大于0，如果为0值则被认为是图片高度，默认为图片高度，单位为像素，支持表达式。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4572,6 +4799,10 @@
      "type": "数值",
      "required": "选填",
      "description": "单次动画持续时间（毫秒），取值正整数，默认为2000，支持表达式。最小值为1000。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -4581,7 +4812,12 @@
    "title": "适配功能：麦克风音量感知",
    "section": "3.62",
    "description": "麦克风音量感知功能是根据全局变量microPhone_state、microPhone_volume和isSupportMicro实现的。通过调用这些全局变量，实现麦克风音量感知创意主题。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -4754,6 +4990,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -4905,6 +5145,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -5006,6 +5250,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -5017,7 +5265,12 @@
    "title": "",
    "section": "",
    "description": "ParticleView 跟手粒子的路径数据容器，包含若干 Range。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Range"
    ]
@@ -5112,6 +5365,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5201,6 +5458,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5305,6 +5566,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5409,6 +5674,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -5560,6 +5829,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5584,6 +5857,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5598,6 +5875,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5767,6 +6048,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5776,7 +6061,12 @@
    "title": "命令：运动健康数据刷新命令",
    "section": "3.35",
    "description": "RefreshHealthyCommand主要在需要手动刷新运动健康变量的值时使用。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -5809,6 +6099,10 @@
      "type": "数值",
      "required": "选填",
      "description": "周期命令执行条件，当cycleCondition不为0时执行VariableCommand命令，支持数值表达式"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5828,6 +6122,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5857,6 +6155,10 @@
      "type": "数值",
      "required": "必填",
      "description": "[0-~]，相对于起始帧的间隔时间（毫秒），不小于0。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -5873,6 +6175,10 @@
      "type": "字符串",
      "required": "必填",
      "description": "需使用的场景感知原子数据分类（完整的服务分类列表详见全局变量场景数据）以逗号分隔，如需要知道是否有航空客运和快递的通知，则填写\" 30000374,30000050\"。默认为空，表示不使用任何场景感知原子数据分类。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -5916,6 +6222,10 @@
      "type": "string",
      "required": "必填",
      "description": "需使用的服务分类（完整的服务分类列表详见全局变量场景数据），多个服务分类以英文逗号分隔，如“影视与直播”、“游戏”、“生活服务”、“美食”和“出行导航”，则填写\"10000013, 40000999,10000020, 10000023, 10000025\"。默认为空，表示不使用任何服务分类。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6080,6 +6390,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6182,6 +6496,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6211,6 +6529,10 @@
      "type": "数值",
      "required": "选填",
      "description": "摇一摇触发震动的延时时间，单位为ms，默认为0，支持表达式"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6222,7 +6544,12 @@
    "title": "适配功能：摇一摇",
    "section": "3.58",
    "description": "当声明了传感器VariableBinders后，会生成一个系统全局变量shake，当摇一摇手机的时候，这个变量的值就会加一，可以通过使用这个变量制作想要的效果，摇一摇数值变化的间隔为1000ms。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -6250,6 +6577,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6369,6 +6700,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6403,6 +6738,10 @@
      "type": "数值",
      "required": "必填",
      "description": "[0-~]，相对于起始帧的间隔时间（毫秒），不小于0。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6439,6 +6778,10 @@
      "type": "string",
      "required": "选填",
      "description": "播放此音频时，是否保持当前正在播放的声音，true/false，默认false。只有当同时播放的音频数量大于系统最大值时才暂停优先级低的音频数据"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6463,6 +6806,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6472,7 +6819,12 @@
    "title": "帧动画",
    "section": "4.5",
    "description": "基础命令，只有图片支持帧动画，图片帧动画稍有不同，无插值。可以设置图片播放之间的间隔时间。（实际使用的标签为 SourcesAnimation）",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -6615,6 +6967,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6634,6 +6990,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6735,6 +7095,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -6744,7 +7108,12 @@
    "title": "数据开放：步数",
    "section": "3.53",
    "description": "步数功能是根据全局变量#steps_value实现的。可以通过Text文本调用全局变量#steps_value显示步数。该功能只在EMUI10.1.0.160及以上版本有效（不同机型支持的版本会有差异），其余版本该变量值为0。当该变量值为0时，建议将步数相关内容设置为不可见。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -6832,6 +7201,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6974,6 +7347,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -6990,6 +7367,10 @@
      "type": "",
      "required": "",
      "description": "字符串是否为空，即“”，为空返回“true”字符串，否则返回“false”字符串。 例如：strIsEmpty(@abc) ，str可以是字符串、字符串变量、字符串函数，下同"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7038,6 +7419,10 @@
      "type": "数值",
      "required": "选填",
      "description": "按钮高度，支持表达式。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7064,6 +7449,10 @@
      "type": "字符串",
      "required": "必填",
      "description": "需要识别的静态手势类型（参考全局变量“手势识别”中静态手势类型枚举说明）。多个类型以逗号分隔，如需要使用的静态手势有石头剪刀布，则填写'1,2,3'。默认为空，不识别用户的静态手势。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7168,6 +7557,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7389,6 +7782,10 @@
      "type": "数值",
      "required": "选填",
      "description": "以Y轴为旋转中心旋转，一周360度，支持表达式。正数表示顺时针，负数表示逆时针，rotationY和angleY写法都可以。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7503,6 +7900,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7602,6 +8003,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7658,6 +8063,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7677,6 +8086,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7703,7 +8116,12 @@
    "title": "",
    "section": "",
    "description": "触发器组容器，可包含多个 Trigger。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Trigger"
    ]
@@ -7713,7 +8131,12 @@
    "title": "",
    "section": "",
    "description": "解锁命令组容器，内部放置解锁相关 Trigger/Command。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Button",
     "Group"
@@ -7814,6 +8237,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7891,6 +8318,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7908,6 +8339,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7920,7 +8355,12 @@
    "title": "",
    "section": "",
    "description": "文档示例中的小写写法，对应 Var / VariableBinders。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -7952,6 +8392,10 @@
     "row": {
      "type": "数值",
      "description": "指定读取查询结果第几行（从0开始，默认0）"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -7981,6 +8425,10 @@
      "type": "数值",
      "required": "必填",
      "description": "[0-~]，相对于起始帧的间隔时间（毫秒），也是动画持续时间，帧图片人肉眼能识别时间延时为300ms左右，不小于0。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -7992,7 +8440,12 @@
    "title": "",
    "section": "",
    "description": "传感器变量绑定容器，配合 SensorBinder 将传感器数据映射到变量。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "SensorBinder"
    ]
@@ -8076,6 +8529,10 @@
      "type": "数值",
      "required": "必填",
      "description": "循环时间，单位为ms毫秒"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [
@@ -8097,6 +8554,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8106,7 +8567,12 @@
    "title": "",
    "section": "",
    "description": "VarArray 变量数组中的变量声明容器，内部用 Var 声明变量。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Var"
    ]
@@ -8271,6 +8737,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "按照指数衰减的反弹曲线图呈现的效果缓入缓出"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8305,6 +8775,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8453,6 +8927,10 @@
     "active": {
      "type": "数值",
      "description": "激活状态：0 不激活（视图不显示，动画与可见性失效），默认 1"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8496,7 +8974,12 @@
    "title": "命令：可见性命令",
    "section": "3.27",
    "description": "除了在基础命令command中通过target的visibility属性来控制对象的可见性外，还支持在图片、文本等对象中配置visibility参数来控制对象可见性。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -8514,6 +8997,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "壁纸图片路径（OPPO 平台示例中 <Wallpaper src=\"wallpaper.jpg\"/> 的写法）。"
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8523,7 +9010,12 @@
    "title": "数据开放：天气数据开放",
    "section": "3.47",
    "description": "开放天气App中天气相关数据：配置Weather标签后，在Weather标签中声明Var变量并使用指定的变量名，即可声明气象、空气质量指数、温度、湿度、风向、日出日落时间、月出月落时间、穿衣指数、运动指数、感冒指数、洗车指数等天气数据对应的变量。变量支持默认值，如果获取到实际天气情况会更新该值。昨天和明天的数据只需要将today改成yesterday和tomorrow即可。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": [
     "Var"
    ]
@@ -8533,7 +9025,12 @@
    "title": "数据开放：天气数据对象",
    "section": "3.48",
    "description": "天气数据对象是在主题引擎中已经预定好的固定数据类型，可供在声明变量时使用。",
-   "attributes": {},
+   "attributes": {
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+    }
+   },
    "children": []
   },
   {
@@ -8556,6 +9053,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": []
@@ -8590,6 +9091,10 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "condition": {
+     "type": "表达式",
+     "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
     }
    },
    "children": [

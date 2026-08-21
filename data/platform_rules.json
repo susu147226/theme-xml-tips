@@ -148,27 +148,52 @@
       "Normal": {
         "title": "按钮正常状态",
         "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Pressed": {
         "title": "按钮按下状态",
         "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "NormalState": {
         "title": "正常状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PressedState": {
         "title": "按下状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ReachedState": {
         "title": "到达状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Slider": {
         "title": "滑块",
@@ -193,6 +218,10 @@
           "visibility": {
             "type": "0/1",
             "description": "可见性，支持表达式"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -219,6 +248,10 @@
           "class": {
             "type": "字符串",
             "description": "类名"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -257,33 +290,62 @@
           "dependency": {
             "type": "字符串",
             "description": "依赖刷新"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Calendar": {
         "title": "日历组件",
         "description": "老引擎日历组件标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ControlPoint": {
         "title": "控制点",
         "description": "FramerateController 等动画控制的控制点子标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FramerateController": {
         "title": "帧率控制器",
         "description": "按变量值控制动画帧率。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Paint": {
         "title": "画笔",
         "description": "画笔/绘制标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ParticleScatter": {
         "title": "粒子散射",
         "description": "粒子散射效果（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PathItem": {
         "title": "路径点",
@@ -308,6 +370,10 @@
           "y": {
             "type": "数值",
             "description": "y 坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -330,13 +396,22 @@
           "values": {
             "type": "数值列表",
             "description": "旋转参数，逗号分隔，2-5 个"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "RotateView": {
         "title": "旋转视图",
         "description": "旋转视图（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Scale": {
         "title": "缩放",
@@ -357,6 +432,10 @@
           "values": {
             "type": "数值列表",
             "description": "缩放参数，逗号分隔"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -375,6 +454,10 @@
           "touchType": {
             "type": "数值/true/false",
             "description": "0 支持跟手切换，1 不支持"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -401,13 +484,22 @@
           "color": {
             "type": "字符串",
             "description": "触摸处顶点颜色，如 #0cf02b"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Weight": {
         "title": "权重",
         "description": "物理/动画权重子标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       }
     },
     "variableTypeEnum": [
@@ -480,27 +572,52 @@
       "Normal": {
         "title": "按钮正常状态",
         "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Pressed": {
         "title": "按钮按下状态",
         "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "NormalState": {
         "title": "正常状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PressedState": {
         "title": "按下状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ReachedState": {
         "title": "到达状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Slider": {
         "title": "滑块",
@@ -525,6 +642,10 @@
           "visibility": {
             "type": "0/1",
             "description": "可见性，支持表达式"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -551,6 +672,10 @@
           "class": {
             "type": "字符串",
             "description": "类名"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -589,33 +714,62 @@
           "dependency": {
             "type": "字符串",
             "description": "依赖刷新"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Calendar": {
         "title": "日历组件",
         "description": "老引擎日历组件标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ControlPoint": {
         "title": "控制点",
         "description": "FramerateController 等动画控制的控制点子标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FramerateController": {
         "title": "帧率控制器",
         "description": "按变量值控制动画帧率。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Paint": {
         "title": "画笔",
         "description": "画笔/绘制标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ParticleScatter": {
         "title": "粒子散射",
         "description": "粒子散射效果（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PathItem": {
         "title": "路径点",
@@ -640,6 +794,10 @@
           "y": {
             "type": "数值",
             "description": "y 坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -662,13 +820,22 @@
           "values": {
             "type": "数值列表",
             "description": "旋转参数，逗号分隔，2-5 个"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "RotateView": {
         "title": "旋转视图",
         "description": "旋转视图（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Scale": {
         "title": "缩放",
@@ -689,6 +856,10 @@
           "values": {
             "type": "数值列表",
             "description": "缩放参数，逗号分隔"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -707,6 +878,10 @@
           "touchType": {
             "type": "数值/true/false",
             "description": "0 支持跟手切换，1 不支持"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -733,13 +908,22 @@
           "color": {
             "type": "字符串",
             "description": "触摸处顶点颜色，如 #0cf02b"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Weight": {
         "title": "权重",
         "description": "物理/动画权重子标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       }
     },
     "variableTypeEnum": [
@@ -1440,6 +1624,10 @@
           "vibrate": {
             "type": "true/false",
             "description": "是否支持震动"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1458,6 +1646,10 @@
           "version": {
             "type": "数值",
             "description": "语法版本"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1476,6 +1668,10 @@
           "version": {
             "type": "数值",
             "description": "语法版本"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1509,6 +1705,10 @@
           "spacetime": {
             "type": "数值",
             "description": "两次震动间隔时间（毫秒）"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1544,6 +1744,10 @@
           "type": {
             "type": "int",
             "description": "2 为动态刚体，其他值/默认静态刚体"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1665,6 +1869,10 @@
           "unitCubeTransform": {
             "type": "字符串",
             "description": "单位立方体根变换，三个数字逗号分隔，默认 \"0,0,-4\""
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1679,6 +1887,10 @@
           "intensity": {
             "type": "数字",
             "description": "灯光强度，默认 30000"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1697,6 +1909,10 @@
           "loop": {
             "type": "数字",
             "description": "1 循环播放 / 0 只播一次，默认 1"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1713,6 +1929,10 @@
             "type": "字符串",
             "description": "素材纹理路径",
             "required": "必填"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1768,6 +1988,10 @@
           "duration": {
             "type": "数字",
             "description": "时长毫秒"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1807,6 +2031,10 @@
           "h": {
             "type": "数字",
             "description": "高度"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1861,6 +2089,10 @@
           "y": {
             "type": "数字",
             "description": "纵坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1895,6 +2127,10 @@
           "height": {
             "type": "数值",
             "description": "高度"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1917,6 +2153,10 @@
           "bgSrc": {
             "type": "字符串",
             "description": "背景图"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1939,6 +2179,10 @@
           "depth": {
             "type": "数值",
             "description": "图片深度，需小于 StereDropView 的 depth"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1957,6 +2201,10 @@
           "respawnCount": {
             "type": "数值",
             "description": "粒子重孵化数量"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -1979,6 +2227,10 @@
           "z": {
             "type": "数值",
             "description": "初始 z（50~depth）"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2013,6 +2265,10 @@
           "lowestVelocityZ": {
             "type": "数值",
             "description": "随机时 z 最低速度"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2031,6 +2287,10 @@
           "type": {
             "type": "字符串",
             "description": "ratio：(-1,1) 比例值 / gravity：(-9.8,9.8) 配合重力传感器 / screen：屏幕坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2110,6 +2370,10 @@
           "debug": {
             "type": "true/false",
             "description": "调试模式，正式包必须为 false"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2140,6 +2404,10 @@
           "src": {
             "type": "字符串表达式",
             "description": "绑定图片（staticBody/dynamicBody 时生效）"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2178,6 +2446,10 @@
           "src": {
             "type": "字符串表达式",
             "description": "绑定图片"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2192,18 +2464,32 @@
           "visibility": {
             "type": "0/1 或 true/false",
             "description": "可见性控制"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "ReachedUpState": {
         "title": "到达抬起状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：到达目标点且手指离开屏幕时显示的内容。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ReachedDownState": {
         "title": "到达按下状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：到达目标点且手指仍按下时显示的内容。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       }
     }
   },
@@ -2364,27 +2650,52 @@
       "Normal": {
         "title": "按钮正常状态",
         "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Pressed": {
         "title": "按钮按下状态",
         "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "NormalState": {
         "title": "正常状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PressedState": {
         "title": "按下状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ReachedState": {
         "title": "到达状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Slider": {
         "title": "滑块",
@@ -2409,6 +2720,10 @@
           "visibility": {
             "type": "0/1",
             "description": "可见性，支持表达式"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2435,6 +2750,10 @@
           "class": {
             "type": "字符串",
             "description": "类名"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2473,33 +2792,62 @@
           "dependency": {
             "type": "字符串",
             "description": "依赖刷新"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Calendar": {
         "title": "日历组件",
         "description": "老引擎日历组件标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ControlPoint": {
         "title": "控制点",
         "description": "FramerateController 等动画控制的控制点子标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FramerateController": {
         "title": "帧率控制器",
         "description": "按变量值控制动画帧率。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Paint": {
         "title": "画笔",
         "description": "画笔/绘制标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ParticleScatter": {
         "title": "粒子散射",
         "description": "粒子散射效果（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PathItem": {
         "title": "路径点",
@@ -2524,6 +2872,10 @@
           "y": {
             "type": "数值",
             "description": "y 坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2546,13 +2898,22 @@
           "values": {
             "type": "数值列表",
             "description": "旋转参数，逗号分隔，2-5 个"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "RotateView": {
         "title": "旋转视图",
         "description": "旋转视图（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Scale": {
         "title": "缩放",
@@ -2573,6 +2934,10 @@
           "values": {
             "type": "数值列表",
             "description": "缩放参数，逗号分隔"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2591,6 +2956,10 @@
           "touchType": {
             "type": "数值/true/false",
             "description": "0 支持跟手切换，1 不支持"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2617,13 +2986,22 @@
           "color": {
             "type": "字符串",
             "description": "触摸处顶点颜色，如 #0cf02b"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Weight": {
         "title": "权重",
         "description": "物理/动画权重子标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FluidsView": {
         "title": "流体视图",
@@ -2657,6 +3035,10 @@
           "refreshRate": {
             "type": "数字",
             "description": "刷新率"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2679,13 +3061,22 @@
           "yPosition": {
             "type": "数字",
             "description": "圆心 y"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "FluidsZone": {
         "title": "流体区域",
         "description": "vivo FluidsView 子元素：限定流体区域。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FluidsParticleCommand": {
         "title": "流体粒子命令",
@@ -2703,6 +3094,10 @@
           "deleteNum": {
             "type": "数字",
             "description": "删除数量"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       }
@@ -2775,27 +3170,52 @@
       "Normal": {
         "title": "按钮正常状态",
         "description": "Button 子标签：按钮正常状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Pressed": {
         "title": "按钮按下状态",
         "description": "Button 子标签：按钮按下状态时显示的内容，可包含 Image/Text 等元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "NormalState": {
         "title": "正常状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：正常状态下显示的元素，可含 Trigger（切换到该状态时触发）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PressedState": {
         "title": "按下状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：按下开始拖动时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ReachedState": {
         "title": "到达状态",
         "description": "Slider/Unlocker 的 StartPoint/EndPoint 子标签：滑动到达目标区域时显示的元素。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Slider": {
         "title": "滑块",
@@ -2820,6 +3240,10 @@
           "visibility": {
             "type": "0/1",
             "description": "可见性，支持表达式"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2846,6 +3270,10 @@
           "class": {
             "type": "字符串",
             "description": "类名"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2884,33 +3312,62 @@
           "dependency": {
             "type": "字符串",
             "description": "依赖刷新"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Calendar": {
         "title": "日历组件",
         "description": "老引擎日历组件标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ControlPoint": {
         "title": "控制点",
         "description": "FramerateController 等动画控制的控制点子标签。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "FramerateController": {
         "title": "帧率控制器",
         "description": "按变量值控制动画帧率。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Paint": {
         "title": "画笔",
         "description": "画笔/绘制标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "ParticleScatter": {
         "title": "粒子散射",
         "description": "粒子散射效果（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "PathItem": {
         "title": "路径点",
@@ -2935,6 +3392,10 @@
           "y": {
             "type": "数值",
             "description": "y 坐标"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -2957,13 +3418,22 @@
           "values": {
             "type": "数值列表",
             "description": "旋转参数，逗号分隔，2-5 个"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "RotateView": {
         "title": "旋转视图",
         "description": "旋转视图（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       },
       "Scale": {
         "title": "缩放",
@@ -2984,6 +3454,10 @@
           "values": {
             "type": "数值列表",
             "description": "缩放参数，逗号分隔"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -3002,6 +3476,10 @@
           "touchType": {
             "type": "数值/true/false",
             "description": "0 支持跟手切换，1 不支持"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
@@ -3028,13 +3506,22 @@
           "color": {
             "type": "字符串",
             "description": "触摸处顶点颜色，如 #0cf02b"
+          },
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
           }
         }
       },
       "Weight": {
         "title": "权重",
         "description": "物理/动画权重子标签（老引擎）。",
-        "attributes": {}
+        "attributes": {
+          "condition": {
+            "type": "表达式",
+            "description": "触发条件：表达式结果为真（>0）时才生效/执行，如 condition=\"#battery_level>20\""
+          }
+        }
       }
     },
     "variableTypeEnum": [
