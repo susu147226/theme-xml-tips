@@ -9499,6 +9499,30 @@
    "description": "年",
    "group": "变量：全局变量",
    "section": "3.20"
+  },
+  {
+   "name": "bmp_width",
+   "type": "数值",
+   "group": "图片宽高",
+   "description": "图片位图宽度。规范迁移注意：脚本中 Image 标签的 bmp_width 若存在需替换为 actual_w。元素属性形式：<图片name>.bmp_width"
+  },
+  {
+   "name": "bmp_height",
+   "type": "数值",
+   "group": "图片宽高",
+   "description": "图片位图高度。规范迁移注意：脚本中 Image 标签的 bmp_height 若存在需替换为 actual_h。元素属性形式：<图片name>.bmp_height"
+  },
+  {
+   "name": "actual_w",
+   "type": "数值",
+   "group": "图片宽高",
+   "description": "图片实际宽度。用法：<图片name>.actual_w，如图片 name 为 a 则通过 a.actual_w 取得。"
+  },
+  {
+   "name": "actual_h",
+   "type": "数值",
+   "group": "图片宽高",
+   "description": "图片实际高度。用法：<图片name>.actual_h，如图片 name 为 a 则通过 a.actual_h 取得。"
   }
  ],
  "enumValues": [

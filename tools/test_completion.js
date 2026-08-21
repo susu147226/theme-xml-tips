@@ -270,5 +270,23 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     fsx.rmSync(tmp, { recursive: true, force: true });
 }
 
+// 15) 变量提取范围扩大 + 未定义变量提示 + 新增全局变量（v1.9.3）
+{
+    const varItems = items => items.filter(i => i.kind === 6);
+    const text = '<Wallpaper>\n<Var name="w" expression="1"/>\n<Image name="pic1" src="a.png"/>\n<Text text="#undefVar + #';
+    const items = ext._test.provideCompletions(makeDoc('D:\\test\\a.xml', text), endPos(text));
+    const pic1 = varItems(items).find(i => i.label === 'pic1');
+    check('带name属性的Image名被提取', !!pic1 && pic1.detail.includes('Image'), pic1 ? pic1.detail : '无');
+    check('Var变量仍被提取', varItems(items).some(i => i.label === 'w' && i.detail.includes('Var')));
+    const undef = varItems(items).find(i => i.label === 'undefVar');
+    check('使用但未定义的变量被提示', !!undef && undef.detail.includes('未用 Var 定义'), undef ? undef.detail : '无');
+    for (const g of ['bmp_width', 'bmp_height', 'actual_w', 'actual_h']) {
+        check(`新增全局变量 ${g}`, varItems(items).some(i => i.label === g));
+    }
+    // 全局变量与文件内名字重名时优先文件内
+    const w = varItems(items).filter(i => i.label === 'w');
+    check('重名只保留文件内定义', w.length === 1 && w[0].detail.includes('Var'));
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

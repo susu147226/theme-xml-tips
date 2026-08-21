@@ -79,9 +79,28 @@ TAG_VALUE_ENUMS = {
     "VideoCommand.play": ["true", "false"],
 }
 
+# ---------------- 全局变量补充 ----------------
+VARIABLES_EXTRA = [
+    {"name": "bmp_width", "type": "数值", "group": "图片宽高",
+     "description": "图片位图宽度。规范迁移注意：脚本中 Image 标签的 bmp_width 若存在需替换为 actual_w。元素属性形式：<图片name>.bmp_width"},
+    {"name": "bmp_height", "type": "数值", "group": "图片宽高",
+     "description": "图片位图高度。规范迁移注意：脚本中 Image 标签的 bmp_height 若存在需替换为 actual_h。元素属性形式：<图片name>.bmp_height"},
+    {"name": "actual_w", "type": "数值", "group": "图片宽高",
+     "description": "图片实际宽度。用法：<图片name>.actual_w，如图片 name 为 a 则通过 a.actual_w 取得。"},
+    {"name": "actual_h", "type": "数值", "group": "图片宽高",
+     "description": "图片实际高度。用法：<图片name>.actual_h，如图片 name 为 a 则通过 a.actual_h 取得。"},
+]
+
 def main():
     d = json.load(open(DATA, encoding="utf-8"))
     d["functions"] = FUNCTIONS
+    # 全局变量补充（幂等：已存在则更新描述）
+    existing = {v["name"]: v for v in d.get("variables", [])}
+    for v in VARIABLES_EXTRA:
+        if v["name"] in existing:
+            existing[v["name"]].update(v)
+        else:
+            d.setdefault("variables", []).append(dict(v))
     ve = d.setdefault("valueEnums", {})
     for k, v in VALUE_ENUMS_EXTRA.items():
         ve[k] = v
@@ -93,7 +112,8 @@ def main():
     with open(DATA, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
     print("functions:", len(FUNCTIONS), "| easing:", len(EASING),
-          "| valueEnums:", len(ve), "| tagValueEnums:", len(TAG_VALUE_ENUMS))
+          "| valueEnums:", len(ve), "| tagValueEnums:", len(TAG_VALUE_ENUMS),
+          "| variables:", len(d["variables"]))
 
 if __name__ == "__main__":
     main()

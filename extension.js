@@ -121,11 +121,23 @@ function parentChain(document, position) {
     return stack;
 }
 
-/** 扫描当前文件，提取 <Var name="..."> 定义的全部变量名 */
-function fileVarNames(document) {
+/** 扫描当前文件，提取所有带 name 属性标签的 name 值 → Map(名字 → 来源标签名) */
+function fileLocalNames(document) {
+    const text = document.getText();
+    const map = new Map();
+    const re = /<([A-Za-z][\w.-]*)\s[^>]*?\bname\s*=\s*"([^"]+)"/g;
+    let m;
+    while ((m = re.exec(text))) {
+        if (m[2] && !map.has(m[2])) map.set(m[2], m[1]);
+    }
+    return map;
+}
+
+/** 扫描当前文件，提取通过 # / @ 使用的全部变量名（含未定义） */
+function fileUsedVars(document) {
     const text = document.getText();
     const names = new Set();
-    const re = /<Var\s[^>]*?\bname\s*=\s*"([^"]+)"/g;
+    const re = /[#@]([A-Za-z_][\w.]*)/g;
     let m;
     while ((m = re.exec(text))) {
         if (m[1]) names.add(m[1]);
@@ -317,20 +329,35 @@ function provideCompletions(document, position) {
         if (isCommandName || /[#@]/.test(linePrefix) || /^[#@]/.test(word)) {
             const cfg = vscode.workspace.getConfiguration('themeXmlTips');
             if (cfg.get('enableVariableCompletion', true)) {
-                const localNames = new Set(fileVarNames(document));
-                for (const name of localNames) {
+                const localMap = fileLocalNames(document);
+                const usedNames = new Set(fileUsedVars(document));
+                for (const [name, tag] of localMap) {
                     const it = new vscode.CompletionItem(name, vscode.CompletionItemKind.Variable);
-                    it.detail = '文件内变量（Var）';
-                    it.documentation = '当前文件中通过 <Var name="' + name + '"> 定义的变量';
+                    if (tag === 'Var') {
+                        it.detail = '文件内变量（Var）';
+                        it.documentation = '当前文件中通过 <Var name="' + name + '"> 定义的变量';
+                    } else {
+                        it.detail = `文件内元素名（<${tag}> name）`;
+                        it.documentation = `当前文件中通过 <${tag} name="${name}"> 定义的元素名`;
+                    }
                     it.sortText = '00' + name;
                     items.push(it);
                 }
                 for (const v of DATA.variables) {
-                    if (localNames.has(v.name)) continue;      // 与文件内变量重名时优先文件内
+                    if (localMap.has(v.name)) continue;      // 与文件内名字重名时优先文件内
                     const it = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
                     it.detail = [v.type, v.group].filter(Boolean).join(' · ') || '引擎全局变量';
                     it.documentation = v.description || '';
                     it.sortText = '01' + v.name;
+                    items.push(it);
+                }
+                // 文件中使用但未用 name 属性定义、也不是引擎全局变量的名字
+                for (const name of usedNames) {
+                    if (localMap.has(name) || varMap.has(name)) continue;
+                    const it = new vscode.CompletionItem(name, vscode.CompletionItemKind.Variable);
+                    it.detail = '文件中使用（未用 Var 定义）';
+                    it.documentation = '当前文件中通过 #/@ 使用，但未发现对应 <Var> 定义，可能依赖外部传入或遗漏定义';
+                    it.sortText = '02' + name;
                     items.push(it);
                 }
             }
@@ -383,10 +410,18 @@ function provideHover(document, position) {
             if (v.description) md.appendMarkdown(`  \n  \n${v.description}`);
             return new vscode.Hover(md, vRange);
         }
-        if (fileVarNames(document).includes(name)) {
+        const localMap = fileLocalNames(document);
+        if (localMap.has(name)) {
+            const tag = localMap.get(name);
             const md = new vscode.MarkdownString();
-            md.appendMarkdown(`**${document.getText(vRange)}** — 文件内变量`);
-            md.appendMarkdown(`  \n当前文件中通过 \`<Var name="${name}">\` 定义`);
+            md.appendMarkdown(`**${document.getText(vRange)}** — ${tag === 'Var' ? '文件内变量' : '文件内元素名'}`);
+            md.appendMarkdown(`  \n当前文件中通过 \`<${tag} name="${name}">\` 定义`);
+            return new vscode.Hover(md, vRange);
+        }
+        if (fileUsedVars(document).includes(name)) {
+            const md = new vscode.MarkdownString();
+            md.appendMarkdown(`**${document.getText(vRange)}** — 文件中使用（未用 Var 定义）`);
+            md.appendMarkdown(`  \n当前文件中通过 #/@ 使用，但未发现对应定义，可能依赖外部传入或遗漏定义`);
             return new vscode.Hover(md, vRange);
         }
     }
