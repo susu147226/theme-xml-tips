@@ -448,13 +448,13 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
 // 19) 平台差异化语法判断（v2.0.0）：type=int / 华为禁字符 / OPPO Wallpaper+globalPersist+#hour / 荣耀 string-ifelse / vivo 3D / 必填属性
 {
     const lint = ext._test.lintText;
-    // 1) Var type="int"：OPPO/荣耀/华为/vivo/小米允许，鸿蒙NEXT 报错
+    // 1) Var type="int"：鸿蒙/OPPO/荣耀/华为/vivo/小米均允许
     let d = lint('<Var name="a" expression="1" type="int"/>', 'oppo');
     check('OPPO天气type=int不报错', d.length === 0, JSON.stringify(d));
     d = lint('<Var name="a" expression="1" type="int"/>', 'honor');
     check('荣耀type=int不报错', d.length === 0, JSON.stringify(d));
     d = lint('<Var name="a" expression="1" type="int"/>', 'harmonyos');
-    check('鸿蒙NEXT type=int报错', d.some(x => x.severity === 'error' && x.message.includes('type="int"')), JSON.stringify(d));
+    check('鸿蒙NEXT type=int合法', d.length === 0, JSON.stringify(d));
     d = lint('<Var name="a" expression="1" type="number[]"/>', 'harmonyos');
     check('鸿蒙NEXT type=number[]合法', d.length === 0, JSON.stringify(d));
     d = lint('<Var name="a" expression="1" type="foo"/>', 'oppo');

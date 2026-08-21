@@ -8961,6 +8961,11 @@
      "required": "",
      "description": ""
     },
+    "sound": {
+     "type": "数值（0~1）或开关",
+     "required": "选填",
+     "description": "控制视频播放的声音，支持0~1的一个浮点数；数值越大，音量越大。也支持有音量为true，无音量为false。注意：声音与播放只能同时实现一个，只有在没有控制声音的参数时，才能使用play参数（鸿蒙、华为平台均支持）。"
+    },
     "condition": {
      "type": "",
      "required": "",

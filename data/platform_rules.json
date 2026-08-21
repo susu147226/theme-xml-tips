@@ -79,7 +79,9 @@
   },
   "harmonyos": {
     "label": "鸿蒙NEXT",
-    "forbidVarTypeInt": true,
+    "varTypeExtra": [
+      "int"
+    ],
     "srcExpBrace": true,
     "extraTags": [],
     "extraVars": []
@@ -1523,6 +1525,12 @@
         "silent",
         "vibrate"
       ],
+      "Image.scaleType": [
+        "fill",
+        "center_crop",
+        "hold_center_crop",
+        "fit_width"
+      ],
       "Video.scaleType": [
         "fill",
         "fit_width"
@@ -2614,6 +2622,12 @@
       ]
     },
     "enumOverrides": {
+      "Image.scaleType": [
+        "fill",
+        "center_crop",
+        "hold_center_crop",
+        "fit_width"
+      ],
       "Video.scaleType": [
         "fill",
         "fit_width"

@@ -958,7 +958,7 @@ function lintText(text, platform) {
                 }
                 const attrMeta = attrs[an] || {};
                 // type 取值按标签+平台区分：Var/VarArray/VariableCommand 为基础类型枚举（number/string/number[]/string[]，
-                // 华为/荣耀/OPPO/vivo/小米天气等场景额外支持 int；鸿蒙NEXT 不支持 int，需改 number 或删除 type）；
+                // 鸿蒙/华为/荣耀/OPPO/vivo/小米均额外支持 int，见各平台 varTypeExtra）；
                 // Array/CollBody/CollisionWorld/SensorBinder 的 type 为业务取值（如 steps），不做枚举限制
                 // 枚举取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）；type 属性按标签+平台单独处理；
                 // 平台枚举覆盖（如 vivo 的 Video.scaleType ∈ fill/fit_width）

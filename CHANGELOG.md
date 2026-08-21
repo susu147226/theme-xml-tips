@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.4 (2026-08-21)
+
+- 鸿蒙平台 `type` 属性新增支持 `int` 类型（Var / VarArray / VariableCommand 的语法检查与值补全均已包含，与华为/荣耀/OPPO/vivo/小米一致）
+- OPPO、vivo 平台的 `Image.scaleType` 属性值新增 `fit_width`（`Video.scaleType` 此前已支持），语法检查与值补全同步生效
+- `VideoCommand` 标签新增 `sound` 属性（鸿蒙、华为平台均支持）：控制视频播放声音，支持 0~1 浮点音量或 true/false 开关，与 play 参数互斥；提供属性补全与悬浮说明
+
 ## 2.2.3 (2026-08-21)
 
 - 修复（重要）：打包脚本遗漏 `data/platform_rules.json`，导致安装版扩展丢失全部平台差异化语法规则——华为/荣耀/OPPO/vivo/小米平台的 `type="int"` 误报"不在可选值中"，平台专属标签/属性/变量/函数规则全部失效。现已纳入 VSIX 打包清单，安装版与源码版行为一致
