@@ -587,6 +587,8 @@ function openSnippetManager(context, focusAdd) {
             vscode.window.showInformationMessage(`代码片段「${prefix}」已保存`);
             return;
         }
+        if (msg.type === 'import') { importCustomSnippets().then(() => pushList()); return; }
+        if (msg.type === 'export') { exportCustomSnippets(); return; }
         if (msg.type === 'delete') {
             // webview 沙箱中 confirm/alert 被禁用，确认框放在扩展侧用原生模态框
             vscode.window.showWarningMessage(
@@ -636,6 +638,8 @@ small{opacity:.7}
 </div>
 <table><thead><tr><th>唤醒词</th><th>描述</th><th>平台</th><th>代码片段</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
 <button id="addBtn">＋ 新增代码片段</button>
+<button id="importBtn" class="sec">导入</button>
+<button id="exportBtn" class="sec">导出</button>
 <div id="form">
   <label>唤醒词：<span class="req">*</span></label><input id="fPrefix" placeholder="如 my-unlock">
   <label>描述：<span class="req">*</span></label><input id="fDesc" placeholder="如 我的解锁命令">
@@ -703,6 +707,8 @@ function edit(prefix){
   form.style.display = 'block';
 }
 document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; fPlatform.value=''; document.getElementById('delInForm').style.display='none'; form.style.display='block'; fPrefix.focus(); };
+document.getElementById('importBtn').onclick = ()=>{ vscode.postMessage({type:'import'}); };
+document.getElementById('exportBtn').onclick = ()=>{ vscode.postMessage({type:'export'}); };
 document.getElementById('cancelBtn').onclick = ()=>{ form.style.display='none'; };
 document.getElementById('delInForm').onclick = ()=>{
   if(editing){ vscode.postMessage({type:'delete',prefix:editing}); form.style.display='none'; }
@@ -720,6 +726,190 @@ vscode.postMessage({type:'ready'});
 </script></body></html>`;
 }
 
+// ===================== XML 错误检测 =====================
+
+/**
+ * 纯文本 XML 规范检测（核心，供诊断与测试共用）
+ * @returns {Array<{line:number, endCol:number, message:string, severity:'error'|'warning'}>}
+ */
+function lintText(text, platform) {
+    const diags = [];
+    const lines = text.split('\n');
+    // 遮蔽注释与 CDATA（保留换行以保证行号不变）
+    const masked = text
+        .replace(/<!--[\s\S]*?-->/g, m => m.replace(/[^\n]/g, ' '))
+        .replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, m => m.replace(/[^\n]/g, ' '));
+    const lineStarts = [0];
+    for (let i = 0; i < masked.length; i++) if (masked[i] === '\n') lineStarts.push(i + 1);
+    const lineOf = off => { let l = 0; for (let i = 0; i < lineStarts.length; i++) { if (lineStarts[i] <= off) l = i; else break; } return l; };
+    const push = (line, message, severity) => diags.push({ line, endCol: (lines[line] || '').length, message, severity });
+
+    const stack = [];
+    const tagRe = /<(\/?)([A-Za-z][\w.-]*)((?:"[^"]*"|'[^']*'|[^"'/<>]|\/(?!>))*)(\/?)>/g;
+    let m;
+    while ((m = tagRe.exec(masked))) {
+        const name = m[2], attrText = m[3] || '';
+        const line = lineOf(m.index);
+        if (m[1]) {   // 闭合标签
+            if (!stack.length) { push(line, `闭合标签 </${name}> 没有对应的开标签`, 'error'); continue; }
+            if (stack[stack.length - 1].name === name) { stack.pop(); continue; }
+            const idx = stack.map(s => s.name).lastIndexOf(name);
+            if (idx >= 0) {
+                const top = stack[stack.length - 1];
+                push(line, `闭合标签 </${name}> 与第 ${top.line + 1} 行的开标签 <${top.name}> 不匹配`, 'error');
+                stack.length = idx;   // 弹出到匹配位置，继续检测后续标签
+            } else {
+                push(line, `闭合标签 </${name}> 没有对应的开标签`, 'error');
+            }
+            continue;
+        }
+        // 标签名合法性
+        const t = tagMap.get(name);
+        if (!t) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
+        // 属性名称与语法校验
+        if (t) {
+            const attrRe = /([\w.-]+)\s*=\s*"([^"]*)"/g;
+            let am;
+            while ((am = attrRe.exec(attrText))) {
+                const an = am[1], av = am[2];
+                if (!(an in (t.attributes || {}))) {
+                    push(line, `标签 <${name}> 不支持属性 "${an}"，请检查属性名拼写`, 'warning');
+                    continue;
+                }
+                // 枚举取值 / 布尔取值（表达式值跳过）
+                const enums = attrValues(name, an);
+                if (enums && av && !/[#@]/.test(av) && !enums.includes(av)) {
+                    push(line, `属性 ${an} 的取值 "${av}" 不在可选值（${enums.join(' / ')}）中`, 'error');
+                }
+                // 表达式括号配对
+                if (/[#@(]/.test(av)) {
+                    let bal = 0;
+                    for (const ch of av) { if (ch === '(') bal++; if (ch === ')') bal--; if (bal < 0) break; }
+                    if (bal !== 0) push(line, `属性 ${an} 的表达式括号不配对`, 'error');
+                }
+                // Image srcExp 平台写法差异：鸿蒙用 {} 包裹表达式，其他平台直接 + 拼接
+                if (name === 'Image' && an === 'srcExp' && av) {
+                    if (platform === 'harmonyos') {
+                        const noBrace = av.replace(/\{[^}]*\}/g, '');
+                        if (/[#@][\w.]+/.test(noBrace)) {
+                            push(line, `鸿蒙平台 srcExp 中的变量/表达式需用 {} 包裹，如 srcExp="'bg_'+{int(#hour)}+'.jpg'"`, 'warning');
+                        }
+                    } else if (platform && /\{[^}]*[#@][^}]*\}/.test(av)) {
+                        push(line, `当前平台 srcExp 不支持 {} 包裹写法，请使用拼接写法，如 srcExp="'bg_'+#hour+'.jpg'"`, 'warning');
+                    }
+                }
+            }
+        }
+        if (!m[4]) stack.push({ name, line });   // 非自闭合才入栈
+    }
+    for (const s of stack) push(s.line, `标签 <${s.name}>（第 ${s.line + 1} 行）未闭合`, 'error');
+    return diags.sort((a, b) => a.line - b.line);
+}
+
+let diagCollection = null;
+
+/** 将 lint 结果写入 VS Code 问题面板 */
+function refreshDiagnostics(doc) {
+    if (!diagCollection || !doc || doc.languageId !== 'xml') return;
+    const cfg = vscode.workspace.getConfiguration('themeXmlTips');
+    if (cfg.get('enableDiagnostics', true) === false) { diagCollection.delete(doc.uri); return; }
+    const items = lintText(doc.getText(), detectPlatform(doc)).map(d => {
+        const range = new vscode.Range(new vscode.Position(d.line, 0), new vscode.Position(d.line, d.endCol));
+        const diag = new vscode.Diagnostic(range, d.message,
+            d.severity === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning);
+        diag.source = 'theme-xml-tips';
+        return diag;
+    });
+    diagCollection.set(doc.uri, items);
+}
+
+function setupDiagnostics(context) {
+    if (!vscode.languages.createDiagnosticCollection) return;
+    diagCollection = vscode.languages.createDiagnosticCollection('theme-xml-tips');
+    context.subscriptions.push(diagCollection);
+    if (vscode.workspace.onDidOpenTextDocument) context.subscriptions.push(vscode.workspace.onDidOpenTextDocument(refreshDiagnostics));
+    if (vscode.workspace.onDidChangeTextDocument) context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e && e.document)));
+    if (vscode.workspace.onDidCloseTextDocument) context.subscriptions.push(vscode.workspace.onDidCloseTextDocument(doc => { if (doc && doc.languageId === 'xml') diagCollection.delete(doc.uri); }));
+    if (vscode.window.activeTextEditor) refreshDiagnostics(vscode.window.activeTextEditor.document);
+}
+
+// ===================== 自定义代码片段 导入 / 导出 =====================
+
+/** 解析 .sublime-snippet 文本 → {prefix, description, body}（忽略 scope） */
+function parseSublimeSnippet(text) {
+    const pick = tag => { const m = text.match(new RegExp('<' + tag + '>([\\s\\S]*?)</' + tag + '>')); return m ? m[1].trim() : ''; };
+    let content = pick('content');
+    const cdata = content.match(/^<!\[CDATA\[([\s\S]*?)\]\]>$/);
+    if (cdata) content = cdata[1].replace(/^\r?\n/, '').replace(/\r?\n\s*$/, '');
+    return { prefix: pick('tabTrigger'), description: pick('description'), body: content };
+}
+
+/** 解析导入文件 → 片段数组（.sublime-snippet / .json（数组或VS Code对象格式） / 其他按整个文件内容为片段体） */
+function parseImportFile(fileName, text) {
+    if (/\.sublime-snippet$/i.test(fileName)) {
+        const s = parseSublimeSnippet(text);
+        return (s.prefix && s.body) ? [{ prefix: s.prefix, description: s.description || s.prefix, body: s.body, platform: '' }] : [];
+    }
+    if (/\.json$/i.test(fileName)) {
+        const data = JSON.parse(text);
+        const out = [];
+        if (Array.isArray(data)) {
+            for (const s of data) {
+                if (s && s.prefix && s.body) out.push({ prefix: String(s.prefix), description: s.description || '', body: String(s.body), platform: normalizePlatform(s.platform) });
+            }
+        } else if (data && typeof data === 'object') {
+            for (const [k, s] of Object.entries(data)) {
+                if (!s || typeof s !== 'object') continue;
+                const prefix = Array.isArray(s.prefix) ? s.prefix[0] : s.prefix;
+                const body = Array.isArray(s.body) ? s.body.join('\n') : s.body;
+                if (prefix && body) out.push({ prefix: String(prefix), description: s.description || k, body: String(body), platform: normalizePlatform(s.platform) });
+            }
+        }
+        return out;
+    }
+    // 其他格式（如 .xml）：整个文件内容作为片段体，自动转义在保存/插入时完成
+    const base = path.basename(fileName).replace(/\.[^.]+$/, '');
+    return [{ prefix: base, description: '导入的代码片段（' + base + '）', body: text.replace(/\r\n/g, '\n').trim(), platform: '' }];
+}
+
+async function importCustomSnippets() {
+    const uris = await vscode.window.showOpenDialog({
+        canSelectMany: true, openLabel: '导入',
+        filters: { '代码片段文件': ['json', 'xml', 'sublime-snippet'], '所有文件': ['*'] },
+    });
+    if (!uris || !uris.length) return 0;
+    let added = 0;
+    const errs = [];
+    for (const u of uris) {
+        try {
+            for (const s of parseImportFile(u.fsPath, fs.readFileSync(u.fsPath, 'utf8'))) {
+                if (CUSTOM_SNIPPETS.some(x => x.prefix === s.prefix)) {
+                    CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.map(x => x.prefix === s.prefix ? s : x);
+                } else {
+                    CUSTOM_SNIPPETS.push(s);
+                }
+                added++;
+            }
+        } catch (e) { errs.push(path.basename(u.fsPath)); }
+    }
+    if (added) { saveCustomSnippetsFile(); reloadCustomSnippets(); }
+    if (errs.length) vscode.window.showWarningMessage('部分文件导入失败：' + errs.join('、'));
+    vscode.window.showInformationMessage(`已导入 ${added} 个自定义代码片段`);
+    return added;
+}
+
+async function exportCustomSnippets() {
+    if (!CUSTOM_SNIPPETS.length) { vscode.window.showInformationMessage('暂无自定义代码片段可导出'); return false; }
+    const uri = await vscode.window.showSaveDialog({
+        saveLabel: '导出', filters: { 'JSON': ['json'] },
+        defaultUri: vscode.Uri.file ? vscode.Uri.file('theme-snippets-export.json') : undefined,
+    });
+    if (!uri) return false;
+    fs.writeFileSync(uri.fsPath, JSON.stringify(CUSTOM_SNIPPETS, null, 2), 'utf8');
+    vscode.window.showInformationMessage(`已导出 ${CUSTOM_SNIPPETS.length} 个自定义代码片段`);
+    return true;
+}
+
 // ===================== 激活 =====================
 
 function activate(context) {
@@ -732,9 +922,12 @@ function activate(context) {
         vscode.languages.registerHoverProvider(sel, { provideHover: provideHover }),
         vscode.commands.registerCommand('themeXmlTips.addSnippet', () => openSnippetManager(context, true)),
         vscode.commands.registerCommand('themeXmlTips.manageSnippets', () => openSnippetManager(context, false)),
-        vscode.commands.registerCommand('themeXmlTips.viewSnippets', () => openSnippetManager(context, false))
+        vscode.commands.registerCommand('themeXmlTips.viewSnippets', () => openSnippetManager(context, false)),
+        vscode.commands.registerCommand('themeXmlTips.importSnippets', () => importCustomSnippets()),
+        vscode.commands.registerCommand('themeXmlTips.exportSnippets', () => exportCustomSnippets())
     );
     setupPlatformNotify(context);
+    setupDiagnostics(context);
 }
 
 function deactivate() {}
@@ -743,6 +936,7 @@ module.exports = {
     activate, deactivate,
     _test: {
         detectPlatform, folderMatches, provideCompletions, escapeSnippetBody,
+        lintText, parseSublimeSnippet, parseImportFile,
         init: dir => loadData({ extensionPath: dir }),
         initSnippets: dir => initCustomSnippets({ globalStorageUri: { fsPath: dir } }),
         getCustomSnippets: () => CUSTOM_SNIPPETS,

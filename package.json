@@ -2,7 +2,7 @@
   "name": "theme-xml-tips",
   "displayName": "Theme XML Tips",
   "description": "主题引擎 XML 代码提示：标签/属性/枚举/变量补全、悬停文档与代码片段。适配 VS Code / WebStorm / HBuilderX / Sublime Text。作者：云舒眠眠。",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "publisher": "susu147226",
   "author": {
     "name": "云舒眠眠"
@@ -41,6 +41,14 @@
       {
         "command": "themeXmlTips.viewSnippets",
         "title": "查看自定义代码片段（Theme XML Tips）"
+      },
+      {
+        "command": "themeXmlTips.importSnippets",
+        "title": "导入自定义代码片段（Theme XML Tips）"
+      },
+      {
+        "command": "themeXmlTips.exportSnippets",
+        "title": "导出自定义代码片段（Theme XML Tips）"
       }
     ],
     "menus": {
@@ -70,6 +78,11 @@
           "type": "boolean",
           "default": true,
           "description": "在属性值中输入 # 或 @ 时提示主题引擎全局变量"
+        },
+        "themeXmlTips.enableDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "XML 错误检测：标签配对/未知标签/属性名/枚举取值/括号配对/srcExp 平台写法"
         },
         "themeXmlTips.customSnippets": {
           "type": "array",

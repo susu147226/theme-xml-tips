@@ -25,7 +25,12 @@ class MarkdownString {
 const vscodeStub = {
     Position, Range, CompletionItem, SnippetString, MarkdownString,
     CompletionItemKind: { Class: 7, Field: 5, EnumMember: 20, Variable: 6, Function: 3, Snippet: 15 },
-    workspace: { getConfiguration: () => ({ get: (k, d) => d }) },
+    workspace: {
+        getConfiguration: () => ({ get: (k, d) => d }),
+        onDidOpenTextDocument: () => ({ dispose() {} }),
+        onDidChangeTextDocument: () => ({ dispose() {} }),
+        onDidCloseTextDocument: () => ({ dispose() {} }),
+    },
 };
 // activate() 依赖的 API（用于注册契约测试）
 let capturedCompletionProvider = null;
@@ -33,7 +38,10 @@ let capturedHoverProvider = null;
 vscodeStub.languages = {
     registerCompletionItemProvider: (sel, provider, ...triggers) => { capturedCompletionProvider = provider; return { dispose() {} }; },
     registerHoverProvider: (sel, provider) => { capturedHoverProvider = provider; return { dispose() {} }; },
+    createDiagnosticCollection: () => ({ set() {}, delete() {}, dispose() {} }),
 };
+vscodeStub.Diagnostic = class { constructor(range, message, severity) { this.range = range; this.message = message; this.severity = severity; } };
+vscodeStub.DiagnosticSeverity = { Error: 0, Warning: 1 };
 vscodeStub.window = {
     onDidChangeActiveTextEditor: () => ({ dispose() {} }),
     activeTextEditor: null,
@@ -192,7 +200,7 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
         !!capturedCompletionProvider && typeof capturedCompletionProvider.provideCompletionItems === 'function');
     check('悬停provider为对象且含provideHover',
         !!capturedHoverProvider && typeof capturedHoverProvider.provideHover === 'function');
-    check('activate不抛错且注册全部订阅', ctx.subscriptions.length === 6, String(ctx.subscriptions.length));
+    check('activate不抛错且注册全部订阅', ctx.subscriptions.length === 12, String(ctx.subscriptions.length));
 }
 
 // 14) 自定义片段右键菜单与面板结构（v1.9.1）
@@ -331,6 +339,56 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('列表含平台列', html.includes('<th>平台</th>'));
     check('搜索含模糊与精确逻辑', html.includes('applyFilters') && html.includes('toLowerCase'));
     fsx.rmSync(tmp, { recursive: true, force: true });
+}
+
+// 17) XML 错误检测 + 导入导出解析（v1.9.5）
+{
+    const lint = ext._test.lintText;
+    let d = lint('<Lockscreen>\n<Text x="1"/>\n</Lockscreen>', null);
+    check('正常文档无诊断', d.length === 0, String(d.length));
+    d = lint('<Lockscreen>\n<Text x="1">\n</Lockscreen>', null);
+    check('闭合标签不匹配报错并标注行', d.some(x => x.severity === 'error' && x.message.includes('不匹配') && x.line === 2), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<Text x="1"/>\n</Lockscren>', null);
+    check('闭合标签拼写错误报无对应开标签', d.some(x => x.message.includes('没有对应的开标签') && x.line === 2), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<Text x="1"/>', null);
+    check('未闭合标签报错并标注行', d.some(x => x.message.includes('未闭合') && x.line === 0));
+    d = lint('</Text>', null);
+    check('无对应开标签报错', d.some(x => x.message.includes('没有对应的开标签')));
+    d = lint('<Lockscreen>\n<FooBar/>\n</Lockscreen>', null);
+    check('未知标签报错', d.some(x => x.message.includes('未知标签 <FooBar>')));
+    d = lint('<Text xxx="1"/>', null);
+    check('未知属性警告', d.some(x => x.severity === 'warning' && x.message.includes('不支持属性 "xxx"')));
+    d = lint('<Text align="middle"/>', null);
+    check('枚举取值报错', d.some(x => x.severity === 'error' && x.message.includes('可选值')));
+    d = lint('<Text align="left"/>', null);
+    check('合法枚举不报错', d.length === 0, String(d.length));
+    d = lint('<!-- <FooBar/> -->\n<Text align="left"/>', null);
+    check('注释内标签不检测', d.length === 0, String(d.length));
+    d = lint('<Var name="a" expression="le(#x,1"/>', null);
+    check('括号不配对报错', d.some(x => x.message.includes('括号不配对')));
+    d = lint('<Var name="a" expression="le(#x,1)"/>', null);
+    check('括号配对不报错', d.length === 0, String(d.length));
+    d = lint('<Image srcExp="\'bg_\'+#hour+\'.jpg\'" w="1" h="1"/>', 'harmonyos');
+    check('鸿蒙srcExp缺{}警告', d.some(x => x.message.includes('需用 {} 包裹')), JSON.stringify(d));
+    d = lint('<Image srcExp="\'bg_\'+{#hour}+\'.jpg\'" w="1" h="1"/>', 'harmonyos');
+    check('鸿蒙srcExp含{}不警告', !d.some(x => x.message.includes('srcExp')), JSON.stringify(d));
+    d = lint('<Image srcExp="\'bg_\'+{#hour}+\'.jpg\'" w="1" h="1"/>', 'oppo');
+    check('非鸿蒙srcExp含{}警告', d.some(x => x.message.includes('不支持 {} 包裹写法')), JSON.stringify(d));
+    d = lint('<Image srcExp="\'bg_\'+#hour+\'.jpg\'" w="1" h="1"/>', 'oppo');
+    check('非鸿蒙srcExp拼接不警告', !d.some(x => x.message.includes('srcExp')), JSON.stringify(d));
+    // 导入解析
+    const sub = ext._test.parseSublimeSnippet('<snippet>\n<description>网络接口</description>\n<content><![CDATA[\n<WebServiceBinder name="$1"/>\n]]></content>\n<tabTrigger>WebServiceBinder</tabTrigger>\n<scope>text.xml</scope>\n</snippet>');
+    check('sublime片段-唤醒词取tabTrigger', sub.prefix === 'WebServiceBinder');
+    check('sublime片段-描述取description', sub.description === '网络接口');
+    check('sublime片段-内容去除CDATA', sub.body.includes('<WebServiceBinder name="$1"/>') && !sub.body.includes('CDATA'));
+    const arr = ext._test.parseImportFile('a.json', JSON.stringify([{ prefix: 'p1', description: 'd1', body: '<Var/>', platform: 'vivo' }]));
+    check('json数组导入含平台', arr.length === 1 && arr[0].platform === 'vivo');
+    const obj = ext._test.parseImportFile('b.json', JSON.stringify({ 'X': { prefix: ['p2'], body: ['<Var/>', '<Image/>'], description: 'd2' } }));
+    check('vscode对象格式导入', obj.length === 1 && obj[0].prefix === 'p2' && obj[0].body === '<Var/>\n<Image/>');
+    const xml = ext._test.parseImportFile('demo.xml', '<Lockscreen>\n</Lockscreen>\n');
+    check('xml整文件导入', xml.length === 1 && xml[0].prefix === 'demo' && xml[0].body.startsWith('<Lockscreen>'));
+    const html = ext._test.snippetManagerHtml();
+    check('面板含导入导出按钮', html.includes('importBtn') && html.includes('exportBtn'));
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
