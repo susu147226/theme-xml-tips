@@ -50,6 +50,8 @@ FILES = [
     "package.json", "extension.js", "README.md", "CHANGELOG.md",
     "data/tags.json", "snippets/theme-snippets.json",
 ]
+if os.path.exists(os.path.join(ROOT, "data", "platform_rules.json")):
+    FILES.append("data/platform_rules.json")
 if os.path.exists(os.path.join(ROOT, "data", "shortcuts.json")):
     FILES.append("data/shortcuts.json")
 if os.path.exists(os.path.join(ROOT, "data", "varsnippets.json")):

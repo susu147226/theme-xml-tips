@@ -89,8 +89,8 @@
     "varTypeExtra": [
       "int"
     ],
-    "attrValueForbiddenChars": "<>&'\"",
-    "attrValueForbiddenNote": "华为4.0脚本规范：属性值禁止出现特殊字符 < > & ' \"",
+    "attrValueForbiddenChars": "<>&",
+    "attrValueForbiddenNote": "华为4.0脚本规范：属性值禁止出现特殊字符 < > &（表达式中的引号字符串字面量为合法用法，不参与检查）",
     "extraTags": [
       "Calendar",
       "ContentProviderBinder",

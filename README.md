@@ -28,7 +28,7 @@
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-2.2.2.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-2.2.3.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -38,30 +38,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-2.2.2.vsix`
+1. 下载 Release 中的 `theme-xml-tips-2.2.3.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-2.2.2.vsix
+code --install-extension theme-xml-tips-2.2.3.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-2.2.2.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-2.2.3.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-2.2.2.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-2.2.3.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-2.2.2.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-2.2.3.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 
