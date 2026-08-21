@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.5 (2026-08-21)
+
+- 语法检测更新：`Group` 标签全平台共享 `Image` 的全部属性（Image 支持的属性 Group 同样支持），属性补全、悬浮说明、取值校验同步生效
+- 语法检测更新：`Mask` 标签除自身属性外同样共享 `Image` 的全部属性（自身属性优先），并同步展开通用属性别名（angle→rotation 等）
+- 平台枚举覆盖对 Group/Mask 回退到 Image：如 OPPO/vivo 的 `scaleType="fit_width"` 在 Group、Mask 上同样合法
+
 ## 2.2.4 (2026-08-21)
 
 - 鸿蒙平台 `type` 属性新增支持 `int` 类型（Var / VarArray / VariableCommand 的语法检查与值补全均已包含，与华为/荣耀/OPPO/vivo/小米一致）

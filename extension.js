@@ -19,6 +19,20 @@ let VARSNIPPETS = [];
 function loadData(context) {
     const file = path.join(context.extensionPath, 'data', 'tags.json');
     DATA = JSON.parse(fs.readFileSync(file, 'utf8'));
+    // Group / Mask 与 Image 共享属性（全平台）：Image 支持的属性 Group、Mask 同样支持，标签自身属性优先
+    const imgTag = DATA.tags.find(t => t.name === 'Image');
+    if (imgTag) {
+        const aliasMap = DATA.commonAttrAlias || {};
+        for (const alias of ['Group', 'Mask']) {
+            const tg = DATA.tags.find(t => t.name === alias);
+            if (!tg) continue;
+            tg.attributes = Object.assign({}, imgTag.attributes, tg.attributes || {});
+            // 通用属性别名同步展开（angle→rotation 等），保证别名列也能补全/悬浮/通过校验
+            for (const [al, canon] of Object.entries(aliasMap)) {
+                if (!(al in tg.attributes) && canon in tg.attributes) tg.attributes[al] = tg.attributes[canon];
+            }
+        }
+    }
     tagMap = new Map(DATA.tags.map(t => [t.name, t]));
     varMap = new Map(DATA.variables.map(v => [v.name, v]));
     funcMap = new Map((DATA.functions || []).map(f => [f.name, f]));
@@ -258,6 +272,15 @@ function attrValues(tagName, attrName) {    const tve = DATA.tagValueEnums || {}
     return null;
 }
 
+/** 平台枚举覆盖查找：Group/Mask 与 Image 共享属性，枚举覆盖同步回退到 Image（如 OPPO/vivo 的 scaleType fit_width） */
+function enumOverrideFor(prule, tagName, attrName) {
+    const ov = prule.enumOverrides || {};
+    const v = ov[tagName + '.' + attrName];
+    if (v) return v;
+    if (tagName === 'Group' || tagName === 'Mask') return ov['Image.' + attrName];
+    return undefined;
+}
+
 /** 生成当前平台（或全部平台）的快捷跳转补全项 */
 function shortcutCompletions(document) {
     const platform = detectPlatform(document);
@@ -399,7 +422,7 @@ function provideCompletions(document, position) {
         let vals = ctx.attrName === 'type'
             ? typeEnumValues(ctx.tagName, curPlat)
             : attrValues(ctx.tagName, ctx.attrName);
-        const enumOv = (platformRule(curPlat).enumOverrides || {})[ctx.tagName + '.' + ctx.attrName];
+        const enumOv = enumOverrideFor(platformRule(curPlat), ctx.tagName, ctx.attrName);
         if (enumOv) vals = enumOv;
         if (vals) {
             for (const v of vals) {
@@ -963,7 +986,7 @@ function lintText(text, platform) {
                 // 枚举取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）；type 属性按标签+平台单独处理；
                 // 平台枚举覆盖（如 vivo 的 Video.scaleType ∈ fill/fit_width）
                 let enums = (an === 'type') ? null : attrValues(name, an);
-                const enumOv = (prule.enumOverrides || {})[name + '.' + an];
+                const enumOv = enumOverrideFor(prule, name, an);
                 if (enumOv) enums = enumOv;
                 if (an === 'type' && av && !/[#@]/.test(av)) {
                     const allowed = typeEnumValues(name, platform);

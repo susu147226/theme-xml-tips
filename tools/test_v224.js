@@ -75,5 +75,24 @@ check('鸿蒙 VideoCommand 属性补全含 sound', items.some(i => i.label === '
 items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), pos);
 check('华为 VideoCommand 属性补全含 sound', items.some(i => i.label === 'sound'));
 
+// Group/Mask 共享 Image 属性：属性补全含 scaleType/angle/srcExp；OPPO Group scaleType 值含 fit_width
+text = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<Group  />\n</Lockscreen>';
+pos = new Position(2, 7);
+items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\a.xml', text), pos);
+check('鸿蒙 Group 属性补全含 scaleType', items.some(i => i.label === 'scaleType'));
+check('鸿蒙 Group 属性补全含 angle', items.some(i => i.label === 'angle'));
+check('鸿蒙 Group 属性补全含 srcExp', items.some(i => i.label === 'srcExp'));
+
+text = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<Image src="a.jpg"><Mask  /></Image>\n</Lockscreen>';
+pos = new Position(2, 25);
+items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\a.xml', text), pos);
+check('鸿蒙 Mask 属性补全含 angle', items.some(i => i.label === 'angle'));
+check('鸿蒙 Mask 属性补全含 scaleType', items.some(i => i.label === 'scaleType'));
+
+text = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<Group scaleType="" />\n</Lockscreen>';
+pos = new Position(2, 18);
+items = ext._test.provideCompletions(makeDoc('D:\\themes\\oppo\\a.xml', text), pos);
+check('OPPO Group scaleType 补全含 fit_width', items.some(i => i.label === 'fit_width'));
+
 console.log(`\n${pass} 通过, ${fail} 失败`);
 process.exit(fail ? 1 : 0);
