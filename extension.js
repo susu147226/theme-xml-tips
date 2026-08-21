@@ -208,8 +208,10 @@ function funcDoc(f) {
 }
 
 /** Var/VarArray/VariableCommand 的 type 可选值（按平台扩展 int）；
+ *  ContentProviderBinder/SensorBinder 子标签 Variable 的 type 按平台规则（OPPO 支持 string/int/long/float/double）；
  *  Array/CollBody/CollisionWorld/SensorBinder 的 type 为业务取值（如 steps），返回 null 不限制 */
 function typeEnumValues(tagName, platform) {
+    if (tagName === 'Variable') return platformRule(platform).variableTypeEnum || null;
     if (!/^(Var|VarArray|VariableCommand)$/.test(tagName || '')) return null;
     const base = (PLATFORM_LINT.common && PLATFORM_LINT.common.varTypeBase) || ['number', 'string'];
     return base.concat(platformRule(platform).varTypeExtra || []);
@@ -904,17 +906,19 @@ function lintText(text, platform) {
                 let enums = (an === 'type') ? null : attrValues(name, an);
                 const enumOv = (prule.enumOverrides || {})[name + '.' + an];
                 if (enumOv) enums = enumOv;
-                if (an === 'type' && (name === 'Var' || name === 'VarArray' || name === 'VariableCommand') && av && !/[#@]/.test(av)) {
+                if (an === 'type' && av && !/[#@]/.test(av)) {
                     const allowed = typeEnumValues(name, platform);
-                    if (!allowed.includes(av)) {
+                    if (allowed && !allowed.includes(av)) {
                         if (prule.forbidVarTypeInt && av === 'int') {
                             push(line, `鸿蒙NEXT 的 ${name} 不支持 type="int"，请改为 type="number" 或删除 type 属性`, 'error');
                         } else {
                             push(line, `属性 type 的取值 "${av}" 不在可选值（${allowed.join(' / ')}）中`, 'error');
                         }
                     }
-                } else if (enums && av && !/[#@]/.test(av) && !enums.includes(av)) {
-                    push(line, `属性 ${an} 的取值 "${av}" 不在可选值（${enums.join(' / ')}）中`, 'error');
+                } else if (enums && av && !/[#@]/.test(av)) {
+                    // 支持逗号分隔多值（如 Trigger action="click,double"、ExternalCommands 多 action）
+                    const badTok = av.split(',').map(s => s.trim()).filter(Boolean).find(tok => !enums.includes(tok));
+                    if (badTok) push(line, `属性 ${an} 的取值 "${badTok}" 不在可选值（${enums.join(' / ')}）中`, 'error');
                 }
                 // SoundCommand.sound：声音文件路径，支持 .mp3/.m4a/.amr/.wav
                 if (name === 'SoundCommand' && an === 'sound' && av && !/[#@]/.test(av) && !/\.(mp3|m4a|amr|wav)$/i.test(av.trim())) {

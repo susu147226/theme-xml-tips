@@ -10,8 +10,8 @@ using System.Reflection;
 
 internal static class Installer
 {
-    private const string Version = "2.1.0";
-    private const string VsixName = "theme-xml-tips-2.1.0.vsix";
+    private const string Version = "2.2.0";
+    private const string VsixName = "theme-xml-tips-2.2.0.vsix";
     private const string VsixResource = "ThemeXmlTips.vsix";
     private const string AdaptersResource = "ThemeXmlTips.adapters";
 

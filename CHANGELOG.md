@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.2.0 (2026-08-21)
+
+- 根据 OPPO 开放平台百变引擎/锁屏引擎全部章节（67 个补充文档页）完善 OPPO 平台语法规则：
+  - 新增 33 个扩展标签放行：`CancelDelayCommand`/`VibratorCommand`/`CollBodyCommand`/`ParticleCommand`/`ProviderCommand`/`FullScreenCommand`/`FilamentCommand`(含 ModelAction/IndirectLightAction/AnimationAction/MaterialAction)/`PropertyAnimation`/`ValueAnimation`/`WebpImage`/`Lottie`/`GLModel`/`StereDropView`(含 StereoImage/StereoDropItem/ItemPosition/ItemVelocity/ItemConvergence)/`FluidsView`(含 CircleShape/PolygonShape)/`MusicControl`/`ReachedUpState`/`ReachedDownState`，及根标签 `Root`/`Fullscreen`/`Oneshot` 等写法变体
+  - 新增 21 个 OPPO 全局变量提示：`time_sys`/`touch_pressure`/`ampm`/`year_lunar`/`raw_screen_width`/`view_width`/`feast`/`lunar_solar_term`/`sms_unread_count`/`ring_mode`/`wifi_state`/`data_state`/`music_state` 等
+  - 新增 18 个 OPPO 函数提示：`ceil`/`sinh`/`cosh`/`strStartsWith`/`strEndsWith`/`strMatches`/`replace`/`strReplaceFirst`/`strTrim`/`strToLowerCase`/`strToUpperCase`/`arrayGet`/`arrayLength`/`randomSelect`/`mapGet`/`diffDate`/`eval`/`formatFloat`
+  - OPPO 枚举按文档校准：`Trigger.action` 扩展 cancel/正常解锁/快速解锁/熄屏亮屏等 19 个取值并支持逗号多值；`ExternCommand.command` 支持 unlock/openFlashlight/closeFlashlight/closeScreen；`Command.value` 支持 toggle/on/off/normal/silent/vibrate（修复 RingMode/Wifi/Data 开关误报）；`Video.scaleType` 限定 fill/fit_width；`Mask.align` 限定 absolute/relative；`Image/Mask` 的 xfermode/hybridMode 支持 11 种混合模式
+  - `ContentProviderBinder` 内 `Variable` 的 type 按 OPPO 文档校验（string/int/long/float/double/number），写错类型会标错
+  - OPPO 根标签放行 frameRateBatteryFull/frameRateCharging/frameRateBatteryLow、主题卡 cardWidth 等扩展属性
+- 枚举校验支持逗号分隔多值（如 `action="click,double"`），不再误报
 ## 2.1.0 (2026-08-21)
 
 - 新增平台官方文档规则（荣耀开发者文档、华为 HarmonyOS 4.X 主题引擎规范、OPPO 百变/多彩引擎文档、vivo 锁屏引擎制作文档 doc/524/527/528/724）：

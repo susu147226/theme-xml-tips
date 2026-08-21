@@ -3066,6 +3066,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "xfermode": {
+     "type": "枚举",
+     "description": "图片混合模式：clear/src/dst/src_over/dst_over/src_in/dst_in/src_out/dst_out/src_atop/dst_atop/xor"
     }
    },
    "children": [
@@ -4195,6 +4199,10 @@
      "type": "字符串",
      "required": "选填",
      "description": "取值\"Normal\", \"Charging\", \"BatteryLow\", \"BatteryFull\"，表示当手机处于指定充电状态时显示该元素。"
+    },
+    "xfermode": {
+     "type": "枚举",
+     "description": "遮罩混合模式：clear/src/dst/src_over/dst_over/src_in/dst_in/src_out/dst_out/src_atop/dst_atop/xor"
     }
    },
    "children": []
@@ -7918,6 +7926,20 @@
      "type": "",
      "required": "",
      "description": ""
+    },
+    "column": {
+     "type": "字符串",
+     "required": "必填",
+     "description": "对应查询结果中的列名（OPPO/vivo 数据绑定）"
+    },
+    "type": {
+     "type": "字符串",
+     "required": "必填",
+     "description": "变量数据类型（OPPO 支持 string/int/long/float/double）"
+    },
+    "row": {
+     "type": "数值",
+     "description": "指定读取查询结果第几行（从0开始，默认0）"
     }
    },
    "children": []
