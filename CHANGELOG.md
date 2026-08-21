@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.1.0 (2026-08-21)
+
+- 新增平台官方文档规则（荣耀开发者文档、华为 HarmonyOS 4.X 主题引擎规范、OPPO 百变/多彩引擎文档、vivo 锁屏引擎制作文档 doc/524/527/528/724）：
+  - OPPO 多彩引擎（LiveWallpaper 动态壁纸）整体识别：根标签为 `<LiveWallpaper>` 时，`Elements/Rect/NormalVideo/InteractiveVideo/LottieElement/PanoramaElement/Animations/PositionAnim/RotateAnim/ScaleAnim/AlphaAnim/ActionAnim/ValueAnim/ScrollAnim/CutScenesAnim/SceneAnim/StartFrame/EndFrame/Methods/Method` 等 26 个多彩标签不再报「未知标签」，属性按多彩体系放行（标签配对与括号检测保留）
+  - OPPO 补充多彩全局变量提示：`u_time`/`u_width`/`u_height`/`u_touchX`/`u_touchY`/`u_dark_mode`/`u_animatedValue`；补充函数提示：`floor`/`clamp`/`formatDate`/`formatTime`/`eqs`/`substr`
+  - vivo 扩展标签放行：`VR`/`Paint`/`MeshImage` 子标签/`DropPhysicalView` 子标签/`ParticleScatter`/`WaterWallpaper`/`Marquee`/`PathUtil`/`FramerateController`/`RotateView`/`FluidsView`/`CircleShape`/`FluidsZone`/`FluidsParticleCommand`/`NormalState`/`PressedState`/`ReachedState`/`Intent`/`Slider` 等（华为/荣耀/小米的老引擎扩展标签同步放行）
+  - vivo 补充全局变量提示：`weather_city`/`weather_wind_pow`/`weather_wind_dir`/`steps_value`/`sms_unread_count`/`call_missed_count`/`shake`；`Video.scaleType` 按 vivo 文档校验 `fill`/`fit_width`
+  - 华为/荣耀/小米/vivo 补充 `eqs`/`substr` 字符串函数提示
+- 真实工程回归修复（对华为/荣耀/OPPO/vivo/鸿蒙NEXT 五平台实机锁屏工程全量 lint 验证）：
+  - `Trigger` 的 `action` 不再列为必填（Var threshold 阈值触发等场景使用无 action 的 `<Trigger>`，各平台均合法）
+  - OPPO/vivo 等平台的 `ContentProviderBinder` 内 `Variable` 标签放行 `column`/`type` 属性（数据绑定写法）
+  - `Mask` 的 `align` 放开枚举限制（支持 `absolute` 等定位取值）
+
 ## 2.0.0 (2026-08-21)
 
 - 平台差异化语法判断（依据荣耀开发者文档、华为 HarmonyOS 4.X 主题引擎规范、OPPO 百变引擎文档、vivo 锁屏引擎文档及各平台实机代码交叉验证）：

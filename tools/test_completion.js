@@ -512,5 +512,43 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('SensorBinder业务type不限制', !d.some(x => x.message.includes('type')), JSON.stringify(d));
 }
 
+// 20) 多彩引擎(LiveWallpaper) / vivo新标签与枚举覆盖 / 平台扩展函数与变量（v2.1.0）
+{
+    const lint = ext._test.lintText;
+    // 1) 多彩引擎：Rect/Elements/Methods 等不报未知标签，属性不校验
+    const lw = '<LiveWallpaper>\n<Vars><Var name="a" expression="1"/></Vars>\n<Elements>\n<Rect id="bg" width="#u_width" height="#u_height" src="bg.jpg" enableBlend="false"/>\n</Elements>\n<Methods>\n<Method no="303" type="Animations" target="a" value="start"/>\n</Methods>\n</LiveWallpaper>';
+    let d = lint(lw, 'oppo');
+    check('多彩引擎标签全放行', d.length === 0, JSON.stringify(d));
+    d = lint(lw, null);
+    check('多彩引擎无平台也放行', d.length === 0, JSON.stringify(d));
+    d = lint('<LiveWallpaper>\n<Elements>\n</LiveWallpaper>', 'oppo');
+    check('多彩引擎标签配对仍检测', d.some(x => x.message.includes('未闭合') || x.message.includes('不匹配')), JSON.stringify(d));
+    // 2) vivo 扩展标签放行
+    d = lint('<Lockscreen>\n<Slider name="s">\n<StartPoint x="0" y="0">\n<NormalState><Image src="a.png"/></NormalState>\n</StartPoint>\n</Slider>\n</Lockscreen>', 'vivo');
+    check('vivo Slider/NormalState放行', !d.some(x => x.message.includes('未知标签')), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<FluidsView bgSrc="a.jpg" color="#fff">\n<CircleShape xPosition="1" yPosition="1" radius="1"/>\n</FluidsView>\n</Lockscreen>', 'vivo');
+    check('vivo流体标签放行', !d.some(x => x.message.includes('未知标签')), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<FluidsView bgSrc="a.jpg"/>\n</Lockscreen>', 'harmonyos');
+    check('鸿蒙FluidsView报未知', d.some(x => x.message.includes('未知标签 <FluidsView>')), JSON.stringify(d));
+    // 3) vivo Video.scaleType 枚举覆盖
+    d = lint('<Video name="v" src="a.mp4" scaleType="fit_width"/>', 'vivo');
+    check('vivo scaleType=fit_width合法', !d.some(x => x.message.includes('scaleType')), JSON.stringify(d));
+    d = lint('<Video name="v" src="a.mp4" scaleType="fit_width"/>', 'harmonyos');
+    check('鸿蒙scaleType=fit_width报错', d.some(x => x.message.includes('scaleType') && x.message.includes('可选值')), JSON.stringify(d));
+    // 4) 平台扩展函数与变量提示
+    let items = ext._test.provideCompletions(makeDoc('D:\\themes\\coloros\\advance\\main.xml', '<Var name="a" expression="'), endPos('<Var name="a" expression="'));
+    check('OPPO含floor/clamp函数提示', items.some(i => i.filterText === 'floor') && items.some(i => i.filterText === 'clamp'), '');
+    check('OPPO含formatDate函数提示', items.some(i => i.filterText === 'formatDate'), '');
+    items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\main.xml', '<Var name="a" expression="'), endPos('<Var name="a" expression="'));
+    check('鸿蒙不含floor函数提示', !items.some(i => i.filterText === 'floor'), '');
+    items = ext._test.provideCompletions(makeDoc('D:\\themes\\vivo\\main.xml', '<Text paras="#'), endPos('<Text paras="#'));
+    check('vivo含weather_city变量提示', items.some(i => i.label === 'weather_city'), '');
+    check('vivo含steps_value变量提示', items.some(i => i.label === 'steps_value'), '');
+    items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\main.xml', '<Text paras="#'), endPos('<Text paras="#'));
+    check('鸿蒙不含weather_city提示', !items.some(i => i.label === 'weather_city'), '');
+    items = ext._test.provideCompletions(makeDoc('D:\\themes\\coloros\\advance\\main.xml', '<Rect alpha="#'), endPos('<Rect alpha="#'));
+    check('OPPO含u_time变量提示', items.some(i => i.label === 'u_time'), '');
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

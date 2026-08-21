@@ -51,6 +51,11 @@ function platformExtraVars(platform) {
     return base.concat(rule.extraVars || []);
 }
 
+/** 某平台可用的扩展表达式函数（如 OPPO floor/clamp/formatDate，老平台 eqs/substr） */
+function platformExtraFuncs(platform) {
+    return platformRule(platform).extraFunctions || [];
+}
+
 /**
  * 平台识别规则（按优先级依次判定，命中即返回）。
  * 匹配方式：中文词直接子串匹配；纯拉丁词长度 <= 3（mi / hw / pad / next 除外按词边界）
@@ -219,6 +224,8 @@ function attrValues(tagName, attrName) {    const tve = DATA.tagValueEnums || {}
         return null;
     }
     if (attrName === 'sound') return null;   // sound 因标签而异：布尔开关 / 音量浮点(0~1) / 声音文件路径（SoundCommand），不做枚举限制
+    if (tagName === 'Mask' && attrName === 'align') return null;   // Mask 的 align 另支持 absolute 等定位取值（实机代码验证）
+    if (attrName === 'type') return null;    // type 由 typeEnumValues 按标签+平台单独处理（补全与 lint 共用）
     if (DATA.valueEnums[attrName]) return DATA.valueEnums[attrName];
     if (DATA.boolAttributes.includes(attrName)) return ['true', 'false'];
     return null;
@@ -343,10 +350,13 @@ function provideCompletions(document, position) {
     }
 
     if (ctx.kind === 'value') {
-        // 1) 属性支持参数提示（枚举值；type 属性按平台给出可选值）
-        const vals = ctx.attrName === 'type'
-            ? typeEnumValues(ctx.tagName, detectPlatform(document))
+        // 1) 属性支持参数提示（枚举值；type 属性按平台给出可选值；平台枚举覆盖如 vivo Video.scaleType）
+        const curPlat = detectPlatform(document);
+        let vals = ctx.attrName === 'type'
+            ? typeEnumValues(ctx.tagName, curPlat)
             : attrValues(ctx.tagName, ctx.attrName);
+        const enumOv = (platformRule(curPlat).enumOverrides || {})[ctx.tagName + '.' + ctx.attrName];
+        if (enumOv) vals = enumOv;
         if (vals) {
             for (const v of vals) {
                 const it = new vscode.CompletionItem(v, vscode.CompletionItemKind.EnumMember);
@@ -409,8 +419,9 @@ function provideCompletions(document, position) {
             }
         }
 
-        // 3) 表达式函数提示（带参数占位符）
-        for (const f of (DATA.functions || [])) {
+        // 3) 表达式函数提示（带参数占位符；含平台扩展函数如 OPPO floor/clamp/formatDate、老平台 eqs/substr）
+        const allFuncs = (DATA.functions || []).concat(platformExtraFuncs(curPlat));
+        for (const f of allFuncs) {
             const it = new vscode.CompletionItem(f.signature, vscode.CompletionItemKind.Function);
             it.filterText = f.name;
             it.detail = f.category + '函数';
@@ -802,6 +813,9 @@ function lintText(text, platform) {
     const push = (line, message, severity) => diags.push({ line, endCol: (lines[line] || '').length, message, severity });
 
     const stack = [];
+    // OPPO 多彩引擎（LiveWallpaper 动态壁纸）：标签/属性体系与锁屏引擎完全不同，单独放行
+    const liveWpTags = new Set((PLATFORM_LINT.common && PLATFORM_LINT.common.liveWallpaperTags) || []);
+    const isLiveWp = /<LiveWallpaper[\s>]/.test(masked);
     const tagRe = /<(\/?)([A-Za-z][\w.-]*)((?:"[^"]*"|'[^']*'|[^"'/<>]|\/(?!>))*)(\/?)>/g;
     let m;
     while ((m = tagRe.exec(masked))) {
@@ -820,13 +834,16 @@ function lintText(text, platform) {
             }
             continue;
         }
-        // 标签名合法性（平台扩展标签放行：如 Normal/Pressed/PathItem/Slider/Calendar/ContentProviderBinder 等老引擎标签）
+        // 标签名合法性（平台扩展标签放行：如 Normal/Pressed/PathItem/Slider/Calendar/ContentProviderBinder 等老引擎标签；
+        // 多彩引擎 LiveWallpaper 体系标签在根标签为 LiveWallpaper 时放行）
         const t = tagMap.get(name);
         const prule = platformRule(platform);
         const platExtraTags = new Set(prule.extraTags || []);
-        if (!t && !platExtraTags.has(name)) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
-        // 属性名称与语法校验（IntentCommand 为应用跳转标签，包名/类名/action 需适配多平台，不做属性级检测）
-        if (t && name !== 'IntentCommand') {
+        const isLiveWpTag = isLiveWp && liveWpTags.has(name);
+        if (!t && !platExtraTags.has(name) && !isLiveWpTag) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
+        // 属性名称与语法校验（IntentCommand 为应用跳转标签，包名/类名/action 需适配多平台，不做属性级检测；
+        // 多彩引擎标签的属性体系独立，只保留配对与括号检测）
+        if (t && name !== 'IntentCommand' && !isLiveWpTag) {
             const attrs = t.attributes || {};
             const attrRe = /([\w.-]+)\s*=\s*"([^"]*)"/g;
             const seenAttrs = new Set();
@@ -869,8 +886,10 @@ function lintText(text, platform) {
                 }
                 if (!(an in attrs)) {
                     // condition 对所有标签生效（事件触发条件），不限于命令标签；
-                    // isFullScreenNode 适用于所有 Image/Video 类标签
-                    const loose = LOOSE_ATTRS.has(an) || (EXTRA_TAG_ATTRS[name] || []).includes(an);
+                    // isFullScreenNode 适用于所有 Image/Video 类标签；
+                    // 平台扩展属性放行（如 OPPO ContentProviderBinder 内 Variable 的 column/type）
+                    const loose = LOOSE_ATTRS.has(an) || (EXTRA_TAG_ATTRS[name] || []).includes(an)
+                        || ((prule.extraTagAttrs || {})[name] || []).includes(an);
                     if (!loose && !(rule && rule.support.includes(canon))) {
                         push(line, `标签 <${name}> 不支持属性 "${an}"，请检查属性名拼写`, 'warning');
                     }
@@ -880,8 +899,11 @@ function lintText(text, platform) {
                 // type 取值按标签+平台区分：Var/VarArray/VariableCommand 为基础类型枚举（number/string/number[]/string[]，
                 // 华为/荣耀/OPPO/vivo/小米天气等场景额外支持 int；鸿蒙NEXT 不支持 int，需改 number 或删除 type）；
                 // Array/CollBody/CollisionWorld/SensorBinder 的 type 为业务取值（如 steps），不做枚举限制
-                // 枚举取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）；type 属性按标签+平台单独处理
-                const enums = (an === 'type') ? null : attrValues(name, an);
+                // 枚举取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）；type 属性按标签+平台单独处理；
+                // 平台枚举覆盖（如 vivo 的 Video.scaleType ∈ fill/fit_width）
+                let enums = (an === 'type') ? null : attrValues(name, an);
+                const enumOv = (prule.enumOverrides || {})[name + '.' + an];
+                if (enumOv) enums = enumOv;
                 if (an === 'type' && (name === 'Var' || name === 'VarArray' || name === 'VariableCommand') && av && !/[#@]/.test(av)) {
                     const allowed = typeEnumValues(name, platform);
                     if (!allowed.includes(av)) {
