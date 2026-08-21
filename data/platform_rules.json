@@ -1,0 +1,108 @@
+{
+  "_comment": "各平台主题引擎差异化语法规则。来源：荣耀开发者文档(developer.honor.com/cn/docs/11106/guides/*)、华为HarmonyOS 4.X主题引擎规范(developer.huawei.com)、OPPO百变引擎(open.oppomobile.com id=13585 栏目)、vivo锁屏引擎文档(dev.vivo.com.cn doc/524) 及本地多平台实机代码交叉验证。",
+  "common": {
+    "requiredAttrs": {
+      "Var": ["name"],
+      "Command": ["target", "value"],
+      "VariableCommand": ["name", "expression"],
+      "ExternCommand": ["command"],
+      "Trigger": ["action"],
+      "SoundCommand": ["sound"],
+      "Video": ["name", "src"],
+      "ImageNumber": ["src", "number"],
+      "Mask": ["src"],
+      "CountDownTime": ["name", "date", "countDownType"]
+    },
+    "requiredOneOf": {
+      "Image": ["src", "srcExp"]
+    },
+    "varTypeBase": ["number", "string", "number[]", "string[]"]
+  },
+  "harmonyos": {
+    "label": "鸿蒙NEXT",
+    "forbidVarTypeInt": true,
+    "srcExpBrace": true,
+    "extraTags": [],
+    "extraVars": []
+  },
+  "huawei": {
+    "label": "华为",
+    "varTypeExtra": ["int"],
+    "attrValueForbiddenChars": "<>&'\"",
+    "attrValueForbiddenNote": "华为4.0脚本规范：属性值禁止出现特殊字符 < > & ' \"",
+    "extraTags": ["Normal", "Pressed", "PathItem", "Slider", "Calendar", "ContentProviderBinder"],
+    "includeMiuiBaseVars": true,
+    "extraVars": []
+  },
+  "honor": {
+    "label": "荣耀",
+    "varTypeExtra": ["int"],
+    "noIfelseInStringVar": true,
+    "noIfelseInStringVarNote": "荣耀不支持 string 类型变量的 expression 中使用 ifelse，请改用数值中间变量转换",
+    "extraTags": ["Normal", "Pressed", "PathItem", "Slider", "Calendar", "ContentProviderBinder"],
+    "includeMiuiBaseVars": true,
+    "extraVars": []
+  },
+  "oppo": {
+    "label": "OPPO",
+    "varTypeExtra": ["int"],
+    "forbidGlobalPersist": true,
+    "forbidGlobalVars": ["hour"],
+    "requireWallpaper": true,
+    "extraTags": ["Normal", "Pressed", "PathItem", "Slider", "Calendar", "ContentProviderBinder"],
+    "extraVars": [
+      { "name": "time_format", "type": "数值", "description": "OPPO 时间制式标志：0 为 12 小时制，1 为 24 小时制（配合 #hour12/#hour24 使用）" },
+      { "name": "month_lunar", "type": "数值", "description": "OPPO 农历月份（对应华为/荣耀的 lunarMonth）" },
+      { "name": "date_lunar", "type": "数值", "description": "OPPO 农历日期（对应华为/荣耀的 lunarDay）" }
+    ]
+  },
+  "vivo": {
+    "label": "vivo",
+    "varTypeExtra": ["int"],
+    "forbidGlobalVars": ["hour"],
+    "no3DRotation": true,
+    "no3DRotationNote": "vivo 锁屏引擎不支持 3D 翻转（rotationX/rotationY/rotation），需用帧动画等自定义实现",
+    "extraTags": ["Normal", "Pressed", "PathItem", "Slider", "Calendar", "ContentProviderBinder"],
+    "includeMiuiBaseVars": true,
+    "extraVars": [
+      { "name": "time_format", "type": "数值", "description": "vivo 时间制式标志：0 为 12 小时制，1 为 24 小时制" },
+      { "name": "lunar_date", "type": "字符串", "description": "vivo 农历日期字符串，用 @lunar_date 引用，可配合 substr 截取月份/日" },
+      { "name": "weather_condition", "type": "字符串", "description": "vivo 天气状况文字（晴/多云/阴/阵雨…），用 @weather_condition 引用" },
+      { "name": "weather_cur_temp", "type": "字符串", "description": "vivo 当前温度（带单位符号，需 substr 截取数值部分）" },
+      { "name": "weather_high_temp", "type": "字符串", "description": "vivo 最高温度（带单位符号）" },
+      { "name": "weather_low_temp", "type": "字符串", "description": "vivo 最低温度（带单位符号）" },
+      { "name": "weather_sunrise", "type": "字符串", "description": "vivo 日出时间字符串" },
+      { "name": "weather_sunset", "type": "字符串", "description": "vivo 日落时间字符串" }
+    ]
+  },
+  "xiaomi": {
+    "label": "小米",
+    "varTypeExtra": ["int"],
+    "extraTags": ["Normal", "Pressed", "PathItem", "Slider", "Calendar", "ContentProviderBinder"],
+    "includeMiuiBaseVars": true,
+    "extraVars": []
+  },
+  "miuiBaseVars": [
+    { "name": "weatherRespCode", "type": "数值", "description": "天气数据状态：0 为默认值，1 为网络返回值（使用 Weather 标签后可用）" },
+    { "name": "festival", "type": "数值", "description": "国家法定节假日 0~21（0 非节假日，1 元旦，3 春节，14 中秋节，15 国庆节…）" },
+    { "name": "is_work_day", "type": "布尔", "description": "是否国家法定工作日：true 工作日 / false 休息日" },
+    { "name": "darkMode", "type": "数值", "description": "系统深色模式：1 浅色 / 2 深色 / 0 不支持" },
+    { "name": "musicTotalDuration", "type": "字符串", "description": "当前播放音乐总时长（分:秒，如 04:52）" },
+    { "name": "musicPlayDuration", "type": "字符串", "description": "当前音乐播放进度（分:秒，如 02:30）" },
+    { "name": "musicTotalSecond", "type": "数值", "description": "当前播放音乐总时长（秒）" },
+    { "name": "musicPlaySecond", "type": "数值", "description": "当前音乐播放进度（秒）" },
+    { "name": "time_sys", "type": "数值", "description": "系统时间毫秒值（格式 yyyy-MM-dd hh:mm:ss:SSS 对应时间戳）" },
+    { "name": "ishour12", "type": "字符串", "description": "是否 12 小时制（true/false）" },
+    { "name": "system.time.hour1", "type": "数值", "description": "小时的第一位，如 09:00 显示 0" },
+    { "name": "system.time.hour2", "type": "数值", "description": "小时的第二位，如 09:00 显示 9" },
+    { "name": "system.time.min1", "type": "数值", "description": "分钟的第一位，如 09:30 显示 3" },
+    { "name": "system.time.min2", "type": "数值", "description": "分钟的第二位，如 09:30 显示 0" },
+    { "name": "system.time.ampm", "type": "字符串", "description": "上午/下午显示，随系统区域语言变化（12 小时制时才有值）" },
+    { "name": "system.date", "type": "字符串", "description": "日期格式化显示，随系统区域语言变化" },
+    { "name": "lunarYear", "type": "字符串", "description": "农历年" },
+    { "name": "lunarMonth", "type": "数值", "description": "农历月" },
+    { "name": "lunarDay", "type": "数值", "description": "农历日" },
+    { "name": "touch_begin_time", "type": "数值", "description": "触摸开始的时间（ms，距 1970-01-01 的时间差）" },
+    { "name": "touch_pressure", "type": "数值", "description": "触摸压力值（需设备支持，且 Lockscreen 标签写 pressure=\"true\"）" }
+  ]
+}

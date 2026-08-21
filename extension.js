@@ -30,6 +30,25 @@ function loadData(context) {
         const vf = path.join(context.extensionPath, 'data', 'varsnippets.json');
         if (fs.existsSync(vf)) VARSNIPPETS = JSON.parse(fs.readFileSync(vf, 'utf8'));
     } catch (e) { VARSNIPPETS = []; }
+    try {
+        const pf = path.join(context.extensionPath, 'data', 'platform_rules.json');
+        if (fs.existsSync(pf)) PLATFORM_LINT = JSON.parse(fs.readFileSync(pf, 'utf8'));
+    } catch (e) { PLATFORM_LINT = {}; }
+}
+
+/** @type {Object} 各平台差异化语法规则（data/platform_rules.json） */
+let PLATFORM_LINT = {};
+
+/** 取某平台的规则（无平台或未知平台返回空规则） */
+function platformRule(platform) {
+    return (platform && PLATFORM_LINT[platform]) || {};
+}
+
+/** 某平台可用的扩展全局变量（含 MIUI 系基础变量） */
+function platformExtraVars(platform) {
+    const rule = platformRule(platform);
+    const base = rule.includeMiuiBaseVars ? (PLATFORM_LINT.miuiBaseVars || []) : [];
+    return base.concat(rule.extraVars || []);
 }
 
 /**
@@ -183,9 +202,16 @@ function funcDoc(f) {
     return md;
 }
 
+/** Var/VarArray/VariableCommand 的 type 可选值（按平台扩展 int）；
+ *  Array/CollBody/CollisionWorld/SensorBinder 的 type 为业务取值（如 steps），返回 null 不限制 */
+function typeEnumValues(tagName, platform) {
+    if (!/^(Var|VarArray|VariableCommand)$/.test(tagName || '')) return null;
+    const base = (PLATFORM_LINT.common && PLATFORM_LINT.common.varTypeBase) || ['number', 'string'];
+    return base.concat(platformRule(platform).varTypeExtra || []);
+}
+
 /** 属性取值：优先 标签.属性 专属枚举；action/sound 取值因标签而异，按标签区分 */
-function attrValues(tagName, attrName) {
-    const tve = DATA.tagValueEnums || {};
+function attrValues(tagName, attrName) {    const tve = DATA.tagValueEnums || {};
     if (tagName && tve[tagName + '.' + attrName]) return tve[tagName + '.' + attrName];
     if (attrName === 'action') {
         // action 取值随标签不同：Trigger/Button 为触发动作，KeepScreenOnCommand 为 start/reset（走 tagValueEnums），其余标签不限制
@@ -317,8 +343,10 @@ function provideCompletions(document, position) {
     }
 
     if (ctx.kind === 'value') {
-        // 1) 属性支持参数提示（枚举值）
-        const vals = attrValues(ctx.tagName, ctx.attrName);
+        // 1) 属性支持参数提示（枚举值；type 属性按平台给出可选值）
+        const vals = ctx.attrName === 'type'
+            ? typeEnumValues(ctx.tagName, detectPlatform(document))
+            : attrValues(ctx.tagName, ctx.attrName);
         if (vals) {
             for (const v of vals) {
                 const it = new vscode.CompletionItem(v, vscode.CompletionItemKind.EnumMember);
@@ -357,9 +385,21 @@ function provideCompletions(document, position) {
                     it.sortText = '01' + v.name;
                     items.push(it);
                 }
+                // 平台扩展全局变量（如荣耀 weatherRespCode、vivo @weather_condition、OPPO #time_format 等）
+                const plat = detectPlatform(document);
+                const platLabel = ((PLATFORM_RULES.find(r => r.key === plat) || {}).label) || '';
+                for (const v of platformExtraVars(plat)) {
+                    if (localMap.has(v.name) || varMap.has(v.name)) continue;
+                    const it = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
+                    it.detail = [v.type, platLabel + '平台全局变量'].filter(Boolean).join(' · ');
+                    it.documentation = v.description || '';
+                    it.sortText = '01' + v.name;
+                    items.push(it);
+                }
                 // 文件中使用但未用 name 属性定义、也不是引擎全局变量的名字
+                const platExtraNames = new Set(platformExtraVars(plat).map(v => v.name));
                 for (const name of usedNames) {
-                    if (localMap.has(name) || varMap.has(name)) continue;
+                    if (localMap.has(name) || varMap.has(name) || platExtraNames.has(name)) continue;
                     const it = new vscode.CompletionItem(name, vscode.CompletionItemKind.Variable);
                     it.detail = '文件中使用（未用 Var 定义）';
                     it.documentation = '当前文件中通过 #/@ 使用，但未发现对应 <Var> 定义，可能依赖外部传入或遗漏定义';
@@ -737,10 +777,12 @@ vscode.postMessage({type:'ready'});
 /** 对所有标签都生效的宽松属性（不报"不支持属性"）：condition 事件触发条件在引擎中对非命令标签同样生效 */
 const LOOSE_ATTRS = new Set(['condition']);
 
-/** 数据外补充：isFullScreenNode 适用于所有 Image/Video 类标签（规范中 Image 有列出，Video 类同样生效） */
+/** 数据外补充：isFullScreenNode 适用于所有 Image/Video 类标签（规范中 Image 有列出，Video 类同样生效）；
+ *  globalPersist 为华为/荣耀等老引擎 Var 的全局持久化属性（OPPO 需删除，见平台规则） */
 const EXTRA_TAG_ATTRS = {
     Video: ['isFullScreenNode'], ImageNumber: ['isFullScreenNode'],
     ImageSeries: ['isFullScreenNode'], SourceImage: ['isFullScreenNode'],
+    Var: ['globalPersist'],
 };
 
 /**
@@ -778,16 +820,46 @@ function lintText(text, platform) {
             }
             continue;
         }
-        // 标签名合法性
+        // 标签名合法性（平台扩展标签放行：如 Normal/Pressed/PathItem/Slider/Calendar/ContentProviderBinder 等老引擎标签）
         const t = tagMap.get(name);
-        if (!t) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
+        const prule = platformRule(platform);
+        const platExtraTags = new Set(prule.extraTags || []);
+        if (!t && !platExtraTags.has(name)) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
         // 属性名称与语法校验（IntentCommand 为应用跳转标签，包名/类名/action 需适配多平台，不做属性级检测）
         if (t && name !== 'IntentCommand') {
             const attrs = t.attributes || {};
             const attrRe = /([\w.-]+)\s*=\s*"([^"]*)"/g;
+            const seenAttrs = new Set();
             let am;
             while ((am = attrRe.exec(attrText))) {
                 const an = am[1], av = am[2];
+                seenAttrs.add(an);
+                // 华为4.0脚本规范：属性值禁止特殊字符 < > & ' "
+                if (prule.attrValueForbiddenChars && av) {
+                    const bad = [...av].filter(c => prule.attrValueForbiddenChars.includes(c));
+                    if (bad.length) {
+                        push(line, `${prule.attrValueForbiddenNote || '当前平台属性值禁止特殊字符'}，属性 ${an} 的值含 "${bad[0]}"`, 'error');
+                    }
+                }
+                // OPPO：需删除所有 globalPersist（否则审核驳回）
+                if (prule.forbidGlobalPersist && an === 'globalPersist') {
+                    push(line, `OPPO 平台需删除所有 globalPersist 属性，否则审核驳回`, 'warning');
+                }
+                // OPPO/vivo：无 #hour 全局变量（用 #hour24/#hour12 + #time_format，或倒计时自定义变量）
+                if ((prule.forbidGlobalVars || []).includes('hour') && /[#@]hour(?![\w\d])/.test(av)) {
+                    push(line, `当前平台没有 #hour 全局变量，请改用 #hour24/#hour12（配合 #time_format）或倒计时自定义变量`, 'warning');
+                }
+                // vivo：不支持 3D 翻转
+                if (prule.no3DRotation && (an === 'rotationX' || an === 'rotationY' || an === 'rotation')) {
+                    push(line, prule.no3DRotationNote || '当前平台不支持 3D 翻转属性', 'warning');
+                }
+                // 荣耀：string 变量 expression 中不支持 ifelse
+                if (prule.noIfelseInStringVar && name === 'Var' && an === 'expression' && /ifelse\s*\(/.test(av)) {
+                    const typeM = attrText.match(/\btype\s*=\s*"([^"]*)"/);
+                    if (typeM && typeM[1] === 'string') {
+                        push(line, prule.noIfelseInStringVarNote || '当前平台 string 变量不支持 ifelse', 'warning');
+                    }
+                }
                 // 通用属性判断优先（规范 3.1 表）：明确不支持的通用属性即使数据中存在也报错
                 const rule = (DATA.commonAttrRules || {})[name];
                 const canon = (DATA.commonAttrAlias || {})[an] || an;
@@ -805,9 +877,21 @@ function lintText(text, platform) {
                     continue;
                 }
                 const attrMeta = attrs[an] || {};
-                // 枚举取值 / 布尔取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）
-                const enums = attrValues(name, an);
-                if (enums && av && !/[#@]/.test(av) && !enums.includes(av)) {
+                // type 取值按标签+平台区分：Var/VarArray/VariableCommand 为基础类型枚举（number/string/number[]/string[]，
+                // 华为/荣耀/OPPO/vivo/小米天气等场景额外支持 int；鸿蒙NEXT 不支持 int，需改 number 或删除 type）；
+                // Array/CollBody/CollisionWorld/SensorBinder 的 type 为业务取值（如 steps），不做枚举限制
+                // 枚举取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）；type 属性按标签+平台单独处理
+                const enums = (an === 'type') ? null : attrValues(name, an);
+                if (an === 'type' && (name === 'Var' || name === 'VarArray' || name === 'VariableCommand') && av && !/[#@]/.test(av)) {
+                    const allowed = typeEnumValues(name, platform);
+                    if (!allowed.includes(av)) {
+                        if (prule.forbidVarTypeInt && av === 'int') {
+                            push(line, `鸿蒙NEXT 的 ${name} 不支持 type="int"，请改为 type="number" 或删除 type 属性`, 'error');
+                        } else {
+                            push(line, `属性 type 的取值 "${av}" 不在可选值（${allowed.join(' / ')}）中`, 'error');
+                        }
+                    }
+                } else if (enums && av && !/[#@]/.test(av) && !enums.includes(av)) {
                     push(line, `属性 ${an} 的取值 "${av}" 不在可选值（${enums.join(' / ')}）中`, 'error');
                 }
                 // SoundCommand.sound：声音文件路径，支持 .mp3/.m4a/.amr/.wav
@@ -840,10 +924,25 @@ function lintText(text, platform) {
                     }
                 }
             }
+            // 必填属性检查（结合文档各标签参数说明人工核对的清单，见 platform_rules.json common.requiredAttrs）
+            const common = PLATFORM_LINT.common || {};
+            const reqList = (common.requiredAttrs || {})[name] || [];
+            for (const ra of reqList) {
+                if (!seenAttrs.has(ra)) push(line, `标签 <${name}> 缺少必填属性 "${ra}"`, 'error');
+            }
+            const oneOf = (common.requiredOneOf || {})[name];
+            if (oneOf && !oneOf.some(a => seenAttrs.has(a))) {
+                push(line, `标签 <${name}> 需至少填写以下属性之一：${oneOf.join(' / ')}`, 'error');
+            }
         }
         if (!m[4]) stack.push({ name, line });   // 非自闭合才入栈
     }
     for (const s of stack) push(s.line, `标签 <${s.name}>（第 ${s.line + 1} 行）未闭合`, 'error');
+    // OPPO：锁屏必须包含 <Wallpaper src="..."/> 作为 Lockscreen 一级子标签（大写 W，src 必填且引用真实素材）
+    if (platformRule(platform).requireWallpaper && /<Lockscreen[\s>]/.test(masked) && !/<Wallpaper[\s/>]/.test(masked)) {
+        const lsIdx = masked.search(/<Lockscreen[\s>]/);
+        push(lineOf(lsIdx), `OPPO 平台锁屏必须包含 <Wallpaper src="wallpaper.jpg" />（Lockscreen 一级子标签，置于所有图层代码最上层）`, 'warning');
+    }
     return diags.sort((a, b) => a.line - b.line);
 }
 

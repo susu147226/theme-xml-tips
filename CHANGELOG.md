@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.0.0 (2026-08-21)
+
+- 平台差异化语法判断（依据荣耀开发者文档、华为 HarmonyOS 4.X 主题引擎规范、OPPO 百变引擎文档、vivo 锁屏引擎文档及各平台实机代码交叉验证）：
+  - `type` 取值按标签+平台区分：`Var`/`VarArray`/`VariableCommand` 为 number/string/number[]/string[]，华为/荣耀/OPPO/vivo/小米额外支持 `int`（天气场景）；鸿蒙NEXT 使用 `type="int"` 报错并给出修改建议；`Array`/`SensorBinder` 等业务型 type 不再误报枚举
+  - 华为4.0：属性值含 `< > & ' "` 特殊字符报错（脚本规范）
+  - 荣耀：string 类型变量的 expression 中使用 `ifelse` 给出警告
+  - OPPO：残留 `globalPersist` 属性、误用 `#hour` 全局变量、锁屏缺少 `<Wallpaper src="..."/>` 一级子标签，均给出警告
+  - vivo：误用 `#hour` 全局变量、使用 3D 翻转属性（rotationX/rotationY/rotation）给出警告
+  - `Normal`/`Pressed`/`PathItem`/`Slider`/`Calendar`/`ContentProviderBinder` 等老引擎标签在非鸿蒙平台不再报「未知标签」
+- 必填属性检查：结合规范参数说明核对缺失必填属性（`Var.name`、`Command.target/value`、`VariableCommand.name/expression`、`Trigger.action`、`ExternCommand.command`、`SoundCommand.sound`、`Video.name/src`、`ImageNumber.src/number`、`Mask.src`、`CountDownTime.name/date/countDownType`）；`Image` 要求 `src`/`srcExp` 至少其一
+- 平台扩展全局变量提示：荣耀/华为/小米补充 weatherRespCode、festival、is_work_day、darkMode、农历与 system.time.* 等 MIUI 系全局变量；OPPO 补充 time_format、month_lunar、date_lunar；vivo 补充 weather_condition、weather_cur_temp、lunar_date 等天气/农历变量
+
 ## 1.9.7 (2026-08-21)
 
 - 修复语法检测 6 类误报/漏报：

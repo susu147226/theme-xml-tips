@@ -17,13 +17,16 @@
 - **快捷跳转提示**（仅 VS Code）：识别平台后，输入 `<` 即提示该平台可用的快捷跳转（IntentCommand，共 659 条），每个跳转提供两条提示——单独的快捷跳转、快捷跳转 + `<ExternCommand command="unlock" condition="#click" />` 解锁；无法识别平台时列出全部平台并标注平台名
 - **平台代码片段**（仅 VS Code）：16 组常用 Var 定义片段（时间、日期、农历、平闰月判断、干支纪年、天气），按识别到的平台过滤——如鸿蒙工程只出鸿蒙写法、OPPO 工程只出 OPPO 写法；未识别平台时全部列出并标注适用平台
 - **XML 错误检测**（仅 VS Code）：实时检测并标注错误行——标签配对（未闭合 / 闭合不匹配 / 多余闭合）、未知标签、标签不支持的属性名（含规范 3.1 通用属性支持/不支持表判断，`condition` 对所有标签放行）、枚举/布尔属性取值非法（`action` 等按标签区分取值）、数值类型属性非法值、表达式括号不配对；并按平台校验 `Image srcExp` 写法：鸿蒙平台变量需 `{}` 包裹（`srcExp="'bg_'+{int(#hour)}+'.jpg'"`），其他平台用 `+` 直接拼接（`srcExp="'bg_'+#hour+'.jpg'"`）。`IntentCommand` 为应用跳转标签，包名/类名/action 适配多平台，不做属性级检测。可在设置 `themeXmlTips.enableDiagnostics` 关闭
+- **平台差异化语法判断**（仅 VS Code）：根据识别到的平台应用不同规则——鸿蒙NEXT：`Var type="int"` 报错（需改 `number` 或删除）；华为4.0：属性值禁止特殊字符 `< > & ' "`；荣耀：string 变量 expression 中不支持 `ifelse`；OPPO：检测残留 `globalPersist`、误用 `#hour` 全局变量、锁屏缺少一级子标签 `<Wallpaper src="..."/>` 均给出提示；vivo：提示无 `#hour` 全局变量、不支持 3D 翻转（rotationX/rotationY/rotation）；`Var`/`VarArray`/`VariableCommand` 的 `type` 枚举按平台区分（华为/荣耀/OPPO/vivo/小米额外支持 `int`，天气场景常用）；`Normal`/`Pressed`/`PathItem`/`Slider`/`Calendar`/`ContentProviderBinder` 等老引擎标签在非鸿蒙平台不再报「未知标签」
+- **必填属性检查**（仅 VS Code）：结合规范参数说明核对缺失必填属性——如 `Var.name`、`Command.target/value`、`Trigger.action`、`ExternCommand command`、`Mask.src` 等；`Image` 要求 `src`/`srcExp` 至少填写其一
+- **平台扩展全局变量提示**（仅 VS Code）：按平台补充全局变量——荣耀/华为/小米（MIUI 系）补充 `weatherRespCode`、`festival`、`is_work_day`、`darkMode`、`lunarYear/lunarMonth/lunarDay`、`system.time.hour1` 等；OPPO 补充 `time_format`、`month_lunar`、`date_lunar`；vivo 补充 `weather_condition`、`weather_cur_temp`、`lunar_date` 等
 - **自定义片段导入导出**（仅 VS Code）：面板一键批量导入/导出；支持导入 JSON（数组或 VS Code 对象格式）、`.sublime-snippet`（自动提取 tabTrigger 为唤醒词、description 为描述、content 为片段体、忽略 scope）、XML 文件（整个文件内容作为片段体，自动转义）
 
 ## 安装
 
 ### 方式一：安装程序（Windows，推荐）
 
-下载 Release 中的 `ThemeXmlTips-Setup-1.9.7.exe` 双击运行：
+下载 Release 中的 `ThemeXmlTips-Setup-2.0.0.exe` 双击运行：
 
 - 自动定位 VS Code 并安装原生扩展（`code --install-extension`）
 - 在 exe 同目录释放 `ThemeXmlTips-Adapters\` 适配包（webstorm / hbuilderx / sublime）
@@ -33,30 +36,30 @@
 
 **VS Code（原生适配）**
 
-1. 下载 Release 中的 `theme-xml-tips-1.9.7.vsix`
+1. 下载 Release 中的 `theme-xml-tips-2.0.0.vsix`
 2. VS Code → 扩展面板 → `...` → `Install from VSIX...` → 选择该文件
 
 或命令行：
 
 ```bash
-code --install-extension theme-xml-tips-1.9.7.vsix
+code --install-extension theme-xml-tips-2.0.0.vsix
 ```
 
 **WebStorm（Live Templates）**
 
-1. 下载 Release 中的 `ThemeXmlTips-WebStorm-1.9.7.zip`
+1. 下载 Release 中的 `ThemeXmlTips-WebStorm-2.0.0.zip`
 2. `File` → `Manage IDE Settings` → `Import Settings...` → 选择该 zip，重启后生效
 3. 在 `.xml` 文件中输入唤醒词（如 `var`、`image-view`、`unlock`）即可展开模板
 
 **HBuilderX（自定义代码块）**
 
-1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-1.9.7.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-HBuilderX-2.0.0.zip` 并解压
 2. `工具` → `自定义代码块` → 打开 `xml.json`，将压缩包内 `xml.json` 的内容合并进去保存
 3. 在 `.xml` 文件中输入唤醒词即可唤出代码块
 
 **Sublime Text（Snippets）**
 
-1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-1.9.7.zip` 并解压
+1. 下载 Release 中的 `ThemeXmlTips-Sublime-Text-2.0.0.zip` 并解压
 2. `Preferences` → `Browse Packages...` → 进入 `User` → 新建 `ThemeXmlTips` 文件夹
 3. 将全部 `.sublime-snippet` 文件复制进去，在 `.xml` 文件中输入唤醒词按 Tab 展开
 

@@ -439,10 +439,77 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('Time支持x/alpha不报错', d.length === 0, JSON.stringify(d));
     d = lint('<ImageNumber width="100"/>', null);
     check('ImageNumber不支持width报错', d.some(x => x.message.includes('不支持通用属性')), JSON.stringify(d));
-    d = lint('<ImageNumber rotation="90" x="1" y="1"/>', null);
+    d = lint('<ImageNumber rotation="90" x="1" y="1" src="num.png" number="5"/>', null);
     check('ImageNumber支持rotation放行', d.length === 0, JSON.stringify(d));
     d = lint('<Line name="l1"/>', null);
     check('Line不支持name报错', d.some(x => x.message.includes('不支持通用属性 "name"')), JSON.stringify(d));
+}
+
+// 19) 平台差异化语法判断（v2.0.0）：type=int / 华为禁字符 / OPPO Wallpaper+globalPersist+#hour / 荣耀 string-ifelse / vivo 3D / 必填属性
+{
+    const lint = ext._test.lintText;
+    // 1) Var type="int"：OPPO/荣耀/华为/vivo/小米允许，鸿蒙NEXT 报错
+    let d = lint('<Var name="a" expression="1" type="int"/>', 'oppo');
+    check('OPPO天气type=int不报错', d.length === 0, JSON.stringify(d));
+    d = lint('<Var name="a" expression="1" type="int"/>', 'honor');
+    check('荣耀type=int不报错', d.length === 0, JSON.stringify(d));
+    d = lint('<Var name="a" expression="1" type="int"/>', 'harmonyos');
+    check('鸿蒙NEXT type=int报错', d.some(x => x.severity === 'error' && x.message.includes('type="int"')), JSON.stringify(d));
+    d = lint('<Var name="a" expression="1" type="number[]"/>', 'harmonyos');
+    check('鸿蒙NEXT type=number[]合法', d.length === 0, JSON.stringify(d));
+    d = lint('<Var name="a" expression="1" type="foo"/>', 'oppo');
+    check('type非法取值报错', d.some(x => x.severity === 'error' && x.message.includes('可选值')), JSON.stringify(d));
+    // 2) 华为4.0：属性值禁止特殊字符 < > & ' "
+    d = lint('<Text text="a&b" x="1"/>', 'huawei');
+    check('华为属性值含&报错', d.some(x => x.severity === 'error' && x.message.includes('特殊字符')), JSON.stringify(d));
+    d = lint('<Text text="a&b" x="1"/>', 'honor');
+    check('荣耀属性值含&不报错', !d.some(x => x.message.includes('特殊字符')), JSON.stringify(d));
+    // 3) OPPO：Lockscreen 缺 Wallpaper 警告；有则不警告
+    d = lint('<Lockscreen>\n<Image src="a.png" x="1" y="1"/>\n</Lockscreen>', 'oppo');
+    check('OPPO缺Wallpaper警告', d.some(x => x.message.includes('Wallpaper')), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<Wallpaper src="wallpaper.jpg" />\n<Image src="a.png" x="1" y="1"/>\n</Lockscreen>', 'oppo');
+    check('OPPO有Wallpaper不警告', !d.some(x => x.message.includes('Wallpaper')), JSON.stringify(d));
+    d = lint('<Lockscreen>\n<Image src="a.png" x="1" y="1"/>\n</Lockscreen>', 'honor');
+    check('荣耀不要求Wallpaper', !d.some(x => x.message.includes('Wallpaper')), JSON.stringify(d));
+    // 4) OPPO：globalPersist 警告；#hour 警告（#hour24 不误报）
+    d = lint('<Var name="a" expression="1" globalPersist="true"/>', 'oppo');
+    check('OPPO globalPersist警告', d.some(x => x.message.includes('globalPersist')), JSON.stringify(d));
+    d = lint('<Var name="a" expression="1" globalPersist="true"/>', 'honor');
+    check('荣耀 globalPersist不警告', d.length === 0, JSON.stringify(d));
+    d = lint('<Text format="%d" paras="#hour" x="1"/>', 'oppo');
+    check('OPPO #hour警告', d.some(x => x.message.includes('#hour')), JSON.stringify(d));
+    d = lint('<Text format="%d" paras="#hour24" x="1"/>', 'oppo');
+    check('OPPO #hour24不误报', !d.some(x => x.message.includes('#hour')), JSON.stringify(d));
+    d = lint('<Text format="%d" paras="#hour" x="1"/>', 'vivo');
+    check('vivo #hour警告', d.some(x => x.message.includes('#hour')), JSON.stringify(d));
+    d = lint('<Text format="%d" paras="#hour" x="1"/>', 'harmonyos');
+    check('鸿蒙 #hour不警告', !d.some(x => x.message.includes('全局变量')), JSON.stringify(d));
+    // 5) 荣耀：string 变量 expression 中不支持 ifelse
+    d = lint('<Var name="s" type="string" expression="ifelse(eq(#a,1),\'x\',\'y\')"/>', 'honor');
+    check('荣耀string变量ifelse警告', d.some(x => x.message.includes('ifelse')), JSON.stringify(d));
+    d = lint('<Var name="s" type="string" expression="ifelse(eq(#a,1),\'x\',\'y\')"/>', 'harmonyos');
+    check('鸿蒙string变量ifelse不警告', !d.some(x => x.message.includes('ifelse')), JSON.stringify(d));
+    // 6) vivo：不支持 3D 翻转
+    d = lint('<Image src="a.png" w="1" h="1" rotationX="30"/>', 'vivo');
+    check('vivo rotationX警告', d.some(x => x.message.includes('3D')), JSON.stringify(d));
+    d = lint('<Image src="a.png" w="1" h="1" rotationX="30"/>', 'harmonyos');
+    check('鸿蒙 rotationX不警告', !d.some(x => x.message.includes('3D')), JSON.stringify(d));
+    // 7) 必填属性检查
+    d = lint('<Var expression="1"/>', null);
+    check('Var缺少name报错', d.some(x => x.severity === 'error' && x.message.includes('缺少必填属性 "name"')), JSON.stringify(d));
+    d = lint('<Command target="a.visibility"/>', null);
+    check('Command缺少value报错', d.some(x => x.message.includes('缺少必填属性 "value"')), JSON.stringify(d));
+    d = lint('<Image w="1" h="1"/>', null);
+    check('Image缺少src/srcExp报错', d.some(x => x.message.includes('src') && x.message.includes('srcExp')), JSON.stringify(d));
+    d = lint('<Image srcExp="\'a\'+#b+\'.jpg\'" w="1" h="1"/>', null);
+    check('Image有srcExp不报缺src', d.length === 0, JSON.stringify(d));
+    // 8) 平台扩展标签不报未知标签
+    d = lint('<Button x="1" y="1">\n<Normal><Image src="a.png"/></Normal>\n</Button>', 'honor');
+    check('荣耀Normal标签不报错', !d.some(x => x.message.includes('未知标签')), JSON.stringify(d));
+    d = lint('<Button x="1" y="1">\n<Normal><Image src="a.png"/></Normal>\n</Button>', 'harmonyos');
+    check('鸿蒙Normal标签报未知', d.some(x => x.message.includes('未知标签 <Normal>')), JSON.stringify(d));
+    d = lint('<SensorBinder type="steps"/>', null);
+    check('SensorBinder业务type不限制', !d.some(x => x.message.includes('type')), JSON.stringify(d));
 }
 
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
