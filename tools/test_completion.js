@@ -288,5 +288,50 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('重名只保留文件内定义', w.length === 1 && w[0].detail.includes('Var'));
 }
 
+// 16) 自定义片段平台字段 / 按平台过滤 / 面板搜索（v1.9.4）
+{
+    const os = require('os'), fsx = require('fs'), pth = require('path');
+    const tmp = fsx.mkdtempSync(pth.join(os.tmpdir(), 'txtsnip-plat-'));
+    ext._test.initSnippets(tmp);
+    ext._test.saveCustomSnippets([
+        { prefix: 'allp', description: '全平台片段', body: '<Var name="a"/>' },
+        { prefix: 'oppoonly', description: 'OPPO专用', body: '<Var name="b"/>', platform: 'oppo' },
+        { prefix: 'hmonly', description: '鸿蒙专用', body: '<Var name="c"/>', platform: 'harmonyos' },
+    ]);
+    const saved = JSON.parse(fsx.readFileSync(pth.join(tmp, 'custom-snippets.json'), 'utf8'));
+    check('平台字段已持久化', saved.find(s => s.prefix === 'oppoonly').platform === 'oppo'
+        && saved.find(s => s.prefix === 'allp').platform === '');
+    ext._test.saveCustomSnippets([{ prefix: 'badp', description: 'x', body: '<Var/>', platform: 'windows' }]);
+    check('非法平台归一为全平台', ext._test.getCustomSnippets().find(s => s.prefix === 'badp').platform === '');
+    ext._test.saveCustomSnippets([
+        { prefix: 'allp', description: '全平台片段', body: '<Var name="a"/>' },
+        { prefix: 'oppoonly', description: 'OPPO专用', body: '<Var name="b"/>', platform: 'oppo' },
+        { prefix: 'hmonly', description: '鸿蒙专用', body: '<Var name="c"/>', platform: 'harmonyos' },
+    ]);
+    const at = p => {
+        const t = '<Button>\n';
+        return ext._test.provideCompletions(makeDoc(p, t), endPos(t));
+    };
+    let items = at('D:\\themes\\oppo商店\\a.xml');
+    check('OPPO文件-出全平台片段', items.some(i => i.label === 'allp'));
+    check('OPPO文件-出OPPO片段', items.some(i => i.label === 'oppoonly'));
+    check('OPPO文件-不出鸿蒙片段', !items.some(i => i.label === 'hmonly'));
+    check('平台片段detail标注平台', items.find(i => i.label === 'oppoonly').detail.includes('OPPO'));
+    items = at('D:\\themes\\鸿蒙NEXT\\a.xml');
+    check('鸿蒙文件-出鸿蒙片段', items.some(i => i.label === 'hmonly'));
+    check('鸿蒙文件-不出OPPO片段', !items.some(i => i.label === 'oppoonly'));
+    items = at('D:\\themes\\unknown\\a.xml');
+    check('未识别平台-只出全平台片段', items.some(i => i.label === 'allp') && !items.some(i => i.label === 'oppoonly' || i.label === 'hmonly'));
+    // 面板搜索与平台选择 UI
+    const html = ext._test.snippetManagerHtml();
+    check('面板含搜索框', html.includes('id="q"'));
+    check('面板含平台搜索下拉', html.includes('id="qPlatform"'));
+    check('面板含精确匹配开关', html.includes('id="qExact"'));
+    check('表单含平台选择字段', html.includes('id="fPlatform"'));
+    check('列表含平台列', html.includes('<th>平台</th>'));
+    check('搜索含模糊与精确逻辑', html.includes('applyFilters') && html.includes('toLowerCase'));
+    fsx.rmSync(tmp, { recursive: true, force: true });
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

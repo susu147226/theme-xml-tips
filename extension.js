@@ -301,8 +301,8 @@ function provideCompletions(document, position) {
         items.push(...shortcutCompletions(document));
         // 平台代码片段提示（常用 Var 定义，按平台过滤）
         items.push(...varSnippetCompletions(document));
-        // 用户自定义代码片段（去掉片段体开头的 <，避免与已输入的 < 重复）
-        items.push(...customSnippetCompletions(true));
+        // 用户自定义代码片段（去掉片段体开头的 <，避免与已输入的 < 重复；按平台过滤）
+        items.push(...customSnippetCompletions(true, detectPlatform(document)));
         return items;
     }
 
@@ -390,7 +390,7 @@ function provideCompletions(document, position) {
     if (ctx.kind === 'text') {
         items.push(...shortcutCompletions(document));
         items.push(...varSnippetCompletions(document));
-        items.push(...customSnippetCompletions(false));
+        items.push(...customSnippetCompletions(false, detectPlatform(document)));
         return items;
     }
     return items;
@@ -486,9 +486,15 @@ function setupPlatformNotify(context) {
 
 // ===================== 自定义代码片段（用户表格管理） =====================
 
-/** @type {Array<{prefix: string, description: string, body: string}>} */
+/** @type {Array<{prefix: string, description: string, body: string, platform?: string}>} */
 let CUSTOM_SNIPPETS = [];
 let customStorePath = null;
+
+/** 自定义片段可选平台（空 = 全平台） */
+const SNIPPET_PLATFORMS = ['', 'harmonyos', 'huawei', 'honor', 'oppo', 'vivo', 'xiaomi'];
+function normalizePlatform(p) {
+    return SNIPPET_PLATFORMS.includes(p) ? p : '';
+}
 
 /** 初始化存储：globalStorage 目录下的 custom-snippets.json */
 function initCustomSnippets(context) {
@@ -504,7 +510,8 @@ function reloadCustomSnippets() {
     try {
         if (customStorePath && fs.existsSync(customStorePath)) {
             const arr = JSON.parse(fs.readFileSync(customStorePath, 'utf8'));
-            if (Array.isArray(arr)) CUSTOM_SNIPPETS.push(...arr.filter(s => s && s.prefix && s.body));
+            if (Array.isArray(arr)) CUSTOM_SNIPPETS.push(...arr.filter(s => s && s.prefix && s.body)
+                .map(s => ({ prefix: s.prefix, description: s.description || '', body: s.body, platform: normalizePlatform(s.platform) })));
         }
     } catch (e) { /* 文件损坏时忽略，不阻塞补全 */ }
     try {
@@ -512,7 +519,7 @@ function reloadCustomSnippets() {
         if (Array.isArray(fromSettings)) {
             for (const s of fromSettings) {
                 if (s && s.prefix && s.body && !CUSTOM_SNIPPETS.some(x => x.prefix === s.prefix)) {
-                    CUSTOM_SNIPPETS.push({ prefix: s.prefix, description: s.description || '', body: s.body });
+                    CUSTOM_SNIPPETS.push({ prefix: s.prefix, description: s.description || '', body: s.body, platform: normalizePlatform(s.platform) });
                 }
             }
         }
@@ -523,7 +530,8 @@ function saveCustomSnippetsFile() {
     // 只持久化本地文件部分（设置项里的由用户自己在 settings.json 维护）
     const fromSettings = vscode.workspace.getConfiguration('themeXmlTips').get('customSnippets', []);
     const settingPrefixes = new Set(Array.isArray(fromSettings) ? fromSettings.map(s => s && s.prefix) : []);
-    const local = CUSTOM_SNIPPETS.filter(s => !settingPrefixes.has(s.prefix));
+    const local = CUSTOM_SNIPPETS.filter(s => !settingPrefixes.has(s.prefix))
+        .map(s => ({ prefix: s.prefix, description: s.description || '', body: s.body, platform: normalizePlatform(s.platform) }));
     fs.writeFileSync(customStorePath, JSON.stringify(local, null, 2), 'utf8');   // JSON 序列化自动完成引号/换行等转义
 }
 
@@ -532,14 +540,15 @@ function escapeSnippetBody(body) {
     return String(body).replace(/\\/g, '\\\\').replace(/\$/g, '\\$');
 }
 
-/** 自定义片段补全项；stripLt 用于 < 已输入的标签上下文，去掉片段体开头的 < */
-function customSnippetCompletions(stripLt) {
+/** 自定义片段补全项；stripLt 用于 < 已输入的标签上下文，去掉片段体开头的 <；platform 为当前文件识别到的平台（null = 未识别，仅出全平台片段） */
+function customSnippetCompletions(stripLt, platform) {
     const items = [];
     for (const s of CUSTOM_SNIPPETS) {
+        if (s.platform && s.platform !== platform) continue;   // 指定了平台的片段只在该平台提示
         let body = s.body;
         if (stripLt) body = body.replace(/^\s*</, '');
         const it = new vscode.CompletionItem(s.prefix, vscode.CompletionItemKind.Snippet);
-        it.detail = '自定义片段' + (s.description ? ' · ' + s.description : '');
+        it.detail = '自定义片段' + (s.platform ? ' · ' + (PLATFORM_LABELS[s.platform] || s.platform) : '') + (s.description ? ' · ' + s.description : '');
         it.documentation = new vscode.MarkdownString('```xml\n' + s.body + '\n```');
         it.insertText = new vscode.SnippetString(escapeSnippetBody(body));
         it.filterText = s.prefix + ' ' + (s.description || '') + ' custom';
@@ -561,15 +570,16 @@ function openSnippetManager(context, focusAdd) {
         if (msg.type === 'ready') { pushList(); return; }
         if (msg.type === 'save') {
             const { oldPrefix, prefix, description, body } = msg;
+            const platform = normalizePlatform(msg.platform);
             if (!prefix || !description || !body) {
                 vscode.window.showErrorMessage('唤醒词、描述、代码片段均为必填项');
                 return;
             }
             if (oldPrefix) CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.filter(s => s.prefix !== oldPrefix);
             if (CUSTOM_SNIPPETS.some(s => s.prefix === prefix)) {
-                CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.map(s => s.prefix === prefix ? { prefix, description, body } : s);
+                CUSTOM_SNIPPETS = CUSTOM_SNIPPETS.map(s => s.prefix === prefix ? { prefix, description, body, platform } : s);
             } else {
-                CUSTOM_SNIPPETS.push({ prefix, description, body });
+                CUSTOM_SNIPPETS.push({ prefix, description, body, platform });
             }
             saveCustomSnippetsFile();     // 保存即自动转义并写入本地 JSON
             reloadCustomSnippets();
@@ -601,7 +611,7 @@ body{font-family:var(--vscode-font-family);padding:16px;color:var(--vscode-foreg
 table{width:100%;border-collapse:collapse;margin-bottom:16px}
 th,td{border:1px solid var(--vscode-panel-border);padding:6px 10px;text-align:left;font-size:13px}
 th{background:var(--vscode-editor-inactiveSelectionBackground)}
-textarea,input{width:100%;box-sizing:border-box;background:var(--vscode-input-background);color:var(--vscode-input-foreground);border:1px solid var(--vscode-input-border);padding:6px;margin:4px 0 10px}
+textarea,input,select{width:100%;box-sizing:border-box;background:var(--vscode-input-background);color:var(--vscode-input-foreground);border:1px solid var(--vscode-input-border);padding:6px;margin:4px 0 10px}
 textarea{min-height:140px;font-family:monospace}
 button{background:var(--vscode-button-background);color:var(--vscode-button-foreground);border:none;padding:6px 16px;cursor:pointer;margin-right:8px}
 button.sec{background:var(--vscode-button-secondaryBackground);color:var(--vscode-button-secondaryForeground)}
@@ -610,11 +620,35 @@ button.sec{background:var(--vscode-button-secondaryBackground);color:var(--vscod
 small{opacity:.7}
 </style></head><body>
 <h3>自定义代码片段</h3>
-<table><thead><tr><th>唤醒词</th><th>描述</th><th>代码片段</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
+<div id="searchBar" style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+  <input id="q" style="flex:2;margin:0" placeholder="搜索唤醒词 / 描述 / 片段内容">
+  <select id="qPlatform" style="flex:1;margin:0">
+    <option value="">全部平台</option>
+    <option value="none">全平台（未指定）</option>
+    <option value="harmonyos">鸿蒙</option>
+    <option value="huawei">华为</option>
+    <option value="honor">荣耀</option>
+    <option value="oppo">OPPO</option>
+    <option value="vivo">vivo</option>
+    <option value="xiaomi">小米</option>
+  </select>
+  <label style="white-space:nowrap;margin:0"><input type="checkbox" id="qExact" style="width:auto;margin:0 4px 0 0">精确匹配</label>
+</div>
+<table><thead><tr><th>唤醒词</th><th>描述</th><th>平台</th><th>代码片段</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table>
 <button id="addBtn">＋ 新增代码片段</button>
 <div id="form">
   <label>唤醒词：<span class="req">*</span></label><input id="fPrefix" placeholder="如 my-unlock">
   <label>描述：<span class="req">*</span></label><input id="fDesc" placeholder="如 我的解锁命令">
+  <label>平台（选填，不选为全平台）：</label>
+  <select id="fPlatform">
+    <option value="">全平台</option>
+    <option value="harmonyos">鸿蒙</option>
+    <option value="huawei">华为</option>
+    <option value="honor">荣耀</option>
+    <option value="oppo">OPPO</option>
+    <option value="vivo">vivo</option>
+    <option value="xiaomi">小米</option>
+  </select>
   <label>代码片段（xml格式）：<span class="req">*</span></label>
   <textarea id="fBody" placeholder='<ExternCommand command="unlock" condition="#click" />'></textarea>
   <small>保存时自动完成 JSON/片段转义；唤醒词、描述、代码片段均为必填。</small><br>
@@ -626,39 +660,62 @@ const vscode = acquireVsCodeApi();
 let editing = null;
 const rows = document.getElementById('rows'), form = document.getElementById('form');
 const fPrefix = document.getElementById('fPrefix'), fDesc = document.getElementById('fDesc'), fBody = document.getElementById('fBody');
+const fPlatform = document.getElementById('fPlatform');
+const q = document.getElementById('q'), qPlatform = document.getElementById('qPlatform'), qExact = document.getElementById('qExact');
+const PLAT = { harmonyos:'鸿蒙', huawei:'华为', honor:'荣耀', oppo:'OPPO', vivo:'vivo', xiaomi:'小米' };
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function platLabel(p){ return p ? (PLAT[p]||p) : '全平台'; }
+function applyFilters(){
+  const list = window._list || [];
+  const query = q.value.trim(), exact = qExact.checked, pf = qPlatform.value;
+  const hit = s => {
+    if (!query) return true;
+    if (exact) return s.prefix === query || (s.description||'') === query;   // 精确：唤醒词或描述完全相等
+    const hay = (s.prefix + ' ' + (s.description||'') + ' ' + (s.body||'')).toLowerCase();
+    return hay.includes(query.toLowerCase());                                 // 模糊：子串匹配
+  };
+  const filtered = list.filter(s => {
+    if (pf === 'none') { if (s.platform) return false; }
+    else if (pf && s.platform !== pf) return false;
+    return hit(s);
+  });
+  render(filtered);
+}
 function render(list){
   const prev = s => { const t = String(s.body||'').replace(/\\s+/g,' ').trim(); return t.length>50 ? t.slice(0,50)+'…' : t; };
   rows.innerHTML = list.map(s=>\`<tr><td><b>\${esc(s.prefix)}</b></td><td>\${esc(s.description||'')}</td>
+    <td>\${esc(platLabel(s.platform))}</td>
     <td style="max-width:280px;opacity:.8;font-family:monospace;font-size:12px">\${esc(prev(s))}</td>
     <td><button class="sec" data-edit="\${esc(s.prefix)}">编辑</button>
     <button class="sec" data-del="\${esc(s.prefix)}">删除</button></td></tr>\`).join('');
   rows.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit));
   rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ vscode.postMessage({type:'delete',prefix:b.dataset.del}); });
-  window._list = list;
-  if (!list.length) rows.innerHTML = '<tr><td colspan="4" style="opacity:.6">暂无自定义代码片段</td></tr>';
+  if (!list.length) rows.innerHTML = '<tr><td colspan="5" style="opacity:.6">' + ((window._list||[]).length ? '无匹配结果' : '暂无自定义代码片段') + '</td></tr>';
 }
+q.addEventListener('input', applyFilters);
+qPlatform.addEventListener('change', applyFilters);
+qExact.addEventListener('change', applyFilters);
 function edit(prefix){
   const s = (window._list||[]).find(x=>x.prefix===prefix);
   if(!s) return;
-  editing = prefix; fPrefix.value = s.prefix; fDesc.value = s.description||''; fBody.value = s.body;
+  editing = prefix; fPrefix.value = s.prefix; fDesc.value = s.description||''; fBody.value = s.body; fPlatform.value = s.platform||'';
   document.getElementById('delInForm').style.display = 'inline-block';
   form.style.display = 'block';
 }
-document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; document.getElementById('delInForm').style.display='none'; form.style.display='block'; fPrefix.focus(); };
+document.getElementById('addBtn').onclick = ()=>{ editing=null; fPrefix.value=''; fDesc.value=''; fBody.value=''; fPlatform.value=''; document.getElementById('delInForm').style.display='none'; form.style.display='block'; fPrefix.focus(); };
 document.getElementById('cancelBtn').onclick = ()=>{ form.style.display='none'; };
 document.getElementById('delInForm').onclick = ()=>{
   if(editing){ vscode.postMessage({type:'delete',prefix:editing}); form.style.display='none'; }
 };
 document.getElementById('saveBtn').onclick = ()=>{
-  const d = { oldPrefix: editing, prefix: fPrefix.value.trim(), description: fDesc.value.trim(), body: fBody.value };
+  const d = { oldPrefix: editing, prefix: fPrefix.value.trim(), description: fDesc.value.trim(), body: fBody.value, platform: fPlatform.value };
   const err = document.getElementById('errMsg');
   if(!d.prefix || !d.description || !d.body.trim()){ err.textContent='唤醒词、描述、代码片段均为必填项'; err.style.display='block'; return; }
   err.style.display='none';
   vscode.postMessage({type:'save', ...d});
   form.style.display='none';
 };
-window.addEventListener('message', e=>{ if(e.data.type==='list'){ render(e.data.snippets); if(e.data.focusAdd){ document.getElementById('addBtn').click(); } } });
+window.addEventListener('message', e=>{ if(e.data.type==='list'){ window._list = e.data.snippets; applyFilters(); if(e.data.focusAdd){ document.getElementById('addBtn').click(); } } });
 vscode.postMessage({type:'ready'});
 </script></body></html>`;
 }

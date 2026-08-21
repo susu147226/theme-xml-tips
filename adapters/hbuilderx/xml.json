@@ -370,6 +370,19 @@
     ],
     "description": "按钮 + 触发器（规范 3.18）"
   },
+  "Button + Triggers 按钮触发器组": {
+    "prefix": "button",
+    "body": [
+      "<Button x=\"${1:}\" y=\"${2:}\" w=\"${3:}\" h=\"${4:}\">",
+      "    <Triggers>",
+      "        <Trigger action=\"${5|down,up,long,click,double,resume,pause|}\">",
+      "            $0",
+      "        </Trigger>",
+      "    </Triggers>",
+      "</Button>"
+    ],
+    "description": "Button 按钮（含 Triggers/Trigger 事件结构）"
+  },
   "Text 文本视图": {
     "prefix": "text-view",
     "body": "<Text x=\"${1:0}\" y=\"${2:0}\" size=\"${3:40}\" color=\"${4:#FFFFFFFF}\" text=\"${5:text}\" />",

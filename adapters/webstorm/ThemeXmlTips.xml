@@ -187,6 +187,14 @@
 <variable name="VAR5" expression="" defaultValue="down" alwaysStopAt="true" />
 <context><option name="XML_TAG" value="true" /><option name="XML_TEXT" value="true" /><option name="XML_ATTRIBUTE" value="false" /></context>
 </template>
+<template name="button" value="&lt;Button x=&quot;$VAR1$&quot; y=&quot;$VAR2$&quot; w=&quot;$VAR3$&quot; h=&quot;$VAR4$&quot;&gt;&#10;    &lt;Triggers&gt;&#10;        &lt;Trigger action=&quot;$VAR5$&quot;&gt;&#10;            $END$&#10;        &lt;/Trigger&gt;&#10;    &lt;/Triggers&gt;&#10;&lt;/Button&gt;" description="Button 按钮（含 Triggers/Trigger 事件结构）" toReformat="false" toShortenFQNames="false">
+<variable name="VAR1" expression="" defaultValue="" alwaysStopAt="true" />
+<variable name="VAR2" expression="" defaultValue="" alwaysStopAt="true" />
+<variable name="VAR3" expression="" defaultValue="" alwaysStopAt="true" />
+<variable name="VAR4" expression="" defaultValue="" alwaysStopAt="true" />
+<variable name="VAR5" expression="" defaultValue="down" alwaysStopAt="true" />
+<context><option name="XML_TAG" value="true" /><option name="XML_TEXT" value="true" /><option name="XML_ATTRIBUTE" value="false" /></context>
+</template>
 <template name="text-view" value="&lt;Text x=&quot;$VAR1$&quot; y=&quot;$VAR2$&quot; size=&quot;$VAR3$&quot; color=&quot;$VAR4$&quot; text=&quot;$VAR5$&quot; /&gt;" description="文本视图（规范 3.2）" toReformat="false" toShortenFQNames="false">
 <variable name="VAR1" expression="" defaultValue="0" alwaysStopAt="true" />
 <variable name="VAR2" expression="" defaultValue="0" alwaysStopAt="true" />

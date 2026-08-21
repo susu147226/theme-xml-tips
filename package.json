@@ -2,7 +2,7 @@
   "name": "theme-xml-tips",
   "displayName": "Theme XML Tips",
   "description": "主题引擎 XML 代码提示：标签/属性/枚举/变量补全、悬停文档与代码片段。适配 VS Code / WebStorm / HBuilderX / Sublime Text。作者：云舒眠眠。",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "publisher": "susu147226",
   "author": {
     "name": "云舒眠眠"
@@ -74,7 +74,7 @@
         "themeXmlTips.customSnippets": {
           "type": "array",
           "default": [],
-          "description": "自定义代码片段（也可在 XML 文件中右键 → 新增 XML 代码片段，用表格管理）。每项：{\"prefix\": \"唤醒词(必填)\", \"description\": \"描述(必填)\", \"body\": \"代码片段(xml格式，必填)\"}",
+          "description": "自定义代码片段（也可在 XML 文件中右键 → 新增 XML 代码片段，用表格管理）。每项：{\"prefix\": \"唤醒词(必填)\", \"description\": \"描述(必填)\", \"body\": \"代码片段(xml格式，必填)\", \"platform\": \"平台(选填，不填为全平台)\"}",
           "items": {
             "type": "object",
             "properties": {
@@ -89,6 +89,19 @@
               "body": {
                 "type": "string",
                 "description": "代码片段（xml格式，必填）"
+              },
+              "platform": {
+                "type": "string",
+                "enum": [
+                  "",
+                  "harmonyos",
+                  "huawei",
+                  "honor",
+                  "oppo",
+                  "vivo",
+                  "xiaomi"
+                ],
+                "description": "平台（选填）：不填为全平台；填 harmonyos=鸿蒙 / huawei=华为 / honor=荣耀 / oppo / vivo / xiaomi=小米 后仅该平台提示"
               }
             },
             "required": [
