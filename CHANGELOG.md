@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.9.7 (2026-08-21)
+
+- 修复语法检测 6 类误报/漏报：
+  - `condition` 属性放宽：该属性对非命令标签同样生效，不再报「不支持属性」
+  - `action` 取值按标签判断：触发动作枚举（down/up/click 等）仅用于 Trigger/Button；KeepScreenOnCommand 校验 start/reset；其余标签的 action 不限制
+  - `isFullScreenNode` 放行所有 Image/Video 类标签（Video、ImageNumber、ImageSeries、SourceImage）
+  - `SoundCommand.sound` 支持声音文件路径字符串（不再被强制布尔校验），非 .mp3/.m4a/.amr/.wav 字面量路径给出提示；VariableCommand/Video 的 sound 音量浮点值不再误报
+  - 数值类型属性写入纯字母等非法值时给出「应为数值或表达式」提示；数据标注布尔类型的属性校验 true/false
+  - 新增规范 3.1 通用属性表判断：Time 不支持 width/height、Line 不支持 name/alpha、ImageNumber/ImageSeries 不支持 width/height/rotationX/rotationY 等 12 个视图标签按表报错（含 w/h/angle 等别名识别）；支持的通用属性即使数据缺失也放行
+
 ## 1.9.6 (2026-08-21)
 
 - 修复：XML 错误检测跳过 IntentCommand 标签的属性级检测——该标签作为应用跳转标签，包名/类名/action 需适配多平台，不再报属性名与取值警告（标签配对检测仍保留）

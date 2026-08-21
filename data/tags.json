@@ -10458,6 +10458,10 @@
   "VideoCommand.play": [
    "true",
    "false"
+  ],
+  "KeepScreenOnCommand.action": [
+   "start",
+   "reset"
   ]
  },
  "easingFunctions": [
@@ -10491,5 +10495,302 @@
   "BounceFun_In",
   "BounceFun_Out",
   "BounceFun_InOut"
- ]
+ ],
+ "commonAttrRules": {
+  "Arc": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "name",
+    "alpha"
+   ]
+  },
+  "Circle": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "name",
+    "alpha"
+   ]
+  },
+  "Ellipse": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "name",
+    "alpha"
+   ]
+  },
+  "Rectangle": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "name",
+    "alpha"
+   ]
+  },
+  "DateTime": {
+   "support": [
+    "x",
+    "y",
+    "pivotX",
+    "pivotY",
+    "name",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "width",
+    "height",
+    "enableMove",
+    "moveRect",
+    "alpha"
+   ]
+  },
+  "Image": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category",
+    "name",
+    "alpha"
+   ],
+   "unsupport": []
+  },
+  "ImageNumber": {
+   "support": [
+    "x",
+    "y",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "alpha",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category",
+    "name"
+   ],
+   "unsupport": [
+    "width",
+    "height",
+    "rotationX",
+    "rotationY"
+   ]
+  },
+  "ImageSeries": {
+   "support": [
+    "x",
+    "y",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "alpha",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category",
+    "name"
+   ],
+   "unsupport": [
+    "width",
+    "height",
+    "rotationX",
+    "rotationY"
+   ]
+  },
+  "Line": {
+   "support": [
+    "x",
+    "y",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category"
+   ],
+   "unsupport": [
+    "width",
+    "height",
+    "name",
+    "alpha"
+   ]
+  },
+  "SourceImage": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "name",
+    "alpha"
+   ],
+   "unsupport": [
+    "category"
+   ]
+  },
+  "Text": {
+   "support": [
+    "x",
+    "y",
+    "width",
+    "height",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category",
+    "name",
+    "alpha"
+   ],
+   "unsupport": []
+  },
+  "Time": {
+   "support": [
+    "x",
+    "y",
+    "pivotX",
+    "pivotY",
+    "rotation",
+    "rotationX",
+    "rotationY",
+    "visibility",
+    "align",
+    "alignV",
+    "enableMove",
+    "moveRect",
+    "active",
+    "category",
+    "name",
+    "alpha"
+   ],
+   "unsupport": [
+    "width",
+    "height"
+   ]
+  }
+ },
+ "commonAttrAlias": {
+  "w": "width",
+  "h": "height",
+  "angle": "rotation",
+  "angleX": "rotationX",
+  "angleY": "rotationY",
+  "centerX": "pivotX",
+  "centerY": "pivotY"
+ }
 }

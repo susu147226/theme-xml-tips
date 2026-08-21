@@ -183,10 +183,16 @@ function funcDoc(f) {
     return md;
 }
 
-/** 属性取值：优先 标签.属性 专属枚举，其次全局属性枚举，最后布尔 */
+/** 属性取值：优先 标签.属性 专属枚举；action/sound 取值因标签而异，按标签区分 */
 function attrValues(tagName, attrName) {
     const tve = DATA.tagValueEnums || {};
     if (tagName && tve[tagName + '.' + attrName]) return tve[tagName + '.' + attrName];
+    if (attrName === 'action') {
+        // action 取值随标签不同：Trigger/Button 为触发动作，KeepScreenOnCommand 为 start/reset（走 tagValueEnums），其余标签不限制
+        if (tagName === 'Trigger' || tagName === 'Button') return DATA.valueEnums.action;
+        return null;
+    }
+    if (attrName === 'sound') return null;   // sound 因标签而异：布尔开关 / 音量浮点(0~1) / 声音文件路径（SoundCommand），不做枚举限制
     if (DATA.valueEnums[attrName]) return DATA.valueEnums[attrName];
     if (DATA.boolAttributes.includes(attrName)) return ['true', 'false'];
     return null;
@@ -728,6 +734,15 @@ vscode.postMessage({type:'ready'});
 
 // ===================== XML 错误检测 =====================
 
+/** 对所有标签都生效的宽松属性（不报"不支持属性"）：condition 事件触发条件在引擎中对非命令标签同样生效 */
+const LOOSE_ATTRS = new Set(['condition']);
+
+/** 数据外补充：isFullScreenNode 适用于所有 Image/Video 类标签（规范中 Image 有列出，Video 类同样生效） */
+const EXTRA_TAG_ATTRS = {
+    Video: ['isFullScreenNode'], ImageNumber: ['isFullScreenNode'],
+    ImageSeries: ['isFullScreenNode'], SourceImage: ['isFullScreenNode'],
+};
+
 /**
  * 纯文本 XML 规范检测（核心，供诊断与测试共用）
  * @returns {Array<{line:number, endCol:number, message:string, severity:'error'|'warning'}>}
@@ -768,18 +783,44 @@ function lintText(text, platform) {
         if (!t) push(line, `未知标签 <${name}>，请检查标签拼写`, 'error');
         // 属性名称与语法校验（IntentCommand 为应用跳转标签，包名/类名/action 需适配多平台，不做属性级检测）
         if (t && name !== 'IntentCommand') {
+            const attrs = t.attributes || {};
             const attrRe = /([\w.-]+)\s*=\s*"([^"]*)"/g;
             let am;
             while ((am = attrRe.exec(attrText))) {
                 const an = am[1], av = am[2];
-                if (!(an in (t.attributes || {}))) {
-                    push(line, `标签 <${name}> 不支持属性 "${an}"，请检查属性名拼写`, 'warning');
+                // 通用属性判断优先（规范 3.1 表）：明确不支持的通用属性即使数据中存在也报错
+                const rule = (DATA.commonAttrRules || {})[name];
+                const canon = (DATA.commonAttrAlias || {})[an] || an;
+                if (rule && rule.unsupport.includes(canon) && !LOOSE_ATTRS.has(an)) {
+                    push(line, `标签 <${name}> 不支持通用属性 "${an}"（规范 3.1 通用属性表）`, 'error');
                     continue;
                 }
-                // 枚举取值 / 布尔取值（表达式值跳过）
+                if (!(an in attrs)) {
+                    // condition 对所有标签生效（事件触发条件），不限于命令标签；
+                    // isFullScreenNode 适用于所有 Image/Video 类标签
+                    const loose = LOOSE_ATTRS.has(an) || (EXTRA_TAG_ATTRS[name] || []).includes(an);
+                    if (!loose && !(rule && rule.support.includes(canon))) {
+                        push(line, `标签 <${name}> 不支持属性 "${an}"，请检查属性名拼写`, 'warning');
+                    }
+                    continue;
+                }
+                const attrMeta = attrs[an] || {};
+                // 枚举取值 / 布尔取值（表达式值跳过；action/sound 已按标签区分，见 attrValues）
                 const enums = attrValues(name, an);
                 if (enums && av && !/[#@]/.test(av) && !enums.includes(av)) {
                     push(line, `属性 ${an} 的取值 "${av}" 不在可选值（${enums.join(' / ')}）中`, 'error');
+                }
+                // SoundCommand.sound：声音文件路径，支持 .mp3/.m4a/.amr/.wav
+                if (name === 'SoundCommand' && an === 'sound' && av && !/[#@]/.test(av) && !/\.(mp3|m4a|amr|wav)$/i.test(av.trim())) {
+                    push(line, `sound 应为声音文件路径（支持 .mp3/.m4a/.amr/.wav 格式），当前值 "${av}"`, 'warning');
+                }
+                // 数值类型属性：纯字母等非数值非表达式写法提示（结合各标签参数类型判断）
+                if (attrMeta.type === '数值' && av && !/[#@{]/.test(av) && !/^\s*-?[\d.]+%?\s*$/.test(av)) {
+                    push(line, `属性 ${an} 应为数值或表达式，当前值 "${av}"`, 'warning');
+                }
+                // 数据标注为布尔但未列入 boolAttributes 的属性
+                if (!enums && /布尔/.test(attrMeta.type || '') && av && !/[#@]/.test(av) && !/^(true|false)$/.test(av)) {
+                    push(line, `布尔属性 ${an} 应填 true / false`, 'warning');
                 }
                 // 表达式括号配对
                 if (/[#@(]/.test(av)) {

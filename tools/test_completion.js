@@ -396,5 +396,54 @@ for (const [text, tag] of [['<Var', 'Var'], ['<Image', 'Image'], ['<Text', 'Text
     check('面板含导入导出按钮', html.includes('importBtn') && html.includes('exportBtn'));
 }
 
+// 18) lint 误报修复：condition 放宽 / action 按标签 / isFullScreenNode / sound 路径 / 类型判断 / 通用属性表（v1.9.7）
+{
+    const lint = ext._test.lintText;
+    // 1) condition 对非命令标签放宽
+    let d = lint('<Button condition="#click" x="1"/>', null);
+    check('condition在非命令标签不报错', d.length === 0, JSON.stringify(d));
+    // 2) action 按标签判断
+    d = lint('<KeepScreenOnCommand action="start"/>', null);
+    check('KeepScreenOn.action=start合法', d.length === 0, JSON.stringify(d));
+    d = lint('<KeepScreenOnCommand action="stop"/>', null);
+    check('KeepScreenOn.action=stop报错并列start/reset', d.some(x => x.message.includes('start') && x.message.includes('reset')), JSON.stringify(d));
+    d = lint('<Trigger action="down"></Trigger>', null);
+    check('Trigger.action=down合法', d.length === 0, JSON.stringify(d));
+    d = lint('<Trigger action="start"></Trigger>', null);
+    check('Trigger.action=start报错', d.some(x => x.severity === 'error' && x.message.includes('可选值')), JSON.stringify(d));
+    // 3) isFullScreenNode 适用于 Video
+    d = lint('<Video isFullScreenNode="true" src="a.mp4" x="1" y="1" w="2" h="2"/>', null);
+    check('Video支持isFullScreenNode', !d.some(x => x.message.includes('isFullScreenNode')), JSON.stringify(d));
+    // 4) SoundCommand.sound 支持文件路径
+    d = lint('<SoundCommand sound="a.mp3"/>', null);
+    check('sound传mp3路径不报错', d.length === 0, JSON.stringify(d));
+    d = lint('<SoundCommand sound="#snd"/>', null);
+    check('sound传变量不报错', d.length === 0, JSON.stringify(d));
+    d = lint('<SoundCommand sound="a.txt"/>', null);
+    check('sound非音频格式警告', d.some(x => x.message.includes('.mp3')), JSON.stringify(d));
+    d = lint('<VariableCommand name="v" sound="0.5"/>', null);
+    check('VariableCommand.sound浮点不误报布尔', !d.some(x => x.message.includes('sound')), JSON.stringify(d));
+    // 5) 数值类型判断
+    d = lint('<Text size="abc"/>', null);
+    check('数值属性写字母警告', d.some(x => x.message.includes('应为数值或表达式')), JSON.stringify(d));
+    d = lint('<Text size="38"/>', null);
+    check('数值属性写数字不警告', d.length === 0, JSON.stringify(d));
+    d = lint('<Text size="#size"/>', null);
+    check('数值属性写表达式不警告', d.length === 0, JSON.stringify(d));
+    // 6) 通用属性支持/不支持判断（规范 3.1）
+    d = lint('<Time width="100" x="1"/>', null);
+    check('Time不支持width报错', d.some(x => x.severity === 'error' && x.message.includes('不支持通用属性 "width"')), JSON.stringify(d));
+    d = lint('<Time w="100" x="1"/>', null);
+    check('Time不支持w(width别名)报错', d.some(x => x.message.includes('不支持通用属性 "w"')), JSON.stringify(d));
+    d = lint('<Time x="1" alpha="128"/>', null);
+    check('Time支持x/alpha不报错', d.length === 0, JSON.stringify(d));
+    d = lint('<ImageNumber width="100"/>', null);
+    check('ImageNumber不支持width报错', d.some(x => x.message.includes('不支持通用属性')), JSON.stringify(d));
+    d = lint('<ImageNumber rotation="90" x="1" y="1"/>', null);
+    check('ImageNumber支持rotation放行', d.length === 0, JSON.stringify(d));
+    d = lint('<Line name="l1"/>', null);
+    check('Line不支持name报错', d.some(x => x.message.includes('不支持通用属性 "name"')), JSON.stringify(d));
+}
+
 console.log(fail ? `\n${fail} 个用例失败` : '\n全部通过');
 process.exit(fail ? 1 : 0);

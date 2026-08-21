@@ -77,7 +77,42 @@ TAG_VALUE_ENUMS = {
     "IntentCommand.action": ["android.intent.action.MAIN", "action.system.home"],
     "Command.value": ["play", "stop", "true", "false"],
     "VideoCommand.play": ["true", "false"],
+    "KeepScreenOnCommand.action": ["start", "reset"],
 }
+
+# ---------------- 通用属性规则（规范 3.1 视图：通用属性 表格） ----------------
+# 视图组件支持的通用属性 / 明确不支持的通用属性；用于语法检测（lint）
+_ALL_COMMON = ["x", "y", "width", "height", "pivotX", "pivotY", "rotation", "rotationX", "rotationY",
+               "visibility", "align", "alignV", "enableMove", "moveRect", "active", "category", "name", "alpha"]
+
+
+def _rule(support):
+    return {"support": support, "unsupport": [a for a in _ALL_COMMON if a not in support]}
+
+
+COMMON_ATTR_RULES = {
+    "Arc": _rule([a for a in _ALL_COMMON if a not in ("name", "alpha")]),
+    "Circle": _rule([a for a in _ALL_COMMON if a not in ("name", "alpha")]),
+    "Ellipse": _rule([a for a in _ALL_COMMON if a not in ("name", "alpha")]),
+    "Rectangle": _rule([a for a in _ALL_COMMON if a not in ("name", "alpha")]),
+    "DateTime": _rule(["x", "y", "pivotX", "pivotY", "name", "rotation", "rotationX", "rotationY",
+                       "visibility", "align", "alignV", "active", "category"]),
+    "Image": _rule(list(_ALL_COMMON)),
+    "ImageNumber": _rule(["x", "y", "pivotX", "pivotY", "rotation", "alpha", "visibility", "align",
+                          "alignV", "enableMove", "moveRect", "active", "category", "name"]),
+    "ImageSeries": _rule(["x", "y", "pivotX", "pivotY", "rotation", "alpha", "visibility", "align",
+                          "alignV", "enableMove", "moveRect", "active", "category", "name"]),
+    "Line": _rule(["x", "y", "pivotX", "pivotY", "rotation", "rotationX", "rotationY", "visibility",
+                   "align", "alignV", "enableMove", "moveRect", "active", "category"]),
+    "SourceImage": _rule([a for a in _ALL_COMMON if a != "category"]),
+    "Text": _rule(list(_ALL_COMMON)),
+    "Time": _rule([a for a in _ALL_COMMON if a not in ("width", "height")]),
+}
+
+# 通用属性别名（规范 3.1：w/width、h/height、rotation/angle 等写法等价）
+COMMON_ATTR_ALIAS = {"w": "width", "h": "height", "angle": "rotation",
+                     "angleX": "rotationX", "angleY": "rotationY",
+                     "centerX": "pivotX", "centerY": "pivotY"}
 
 # ---------------- 全局变量补充 ----------------
 VARIABLES_EXTRA = [
@@ -109,11 +144,13 @@ def main():
         ve["command"] = ["unlock"]
     d["tagValueEnums"] = TAG_VALUE_ENUMS
     d["easingFunctions"] = EASING
+    d["commonAttrRules"] = COMMON_ATTR_RULES
+    d["commonAttrAlias"] = COMMON_ATTR_ALIAS
     with open(DATA, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
     print("functions:", len(FUNCTIONS), "| easing:", len(EASING),
           "| valueEnums:", len(ve), "| tagValueEnums:", len(TAG_VALUE_ENUMS),
-          "| variables:", len(d["variables"]))
+          "| variables:", len(d["variables"]), "| commonAttrRules:", len(COMMON_ATTR_RULES))
 
 if __name__ == "__main__":
     main()
