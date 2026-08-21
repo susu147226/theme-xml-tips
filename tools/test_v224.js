@@ -94,5 +94,18 @@ pos = new Position(2, 18);
 items = ext._test.provideCompletions(makeDoc('D:\\themes\\oppo\\a.xml', text), pos);
 check('OPPO Group scaleType 补全含 fit_width', items.some(i => i.label === 'fit_width'));
 
+// DateTime/Time 共享 Text 属性：属性补全含 color/size/bold/textalign
+text = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<DateTime  />\n</Lockscreen>';
+pos = new Position(2, 10);
+items = ext._test.provideCompletions(makeDoc('D:\\themes\\鸿蒙NEXT\\a.xml', text), pos);
+check('鸿蒙 DateTime 属性补全含 color', items.some(i => i.label === 'color'));
+check('鸿蒙 DateTime 属性补全含 size', items.some(i => i.label === 'size'));
+
+text = '<?xml version="1.0" encoding="utf-8"?>\n<Lockscreen>\n<Time  />\n</Lockscreen>';
+pos = new Position(2, 6);
+items = ext._test.provideCompletions(makeDoc('D:\\themes\\huawei\\a.xml', text), pos);
+check('华为 Time 属性补全含 color', items.some(i => i.label === 'color'));
+check('华为 Time 属性补全含 textalign', items.some(i => i.label === 'textalign'));
+
 console.log(`\n${pass} 通过, ${fail} 失败`);
 process.exit(fail ? 1 : 0);

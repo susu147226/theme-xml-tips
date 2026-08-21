@@ -33,6 +33,19 @@ function loadData(context) {
             }
         }
     }
+    // DateTime / Time 与 Text 共享属性（全平台）：Text 支持的属性 DateTime、Time 同样支持，标签自身属性优先
+    const txtTag = DATA.tags.find(t => t.name === 'Text');
+    if (txtTag) {
+        const aliasMap = DATA.commonAttrAlias || {};
+        for (const alias of ['DateTime', 'Time']) {
+            const tg = DATA.tags.find(t => t.name === alias);
+            if (!tg) continue;
+            tg.attributes = Object.assign({}, txtTag.attributes, tg.attributes || {});
+            for (const [al, canon] of Object.entries(aliasMap)) {
+                if (!(al in tg.attributes) && canon in tg.attributes) tg.attributes[al] = tg.attributes[canon];
+            }
+        }
+    }
     tagMap = new Map(DATA.tags.map(t => [t.name, t]));
     varMap = new Map(DATA.variables.map(v => [v.name, v]));
     funcMap = new Map((DATA.functions || []).map(f => [f.name, f]));
@@ -1006,8 +1019,10 @@ function lintText(text, platform) {
                 if (name === 'SoundCommand' && an === 'sound' && av && !/[#@]/.test(av) && !/\.(mp3|m4a|amr|wav)$/i.test(av.trim())) {
                     push(line, `sound 应为声音文件路径（支持 .mp3/.m4a/.amr/.wav 格式），当前值 "${av}"`, 'warning');
                 }
-                // 数值类型属性：纯字母等非数值非表达式写法提示（结合各标签参数类型判断）
-                if (attrMeta.type === '数值' && av && !/[#@{]/.test(av) && !/^\s*-?[\d.]+%?\s*$/.test(av)) {
+                // 数值类型属性：纯字母等非数值非表达式写法提示（结合各标签参数类型判断）；
+                // 纯数字四则运算写法（如 y="-52+1138"）为引擎合法表达式，不告警
+                const isArith = /^[\d+\-*/%().\s]+$/.test(av) && /\d/.test(av);
+                if (attrMeta.type === '数值' && av && !/[#@{]/.test(av) && !isArith) {
                     push(line, `属性 ${an} 应为数值或表达式，当前值 "${av}"`, 'warning');
                 }
                 // 数据标注为布尔但未列入 boolAttributes 的属性
